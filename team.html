@@ -318,6 +318,7 @@ footer{
 .alumni-meta{font-size:11px;color:var(--muted);margin-top:3px;}
 
 </style>
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body data-page="team" class="">
 
@@ -366,10 +367,7 @@ footer{
     <div class="pi-full">
       <div class="reveal-left">
         <div class="pi-f-photo">
-          <div class="ph" style="width:280px;height:373px;">
-            <span class="ph-icon">👤</span>
-            <span>PI Photo</span>
-          </div>
+          <img src="assets/prof_pic.jpg" alt="Chieh-Ting Lin" class="mem-photo-img" style="width:280px;height:373px;object-fit:cover;">
         </div>
       </div>
       <div class="reveal-right">
@@ -411,56 +409,102 @@ footer{
       <button class="ftab on" onclick="filter('all',this)">All</button>
       <button class="ftab" onclick="filter('phd',this)">Ph.D.</button>
       <button class="ftab" onclick="filter('ms',this)">Master</button>
-      <button class="ftab" onclick="filter('ug',this)">Undergraduate</button>
     </div>
     <div class="mem-grid" id="memGrid">
+      <!-- 1st -->
       <div class="mem-card reveal stagger-1" data-r="phd">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-photo"><img src="assets/Dong Tai.jpg" alt="Dong-Tai Wu" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Dong-Tai Wu</div>
+        <div class="mem-role">Ph.D. Student</div>
+        <span class="mem-badge phd">Ph.D.</span>
+      </div>
+      <div class="mem-card reveal stagger-2" data-r="phd">
+        <div class="mem-photo"><img src="assets/Shi-Chun.jpg" alt="Shih-Chun Liu" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
         <div class="mem-name">Shih-Chun Liu</div>
         <div class="mem-role">Ph.D. Student</div>
         <span class="mem-badge phd">Ph.D.</span>
       </div>
+      <!-- 2nd -->
+      <div class="mem-card reveal stagger-3" data-r="phd">
+        <div class="mem-photo"><img src="assets/Wei Jia.jpg" alt="Wei-Jia Qiu" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Wei-Jia Qiu</div>
+        <div class="mem-role">Ph.D. Student</div>
+        <span class="mem-badge phd">Ph.D.</span>
+      </div>
+      <!-- 3rd -->
+      <div class="mem-card reveal stagger-4" data-r="phd">
+        <div class="mem-photo"><img src="assets/Yun Shan.jpg" alt="Yun-Shan Li" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Yun-Shan Li</div>
+        <div class="mem-role">Ph.D. Student</div>
+        <span class="mem-badge phd">Ph.D.</span>
+      </div>
+      <!-- 4th -->
+      <div class="mem-card reveal stagger-1" data-r="ms">
+        <div class="mem-photo"><img src="assets/Yi sheng.jpg" alt="Yi-Sheng Lin" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Yi-Sheng Lin</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
       <div class="mem-card reveal stagger-2" data-r="ms">
         <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Jhih-Ying Huang</div>
+        <div class="mem-name">Huan-Wei Lin</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <div class="mem-card reveal stagger-3" data-r="ms">
+        <div class="mem-photo"><img src="assets/Yeh Chuan.jpg" alt="Yeh-Chuan Chou" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Yeh-Chuan Chou</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <div class="mem-card reveal stagger-4" data-r="ms">
+        <div class="mem-photo"><img src="assets/Chih I.jpg" alt="Chih-I Chang" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Chih-I Chang</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <div class="mem-card reveal stagger-5" data-r="ms">
+        <div class="mem-photo"><img src="assets/Shu Yu.jpg" alt="Shu-Yu Yang" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Shu-Yu Yang</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <div class="mem-card reveal stagger-6" data-r="ms">
+        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Yi-Ting Liao</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <!-- 5th -->
+      <div class="mem-card reveal stagger-1" data-r="ms">
+        <div class="mem-photo"><img src="assets/Hsing Chih.jpg" alt="Hsing-Chih Hou" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Hsing-Chih Hou</div>
+        <div class="mem-role">Master Student</div>
+        <span class="mem-badge ms">M.S.</span>
+      </div>
+      <div class="mem-card reveal stagger-2" data-r="ms">
+        <div class="mem-photo"><img src="assets/Yi Chen.jpg" alt="Yi-Chen Lin" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Yi-Chen Lin</div>
         <div class="mem-role">Master Student</div>
         <span class="mem-badge ms">M.S.</span>
       </div>
       <div class="mem-card reveal stagger-3" data-r="ms">
         <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Heng-Yi Lin</div>
+        <div class="mem-name">Kai-Chun Chung</div>
         <div class="mem-role">Master Student</div>
         <span class="mem-badge ms">M.S.</span>
       </div>
       <div class="mem-card reveal stagger-4" data-r="ms">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Wen-Li Huang</div>
+        <div class="mem-photo"><img src="assets/I-LING.jpg" alt="I-Ling Hsueh" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">I-Ling Hsueh</div>
         <div class="mem-role">Master Student</div>
         <span class="mem-badge ms">M.S.</span>
       </div>
       <div class="mem-card reveal stagger-5" data-r="ms">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Dong-Tai Wu</div>
+        <div class="mem-photo"><img src="assets/MIN-HSUAN.jpg" alt="Min-Hsuan Tsai" class="mem-photo-img"><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
+        <div class="mem-name">Min-Hsuan Tsai</div>
         <div class="mem-role">Master Student</div>
         <span class="mem-badge ms">M.S.</span>
-      </div>
-      <div class="mem-card reveal stagger-1" data-r="ug">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Shi-En Xu</div>
-        <div class="mem-role">Undergraduate</div>
-        <span class="mem-badge ug">Undergrad</span>
-      </div>
-      <div class="mem-card reveal stagger-2" data-r="ug">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Chin-Sian Zeng</div>
-        <div class="mem-role">Undergraduate</div>
-        <span class="mem-badge ug">Undergrad</span>
-      </div>
-      <div class="mem-card reveal stagger-3" data-r="ug">
-        <div class="mem-photo"><div class="ph"><span class="ph-icon">👤</span><span>Photo</span></div><div class="mem-overlay"><span class="mem-overlay-text">View Profile</span></div></div>
-        <div class="mem-name">Wen-Xian Zhu</div>
-        <div class="mem-role">Undergraduate</div>
-        <span class="mem-badge ug">Undergrad</span>
       </div>
     </div>
   </div>
@@ -473,29 +517,60 @@ footer{
     <h2 class="sec-title reveal">Past Members</h2>
     <div class="sec-rule reveal"></div>
     <div class="alumni-grid">
+      <!-- 1st -->
       <div class="alumni-card reveal stagger-1">
-        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Jhih-Ying Huang</div><div class="alumni-meta">M.S. · 2023</div></div>
+        <div class="alumni-thumb"><img src="assets/Zhi Ying.jpg" alt="Zhi-Ying Huang" style="width:52px;height:68px;object-fit:cover;"></div>
+        <div><div class="alumni-name">Zhi-Ying Huang</div><div class="alumni-meta">Past Member</div></div>
       </div>
       <div class="alumni-card reveal stagger-2">
-        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Shi-En Xu</div><div class="alumni-meta">Undergrad · 2023</div></div>
+        <div class="alumni-thumb"><img src="assets/Wen Li.jpg" alt="Wen-Li Hwang" style="width:52px;height:68px;object-fit:cover;"></div>
+        <div><div class="alumni-name">Wen-Li Hwang</div><div class="alumni-meta">Past Member</div></div>
       </div>
       <div class="alumni-card reveal stagger-3">
-        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Heng-Yi Lin</div><div class="alumni-meta">M.S. · 2023</div></div>
+        <div class="alumni-thumb"><img src="assets/Heng Yi.jpg" alt="Heng-Yi Lin" style="width:52px;height:68px;object-fit:cover;"></div>
+        <div><div class="alumni-name">Heng-Yi Lin</div><div class="alumni-meta">Past Member</div></div>
       </div>
       <div class="alumni-card reveal stagger-4">
-        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Wen-Li Huang</div><div class="alumni-meta">M.S. · 2022</div></div>
+        <div class="alumni-thumb"><img src="assets/Shin En.jpg" alt="Shin-En Hsu" style="width:52px;height:68px;object-fit:cover;"></div>
+        <div><div class="alumni-name">Shin-En Hsu</div><div class="alumni-meta">Past Member</div></div>
       </div>
+      <!-- 2nd -->
       <div class="alumni-card reveal stagger-5">
-        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Wen-Xian Zhu</div><div class="alumni-meta">Undergrad · 2022</div></div>
+        <div class="alumni-thumb"><img src="assets/Wen Xian.jpg" alt="Wen-Xian Zhu" style="width:52px;height:68px;object-fit:cover;"></div>
+        <div><div class="alumni-name">Wen-Xian Zhu</div><div class="alumni-meta">Past Member</div></div>
       </div>
       <div class="alumni-card reveal stagger-6">
         <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
-        <div><div class="alumni-name">Chin-Sian Zeng</div><div class="alumni-meta">Undergrad · 2022</div></div>
+        <div><div class="alumni-name">Hsing-Jung Hsieh</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-1">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Min Sun</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-2">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Ting-Ko Hsu</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <!-- 3rd -->
+      <div class="alumni-card reveal stagger-3">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Chi-Jing Huang</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-4">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Chang-Hao Wang</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-5">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Yu-Kai Chen</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-6">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Chang-Yang Song</div><div class="alumni-meta">Past Member</div></div>
+      </div>
+      <div class="alumni-card reveal stagger-1">
+        <div class="alumni-thumb ph"><span style="font-size:14px;opacity:.3">👤</span></div>
+        <div><div class="alumni-name">Chih-Ching Kuo</div><div class="alumni-meta">Past Member</div></div>
       </div>
     </div>
   </div>
@@ -588,5 +663,6 @@ const ro = new IntersectionObserver((entries)=>{
 },{threshold:.12});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
 </script>
+<script src="mobile.js"></script>
 </body>
 </html>

@@ -321,6 +321,7 @@ footer{background:var(--ink);padding:72px 64px 0;}
 .footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;}
 .footer-tuscany{color:var(--tuscany);opacity:.5;}
 </style>
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body data-page="home">
 
@@ -332,6 +333,9 @@ footer{background:var(--ink);padding:72px 64px 0;}
       <span class="logo-sep"></span>
       <span class="logo-lab">Lin's Lab</span>
     </a>
+    <button class="nav-burger" onclick="toggleMobile()" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html"        data-page="home">Home</a></li>
       <li><a href="team.html"         data-page="team">Team</a></li>
@@ -931,5 +935,6 @@ const fosObs = new IntersectionObserver((entries) => {
 const fosSection = document.getElementById('fos-section');
 if(fosSection) fosObs.observe(fosSection);
 </script>
+<script src="mobile.js"></script>
 </body>
 </html>

@@ -212,6 +212,7 @@ footer{
 .news-row-body{font-size:13px;color:var(--muted);line-height:1.7;}
 
 </style>
+<link rel="stylesheet" href="mobile.css">
 </head>
 <body data-page="news" class="">
 
@@ -361,5 +362,6 @@ const ro = new IntersectionObserver((entries)=>{
 },{threshold:.12});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
 </script>
+<script src="mobile.js"></script>
 </body>
 </html>

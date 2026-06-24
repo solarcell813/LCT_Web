@@ -1,0 +1,177 @@
+/* ════════════════════════════════════════════
+   MOBILE RESPONSIVE — mobile.css
+   Linked by all 7 pages
+════════════════════════════════════════════ */
+
+/* ── NAV BURGER BASE ─────────────────────────
+   index.html doesn't have these rules inline,
+   so we define them globally here.            */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  position: relative;
+  z-index: 210;
+}
+.nav-burger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .25s, opacity .25s;
+}
+
+/* ════════════════════════════════════════════
+   768 px and below
+════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── NAV ──────────────────────────────────── */
+  #navbar { padding: 0 20px; }
+
+  .nav-burger { display: flex !important; }
+
+  .nav-links {
+    display: none !important;
+    position: fixed;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    flex-direction: column !important;
+    gap: 0 !important;
+    list-style: none;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    z-index: 190;
+  }
+  .nav-links.open { display: flex !important; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block !important;
+    padding: 14px 24px !important;
+    font-size: 13px !important;
+    letter-spacing: .12em !important;
+    opacity: 1 !important;
+    color: #18282f !important;
+    border-bottom: 1px solid #d4e0e4;
+  }
+  .nav-links li:last-child a { border-bottom: none; }
+  .nav-links a::after { display: none !important; }
+  .nav-links a.active { color: #A8535C !important; }
+
+  /* Hamburger → X animation */
+  .nav-burger.active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .nav-burger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-burger.active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ── COMMON LAYOUT ────────────────────────── */
+  .section { padding: 56px 20px !important; }
+  .page-hero { padding: 48px 20px 44px !important; }
+  .page-hero::after { display: none; }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer { padding: 48px 20px 0 !important; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+  /* ════════════════════════════════════════════
+     INDEX
+  ════════════════════════════════════════════ */
+  .hero-content { padding: 0 20px !important; padding-top: 96px !important; }
+  .crystal-legend { display: none; }
+  .scroll-cue { display: none; }
+  .hero-ctas { flex-direction: column; gap: 12px; }
+
+  .fos-section { padding: 56px 20px !important; }
+  .fos-panels { grid-template-columns: 1fr !important; }
+  .fos-text { padding: 28px 24px 32px; }
+
+  .about-section { padding: 0 20px !important; }
+  .about-intro-row { grid-template-columns: 1fr !important; gap: 28px; padding: 48px 0 36px; }
+  .about-quad { grid-template-columns: 1fr !important; }
+
+  .news-section { padding: 56px 20px !important; }
+  .np-item { grid-template-columns: 1fr !important; gap: 4px; }
+  .np-arrow { display: none; }
+
+  /* ════════════════════════════════════════════
+     TEAM
+  ════════════════════════════════════════════ */
+  .pi-full { grid-template-columns: 1fr !important; gap: 32px; }
+  .pi-f-photo { width: 100% !important; max-width: 260px; margin: 0 auto; }
+  .pi-f-photo img,
+  .pi-f-photo .mem-photo-img { width: 100% !important; height: auto !important; }
+  .edu-row { grid-template-columns: 1fr !important; gap: 2px; }
+  .mem-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+  .alumni-grid { grid-template-columns: 1fr !important; }
+  .filter-tabs { flex-wrap: wrap; width: 100%; }
+  .ftab { flex: 1 1 auto; min-width: 0; text-align: center; }
+  .contact-chips { flex-direction: column; }
+  .chip { justify-content: center; }
+
+  /* ════════════════════════════════════════════
+     PUBLICATIONS
+  ════════════════════════════════════════════ */
+  .pub-year-label { font-size: 36px; }
+  .pub-item { gap: 10px; }
+  .pub-title { font-size: 15px; }
+
+  /* ════════════════════════════════════════════
+     INSTRUMENTS
+  ════════════════════════════════════════════ */
+  .instr-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .modal-box { width: 96vw !important; max-height: 90vh; }
+  .modal-body { padding: 24px 20px 28px !important; }
+  .modal-photos { grid-template-columns: 1fr !important; height: auto !important; }
+  .modal-photo { height: 180px; }
+  .modal-spec-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .modal-header { flex-direction: column; gap: 12px; }
+
+  /* ════════════════════════════════════════════
+     NEWS
+  ════════════════════════════════════════════ */
+  .news-row { grid-template-columns: 1fr !important; gap: 6px; padding: 24px 0; }
+  .news-row:hover { margin: 0; padding: 24px 0; }
+  .news-row-date { font-size: 11px; }
+
+  /* ════════════════════════════════════════════
+     ACTIVITIES
+  ════════════════════════════════════════════ */
+  .gallery-masonry { grid-template-columns: repeat(2, 1fr) !important; }
+  .gallery-cell.wide { grid-column: span 1 !important; }
+  .conf-item { grid-template-columns: 64px 32px 1fr !important; padding: 20px 0; }
+  .conf-item:hover { margin: 0; padding: 20px 0; }
+  .exchange-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .act-intro { margin-bottom: 32px; }
+
+  /* ════════════════════════════════════════════
+     CONTACT
+  ════════════════════════════════════════════ */
+  .contact-grid { grid-template-columns: 1fr !important; gap: 36px; }
+  .join-block { grid-template-columns: 1fr !important; padding: 36px 20px !important; gap: 20px; text-align: center; }
+}
+
+/* ════════════════════════════════════════════
+   480 px and below (small phones)
+════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .mem-grid { grid-template-columns: 1fr !important; }
+  .gallery-masonry { grid-template-columns: 1fr !important; }
+  .modal-spec-grid { grid-template-columns: 1fr !important; }
+  .pub-year-label { font-size: 26px; }
+  .page-hero-title { font-size: 38px !important; }
+}
