@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Instruments — Chieh-Ting Lin's Lab</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --teal:     #294752;
+  --teal-d:   #1a2f38;
+  --teal-l:   #3d6475;
+  --rose:     #A8535C;
+  --rose-l:   #c4717a;
+  --tuscany:  #C9A84C;
+  --tuscany-l:#e0c068;
+  --white:    #FFFFFF;
+  --off:      #F6F4F1;
+  --light:    #EBF0F2;
+  --ink:      #18282f;
+  --muted:    #6b8a92;
+  --border:   #d4e0e4;
+  --font-d:   'GFS Didot', 'Times New Roman', serif;
+  --font-b:   'Times New Roman', serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-b);color:var(--ink);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ───────────────────────────────────────── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  transition:background .35s,box-shadow .35s,padding .35s;
+  padding:0 64px; height:68px;
+  display:flex;align-items:center;
+}
+#navbar.scrolled{
+  background:rgba(255,255,255,0.96);
+  box-shadow:0 1px 0 var(--border);
+  backdrop-filter:blur(12px);
+}
+#navbar.dark-hero{ color:var(--white); }
+#navbar.dark-hero.scrolled{ color:var(--ink); }
+
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;max-width:1400px;margin:0 auto;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-d);font-size:16px;letter-spacing:.04em;
+  color:inherit;
+}
+.logo-ct{
+  font-size:19px;color:var(--rose);letter-spacing:.06em;font-weight:bold;
+}
+.logo-sep{
+  width:1px;height:20px;background:currentColor;opacity:.2;
+}
+.logo-lab{color:inherit;}
+
+.nav-links{
+  display:flex;gap:40px;list-style:none;
+}
+.nav-links a{
+  font-family:var(--font-b);font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:inherit;opacity:.75;transition:opacity .2s,color .2s;
+  position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1.5px;background:var(--rose);
+  transition:width .25s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after{ width:100%; }
+.nav-links a.active{ opacity:1;color:var(--rose); }
+.nav-links a.active::after{ width:100%;background:var(--rose); }
+
+.nav-burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-burger span{
+  display:block;width:24px;height:1.5px;background:currentColor;
+  transition:transform .25s,opacity .25s;
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible{ opacity:1;transform:translateY(0); }
+.reveal-left{
+  opacity:0;transform:translateX(-40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-left.visible{ opacity:1;transform:translateX(0); }
+.reveal-right{
+  opacity:0;transform:translateX(40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-right.visible{ opacity:1;transform:translateX(0); }
+
+.stagger-1{transition-delay:.08s}
+.stagger-2{transition-delay:.16s}
+.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}
+.stagger-5{transition-delay:.40s}
+.stagger-6{transition-delay:.48s}
+
+/* ── SECTION SHELL ─────────────────────────────── */
+.section{padding:100px 64px;}
+.section-alt{background:var(--off);}
+.section-dark{background:var(--teal);}
+.section-inner{max-width:1200px;margin:0 auto;}
+
+.eyebrow{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:14px;display:block;
+}
+.eyebrow.light{color:var(--tuscany);}
+.sec-title{
+  font-family:var(--font-d);
+  font-size:clamp(30px,3.5vw,46px);
+  color:var(--teal);line-height:1.1;margin-bottom:18px;
+}
+.sec-title.light{color:var(--white);}
+.sec-rule{
+  width:40px;height:2px;background:var(--tuscany);margin-bottom:56px;
+}
+
+/* ── PLACEHOLDER IMG ───────────────────────────── */
+.ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;
+  background:var(--light);border:1px solid var(--border);
+  color:var(--muted);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.ph-icon{font-size:28px;opacity:.3;}
+
+/* ── FOOTER ────────────────────────────────────── */
+footer{
+  background:var(--ink);
+  padding:72px 64px 0;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;max-width:1200px;margin:0 auto;
+  padding-bottom:56px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.footer-logo{
+  font-family:var(--font-d);font-size:19px;
+  color:var(--white);margin-bottom:14px;
+}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:12px;}
+.footer-address{font-size:12px;color:rgba(255,255,255,.25);line-height:1.8;}
+.footer-heading{
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:18px;
+}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;
+  font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;
+}
+.footer-tuscany{color:var(--tuscany);opacity:.5;}
+
+/* ── SHARED JS ─────────────────────────────────── */
+
+
+.page-hero{
+  margin-top:68px;background:var(--teal);
+  padding:80px 64px 72px;position:relative;overflow:hidden;
+}
+.page-hero::after{
+  content:'LAB';position:absolute;
+  right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-d);font-size:240px;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-hero-eyebrow{
+  font-size:10px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--tuscany);margin-bottom:16px;
+}
+.page-hero-title{
+  font-family:var(--font-d);
+  font-size:clamp(42px,6vw,72px);
+  color:var(--white);line-height:1.05;
+}
+.page-hero-sub{
+  font-size:15px;color:rgba(255,255,255,.45);
+  margin-top:16px;max-width:560px;line-height:1.7;
+}
+
+/* Part headers */
+.part-header{
+  display:flex;align-items:center;gap:20px;
+  margin-bottom:40px;
+}
+.part-badge{
+  font-family:var(--font-d);font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--white);background:var(--rose);
+  padding:6px 18px;white-space:nowrap;
+}
+.part-title{
+  font-family:var(--font-d);font-size:24px;color:var(--teal);
+}
+.part-line{flex:1;height:1px;background:var(--border);}
+
+/* Instrument grid — 3 col */
+.instr-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-bottom:80px;
+}
+.instr-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:box-shadow .3s,transform .3s;
+  position:relative;
+}
+.instr-card:hover{
+  box-shadow:0 12px 40px rgba(41,71,82,.12);
+  transform:translateY(-4px);
+  z-index:2;
+}
+
+/* Top colour strip based on part */
+.instr-card::before{
+  content:'';display:block;height:3px;
+  background:var(--card-accent,var(--teal));
+  transition:height .3s;
+}
+.instr-card:hover::before{height:5px;}
+
+.instr-img-wrap{
+  width:100%;aspect-ratio:4/3;
+  background:var(--light);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.instr-img-wrap .ph-icon{font-size:36px;opacity:.2;}
+.instr-img-wrap .ph-label{
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);
+}
+
+.instr-body{padding:24px 26px 28px;}
+.instr-name{
+  font-family:var(--font-d);font-size:17px;
+  color:var(--teal);margin-bottom:8px;line-height:1.25;
+}
+.instr-key{
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;
+}
+.instr-tag{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 9px;border:1px solid var(--border);color:var(--muted);
+}
+.instr-desc{
+  font-size:13px;color:var(--muted);line-height:1.75;
+}
+.instr-model{
+  display:block;margin-top:12px;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tuscany);
+}
+
+/* Commission CTA */
+.commission-block{
+  background:var(--teal);
+  padding:56px 64px;
+  display:grid;grid-template-columns:1fr auto;
+  gap:48px;align-items:center;
+  margin-top:0;
+}
+.commission-title{
+  font-family:var(--font-d);font-size:32px;
+  color:var(--white);margin-bottom:12px;
+}
+.commission-body{
+  font-size:14px;color:rgba(255,255,255,.6);
+  line-height:1.8;max-width:540px;
+}
+.btn-tuscany{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  padding:16px 36px;background:var(--tuscany);color:var(--ink);
+  border:none;cursor:pointer;white-space:nowrap;
+  transition:background .2s,transform .2s;display:inline-block;
+}
+.btn-tuscany:hover{background:var(--tuscany-l);transform:translateY(-2px);}
+.commission-note{
+  margin-top:12px;font-size:12px;color:rgba(255,255,255,.3);
+}
+
+
+/* ── MODAL ── */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(10,18,22,.82);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s cubic-bezier(.22,1,.36,1);
+}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal-box{
+  background:var(--white);
+  width:min(920px,94vw);max-height:88vh;
+  overflow-y:auto;
+  transform:translateY(28px) scale(.97);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.modal-backdrop.open .modal-box{transform:translateY(0) scale(1);}
+
+.modal-close{
+  position:sticky;top:0;float:right;
+  width:48px;height:48px;z-index:10;
+  background:var(--ink);color:var(--white);
+  border:none;cursor:pointer;
+  font-size:20px;line-height:48px;text-align:center;
+  transition:background .2s;
+}
+.modal-close:hover{background:var(--rose);}
+
+/* Photo strip — 3 images */
+.modal-photos{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;
+  gap:3px;height:300px;
+}
+.modal-photo{
+  overflow:hidden;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--light);border:1px solid var(--border);
+}
+.modal-photo .ph{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;
+}
+.modal-photo-label{
+  position:absolute;bottom:8px;left:10px;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);background:rgba(255,255,255,.85);
+  padding:3px 8px;
+}
+
+.modal-body{padding:36px 40px 40px;}
+.modal-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:24px;margin-bottom:24px;
+}
+.modal-name{
+  font-family:var(--font-d);font-size:26px;
+  color:var(--teal);line-height:1.2;margin-bottom:6px;
+}
+.modal-model{
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--tuscany);
+}
+.modal-part-badge{
+  flex-shrink:0;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  padding:6px 16px;background:var(--teal);color:var(--white);
+  white-space:nowrap;
+}
+.modal-rule{width:36px;height:2px;background:var(--tuscany);margin-bottom:20px;}
+.modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.modal-tag{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 12px;border:1px solid var(--border);color:var(--muted);
+}
+.modal-desc{
+  font-size:14.5px;color:var(--ink);line-height:1.85;margin-bottom:24px;
+}
+.modal-spec-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;padding-top:20px;border-top:1px solid var(--border);
+}
+.modal-spec-item{}
+.modal-spec-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.modal-spec-value{font-size:14px;color:var(--teal);font-family:var(--font-d);}
+
+/* Make instrument cards clickable */
+.instr-card{cursor:pointer;}
+.instr-card:hover .instr-name{color:var(--rose);}
+.instr-card-hint{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--rose);margin-top:14px;opacity:0;
+  transition:opacity .25s;display:flex;align-items:center;gap:6px;
+}
+.instr-card:hover .instr-card-hint{opacity:1;}
+
+</style>
+</head>
+<body data-page="instruments">
+
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ct">C·T</span>
+      <span class="logo-sep"></span>
+      <span class="logo-lab">Lin's Lab</span>
+    </a>
+    <button class="nav-burger" onclick="toggleMobile()" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"        data-page="home">Home</a></li>
+      <li><a href="team.html"         data-page="team">Team</a></li>
+      <li><a href="instruments.html"  data-page="instruments">Instruments</a></li>
+      <li><a href="publications.html" data-page="publications">Publications</a></li>
+      <li><a href="news.html"         data-page="news">News</a></li>
+      <li><a href="activities.html"   data-page="activities">Activities</a></li>
+      <li><a href="contact.html"      data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="page-hero" id="home">
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow reveal">Lab Facilities</div>
+    <h1 class="page-hero-title reveal stagger-1">Instruments</h1>
+    <p class="page-hero-sub reveal stagger-2">
+      Our laboratory is equipped with a comprehensive suite of characterisation
+      and fabrication tools spanning optical, electrochemical, and large-area
+      manufacturing capabilities.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    
+    <div class="part-header reveal">
+      <span class="part-badge">Part II</span>
+      <span class="part-title">Optical & Optoelectronic Analysis</span>
+      <span class="part-line"></span>
+    </div>
+    <div class="instr-grid">
+
+      <div class="instr-card" onclick="openModal('solar-sim')" reveal stagger-1" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">☀️</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Solar Simulator</div>
+          <div class="instr-key"><span class="instr-tag">PV Performance</span><span class="instr-tag">IV Curve</span><span class="instr-tag">Light Soaking</span></div>
+          <div class="instr-desc">Full-spectrum AM 1.5G simulation for photovoltaic device evaluation. Extracts J<sub>sc</sub>, V<sub>oc</sub>, Fill Factor, and PCE; supports light-soaking stability tests.</div>
+          <span class="instr-model">AM 1.5G Standard</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('pdqe')" reveal stagger-2" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">📡</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">PD-QE System</div>
+          <div class="instr-key"><span class="instr-tag">EQE</span><span class="instr-tag">Dark I-V</span><span class="instr-tag">Noise Analysis</span></div>
+          <div class="instr-desc">Spectral response measurement from 300–1100 nm. Dark I-V extraction, flicker/Johnson/shot noise analysis, and J<sub>sc</sub> cross-verification with Solar Simulator.</div>
+          <span class="instr-model">300–1100 nm</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('insitu-pl-300')" reveal stagger-3" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">💡</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">In-situ PL (300–1050 nm)</div>
+          <div class="instr-key"><span class="instr-tag">In-situ PL</span><span class="instr-tag">Peak Shift</span><span class="instr-tag">Composition Mapping</span></div>
+          <div class="instr-desc">Microsecond time-resolution photoluminescence with full time-dependent spectra. Maps composition variations in mixed-halide perovskite films via peak shift analysis.</div>
+          <span class="instr-model">Microsecond resolution</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('qfls')" reveal stagger-4" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">🗺️</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">QFLS Mapper</div>
+          <div class="instr-key"><span class="instr-tag">QFLS</span><span class="instr-tag">iVoc</span><span class="instr-tag">PL Mapping</span></div>
+          <div class="instr-desc">600–1100 nm in-situ PL for real-time crystallization and degradation monitoring. Large-area PL mapping for film uniformity; quasi-Fermi level splitting and pseudo J–V analysis.</div>
+          <span class="instr-model">ENLITECH QFLS-Mapper</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('uvvis')" reveal stagger-5" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">🌈</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">UV-Vis Spectrophotometer</div>
+          <div class="instr-key"><span class="instr-tag">Absorption</span><span class="instr-tag">Bandgap</span><span class="instr-tag">Tauc Plot</span></div>
+          <div class="instr-desc">Transmittance, reflectance, and absorbance of solutions, thin films, and pressed powder pellets. Direct/indirect bandgap extraction via Tauc plots.</div>
+          <span class="instr-model">180–1100 nm</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('kp')" reveal stagger-6" style="--card-accent:var(--rose)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">⚡</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Kelvin Probe (APS04)</div>
+          <div class="instr-key"><span class="instr-tag">Work Function</span><span class="instr-tag">CPD</span><span class="instr-tag">Energy Level</span></div>
+          <div class="instr-desc">UV light source (3.4–9.0 eV). Measures work function, contact potential difference (CPD), and surface potential mapping. Studies energy-level alignment at heterojunctions.</div>
+          <span class="instr-model">KP Technology APS04</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+    </div>
+
+    <div class="part-header reveal">
+      <span class="part-badge">Part III</span>
+      <span class="part-title">Electrochemical Measurements</span>
+      <span class="part-line"></span>
+    </div>
+    <div class="instr-grid">
+
+      <div class="instr-card" onclick="openModal('autolab')" reveal stagger-1" style="--card-accent:var(--teal)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">🔋</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Autolab Potentiostat</div>
+          <div class="instr-key"><span class="instr-tag">CV</span><span class="instr-tag">EIS</span><span class="instr-tag">Galvanostatic</span></div>
+          <div class="instr-desc">Cyclic voltammetry (CV) for electrochemical mechanisms and kinetics. EIS for interfacial resistance and charge-transfer efficiency. Long-term galvanostatic battery cycling.</div>
+          <span class="instr-model">Modular Spectroelectrochemistry</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card" onclick="openModal('paios')" reveal stagger-2" style="--card-accent:var(--teal)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">📊</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Fluxim Paios</div>
+          <div class="instr-key"><span class="instr-tag">TPV/TPC</span><span class="instr-tag">CELIV</span><span class="instr-tag">EIS</span><span class="instr-tag">Mott-Schottky</span></div>
+          <div class="instr-desc">Transient photovoltage/current (TPV/TPC) for carrier lifetime. CELIV for mobility measurement. EIS for interfacial resistance. Mott-Schottky for built-in potential analysis.</div>
+          <span class="instr-model">All-in-one Characterization</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+    </div>
+
+    <div class="part-header reveal">
+      <span class="part-badge">Part IV</span>
+      <span class="part-title">Large-Area Manufacturing</span>
+      <span class="part-line"></span>
+    </div>
+    <div class="instr-grid">
+
+      <div class="instr-card" onclick="openModal('large-area')" reveal stagger-1" style="--card-accent:var(--tuscany)">
+        <div class="instr-img-wrap">
+          <span class="ph-icon">🏭</span>
+          <span class="ph-label">Photo / Figure</span>
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Large-Area Research Station</div>
+          <div class="instr-key"><span class="instr-tag">Blade Coating</span><span class="instr-tag">Vacuum Crystallization</span><span class="instr-tag">Evaporation</span></div>
+          <div class="instr-desc">High-throughput blade coating for large-area deposition. Vacuum crystallization chamber for film morphology control. Thermal evaporator for Cu, Cr, Ag, Au, C<sub>60</sub>, BCP, MoO<sub>3</sub>.</div>
+          <span class="instr-model">Blade Coating & Vacuum Chamber</span>
+        </div>
+      
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Commission CTA -->
+<div class="commission-block reveal">
+  <div>
+    <div class="commission-title">Instrument Commission Service</div>
+    <p class="commission-body">
+      Our instruments are available for external users from academia and industry.
+      Please complete the online booking form to request access, and our team will
+      respond within 2–3 business days to confirm availability and scheduling.
+    </p>
+    <p class="commission-note">* Priority access for NCHU affiliates. External requests subject to availability.</p>
+  </div>
+  <div style="text-align:center;">
+    <a href="#booking-form" class="btn-tuscany">Request Instrument Access →</a>
+    <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.3);">
+      Replace href with your Google Form or booking system link
+    </p>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand-col">
+      <div class="footer-logo">Chieh-Ting Lin's Lab</div>
+      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
+    </div>
+    <div>
+      <div class="footer-heading">Pages</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Research</div>
+      <ul class="footer-links">
+        <li><a href="#">Perovskite Solar Cells</a></li>
+        <li><a href="#">Organic Photovoltaics</a></li>
+        <li><a href="#">Large-Area Fabrication</a></li>
+        <li><a href="#">Photophysical Characterisation</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:c.lin15@nchu.edu.tw">c.lin15@nchu.edu.tw</a></li>
+        <li><a href="#">886-4-22854724 #811</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>©2025 Chieh-Ting Lin's Lab, NCHU</span>
+    <span class="footer-tuscany">Advancing photovoltaic science</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll state
+const navbar = document.getElementById('navbar');
+const isDark = navbar.classList.contains('dark-hero');
+function onScroll(){
+  if(window.scrollY > 40){
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// Active nav link
+const page = document.body.dataset.page;
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.dataset.page===page) a.classList.add('active');
+});
+
+// Mobile menu
+function toggleMobile(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+</script>
+
+<!-- ══ MODAL ══ -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+
+    <!-- Photo strip -->
+    <div class="modal-photos">
+      <div class="modal-photo" id="mPhoto0">
+        <div class="ph"><span class="ph-icon">🔬</span><span>Instrument Photo</span></div>
+        <div class="modal-photo-label">Instrument</div>
+      </div>
+      <div class="modal-photo" id="mPhoto1">
+        <div class="ph"><span class="ph-icon">📊</span><span>Data Figure 1</span></div>
+        <div class="modal-photo-label">Result 1</div>
+      </div>
+      <div class="modal-photo" id="mPhoto2">
+        <div class="ph"><span class="ph-icon">📈</span><span>Data Figure 2</span></div>
+        <div class="modal-photo-label">Result 2</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="modal-body">
+      <div class="modal-header">
+        <div>
+          <div class="modal-name" id="mName"></div>
+          <div class="modal-model" id="mModel"></div>
+        </div>
+        <div class="modal-part-badge" id="mPart"></div>
+      </div>
+      <div class="modal-rule"></div>
+      <div class="modal-tags" id="mTags"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-spec-grid" id="mSpecs"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const INSTR_DATA = [{"id": "solar-sim", "name": "Solar Simulator", "model": "AM 1.5G Standard", "part": "Part II — Optical", "tags": ["PV Performance", "IV Curve", "Light Soaking"], "desc": "Our solar simulator provides the industry-standard AM 1.5G full-spectrum illumination (100 mW/cm²) for accurate photovoltaic device characterisation. The system measures current-voltage (J-V) characteristics under controlled illumination, extracting key device parameters including short-circuit current density (J<sub>sc</sub>), open-circuit voltage (V<sub>oc</sub>), fill factor (FF), and power conversion efficiency (PCE). Light-soaking protocols enable operational stability assessment under continuous illumination, critical for perovskite solar cell research.", "specs": [{"label": "Spectrum", "value": "AM 1.5G"}, {"label": "Irradiance", "value": "100 mW/cm²"}, {"label": "Area", "value": "Up to 20×20 cm"}, {"label": "Parameters", "value": "Jsc, Voc, FF, PCE"}]}, {"id": "pdqe", "name": "PD-QE System", "model": "300–1100 nm Range", "part": "Part II — Optical", "tags": ["EQE", "Dark I-V", "Noise Analysis"], "desc": "The photodetector quantum efficiency (PD-QE) system measures the external quantum efficiency (EQE) of solar cells and photodetectors with spectral resolution from 300 to 1100 nm. Dark I-V measurements characterise device behaviour without illumination, extracting diode ideality factor, shunt resistance, and series resistance. The integrated noise analysis module resolves flicker (1/f), Johnson, and shot noise contributions—essential for high-performance photodetector characterisation. Integrated J<sub>sc</sub> from EQE is cross-verified with solar simulator data.", "specs": [{"label": "Wavelength", "value": "300–1100 nm"}, {"label": "Measurement", "value": "EQE, Dark I-V"}, {"label": "Noise Types", "value": "Flicker, Johnson, Shot"}, {"label": "Output", "value": "Integrated Jsc"}]}, {"id": "insitu-pl-300", "name": "In-situ PL (300–1050 nm)", "model": "Microsecond Resolution", "part": "Part II — Optical", "tags": ["In-situ PL", "Peak Shift", "Composition Mapping"], "desc": "This in-situ photoluminescence system offers microsecond-level time resolution with full spectral acquisition across 300–1050 nm. It enables real-time monitoring of photoluminescence dynamics during device operation, annealing, or degradation. Peak shift analysis maps composition gradients and halide distribution in mixed-halide perovskite films—directly correlating optoelectronic quality with film composition. Time-resolved measurements reveal charge-carrier lifetime and recombination mechanisms.", "specs": [{"label": "Wavelength", "value": "300–1050 nm"}, {"label": "Time Resolution", "value": "Microsecond"}, {"label": "Modes", "value": "CW, In-situ, Time-resolved"}, {"label": "Application", "value": "Film composition mapping"}]}, {"id": "qfls", "name": "QFLS Mapper", "model": "ENLITECH QFLS-Mapper", "part": "Part II — Optical", "tags": ["QFLS", "iVoc", "PL Mapping", "Pseudo J–V"], "desc": "The QFLS Mapper (ENLITECH) operates from 600–1100 nm and combines in-situ PL with quasi-Fermi level splitting (QFLS) analysis—a critical parameter linking optical properties to device efficiency. Large-area PL mapping scans cm²-scale films for spatial uniformity, identifying inhomogeneities at the sub-mm level. The iVoc and Pseudo J-V analysis predicts the theoretical efficiency limit of a device by excluding series resistance effects, using PLQY and QFLS data. Essential for diagnosing losses in perovskite and organic solar cells.", "specs": [{"label": "Wavelength", "value": "600–1100 nm"}, {"label": "Mapping Area", "value": "Large-area cm² scale"}, {"label": "Analysis", "value": "QFLS, iVoc, Pseudo J-V"}, {"label": "Metrics", "value": "PLQY, QFLS, spatial uniformity"}]}, {"id": "uvvis", "name": "UV-Vis Spectrophotometer", "model": "180–1100 nm", "part": "Part II — Optical", "tags": ["Absorption", "Bandgap", "Tauc Plot", "Transmittance"], "desc": "Our UV-Vis spectrophotometer covers 180–1100 nm and accommodates solutions, thin films, and pressed powder pellets. It measures optical transmittance, reflectance, and absorbance simultaneously, enabling complete optical characterisation of absorber and transport layers. Direct and indirect bandgaps are extracted via Tauc plots from the absorption edge. Integrating sphere attachments allow measurement of highly scattering and diffuse samples—critical for analysing nanoparticle suspensions and rough perovskite films.", "specs": [{"label": "Wavelength", "value": "180–1100 nm"}, {"label": "Sample Forms", "value": "Solution, Film, Pellet"}, {"label": "Measurements", "value": "T, R, A"}, {"label": "Bandgap", "value": "Direct & indirect via Tauc"}]}, {"id": "kp", "name": "Kelvin Probe (APS04)", "model": "KP Technology APS04", "part": "Part II — Optical", "tags": ["Work Function", "CPD", "Energy Level", "Heterojunction"], "desc": "The KP Technology APS04 uses UV light (3.4–9.0 eV) to measure absolute work function and contact potential difference (CPD) with sub-meV resolution. Surface potential maps reveal local variations in Fermi level alignment—critical for understanding charge extraction and recombination at interfaces. Interface alignment studies at heterojunctions (ETL/perovskite, perovskite/HTL) guide layer optimisation for high-efficiency devices. Combined with photoelectron spectroscopy, it provides a complete picture of the device energy landscape.", "specs": [{"label": "Light Source", "value": "UV 3.4–9.0 eV"}, {"label": "Measurement", "value": "Work function, CPD"}, {"label": "Model", "value": "KP Technology APS04"}, {"label": "Application", "value": "Interface energy alignment"}]}, {"id": "autolab", "name": "Autolab Potentiostat", "model": "Modular Spectroelectrochemistry", "part": "Part III — Electrochemical", "tags": ["CV", "EIS", "Galvanostatic", "Spectroelectrochemistry"], "desc": "The Autolab modular potentiostat/galvanostat performs a full suite of electrochemical measurements. Cyclic voltammetry (CV) investigates redox mechanisms, kinetics, and frontier orbital energies of organic semiconductors. Electrochemical impedance spectroscopy (EIS) resolves interfacial resistance, charge-transfer efficiency, and recombination time constants. Galvanostatic cycling enables long-term battery and supercapacitor stability monitoring. The spectroelectrochemistry module allows simultaneous optical and electrochemical measurements—ideal for in-situ monitoring of film colour change and doping state.", "specs": [{"label": "Techniques", "value": "CV, EIS, Galvanostatic"}, {"label": "Module", "value": "Spectroelectrochemistry"}, {"label": "Frequency Range", "value": "10 µHz – 1 MHz (EIS)"}, {"label": "Application", "value": "HOMO/LUMO, stability"}]}, {"id": "paios", "name": "Fluxim Paios", "model": "All-in-one Characterization", "part": "Part III — Electrochemical", "tags": ["TPV", "TPC", "CELIV", "EIS", "Mott-Schottky"], "desc": "The Fluxim Paios is an all-in-one optoelectronic characterisation platform combining transient and steady-state electrical measurements. Transient photovoltage (TPV) and transient photocurrent (TPC) measurements determine charge-carrier lifetime and extraction dynamics. CELIV (Charge Extraction by Linearly Increasing Voltage) quantifies charge-carrier concentration and mobility. EIS determines interfacial resistance and recombination. Mott-Schottky analysis extracts the built-in potential of perovskite solar cells—a key parameter for understanding open-circuit voltage losses.", "specs": [{"label": "Techniques", "value": "TPV, TPC, CELIV, EIS"}, {"label": "Analysis", "value": "Mott-Schottky, mobility"}, {"label": "Platform", "value": "Fluxim Paios"}, {"label": "Output", "value": "τ, μ, Vbi, Rint"}]}, {"id": "large-area", "name": "Large-Area Research Station", "model": "Blade Coating & Vacuum Chamber", "part": "Part IV — Fabrication", "tags": ["Blade Coating", "Vacuum Crystallization", "Thermal Evaporation"], "desc": "Our large-area fabrication station bridges lab-scale optimisation and commercially relevant device manufacturing. The blade-coating module deposits uniform films over areas exceeding 100 cm² at controlled speeds and blade gaps. The integrated vacuum crystallization chamber controls solvent evaporation kinetics, enabling high-quality crystallisation of perovskite absorbers and charge-transport layers. The thermal evaporator deposits metal contacts and functional layers (Cu, Cr, Ag, Au) as well as organic materials (C<sub>60</sub>, BCP, MoO<sub>3</sub>) for complete device fabrication.", "specs": [{"label": "Coating", "value": "Blade coating >100 cm²"}, {"label": "Atmosphere", "value": "Vacuum crystallization"}, {"label": "Evaporation", "value": "Cu, Cr, Ag, Au, C₆₀, BCP, MoO₃"}, {"label": "Target", "value": "Commercial-scale modules"}]}];
+
+function openModal(id) {
+  const d = INSTR_DATA.find(x => x.id === id);
+  if(!d) return;
+
+  document.getElementById('mName').innerHTML  = d.name;
+  document.getElementById('mModel').innerHTML = d.model;
+  document.getElementById('mPart').innerHTML  = d.part;
+  document.getElementById('mDesc').innerHTML  = d.desc;
+
+  // Tags
+  const tagsEl = document.getElementById('mTags');
+  tagsEl.innerHTML = d.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('');
+
+  // Specs
+  const specsEl = document.getElementById('mSpecs');
+  specsEl.innerHTML = d.specs.map(s=>`
+    <div class="modal-spec-item">
+      <div class="modal-spec-label">${s.label}</div>
+      <div class="modal-spec-value">${s.value}</div>
+    </div>`).join('');
+
+  // Open
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if(e.target === document.getElementById('modalBackdrop')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalBtn(); });
+
+</script>
+</body>
+</html>

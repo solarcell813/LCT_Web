@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activities — Chieh-Ting Lin's Lab</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --teal:     #294752;
+  --teal-d:   #1a2f38;
+  --teal-l:   #3d6475;
+  --rose:     #A8535C;
+  --rose-l:   #c4717a;
+  --tuscany:  #C9A84C;
+  --tuscany-l:#e0c068;
+  --white:    #FFFFFF;
+  --off:      #F6F4F1;
+  --light:    #EBF0F2;
+  --ink:      #18282f;
+  --muted:    #6b8a92;
+  --border:   #d4e0e4;
+  --font-d:   'GFS Didot', 'Times New Roman', serif;
+  --font-b:   'Times New Roman', serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-b);color:var(--ink);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ───────────────────────────────────────── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  transition:background .35s,box-shadow .35s,padding .35s;
+  padding:0 64px; height:68px;
+  display:flex;align-items:center;
+}
+#navbar.scrolled{
+  background:rgba(255,255,255,0.96);
+  box-shadow:0 1px 0 var(--border);
+  backdrop-filter:blur(12px);
+}
+#navbar.dark-hero{ color:var(--white); }
+#navbar.dark-hero.scrolled{ color:var(--ink); }
+
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;max-width:1400px;margin:0 auto;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-d);font-size:16px;letter-spacing:.04em;
+  color:inherit;
+}
+.logo-ct{
+  font-size:19px;color:var(--rose);letter-spacing:.06em;font-weight:bold;
+}
+.logo-sep{
+  width:1px;height:20px;background:currentColor;opacity:.2;
+}
+.logo-lab{color:inherit;}
+
+.nav-links{
+  display:flex;gap:40px;list-style:none;
+}
+.nav-links a{
+  font-family:var(--font-b);font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:inherit;opacity:.75;transition:opacity .2s,color .2s;
+  position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1.5px;background:var(--rose);
+  transition:width .25s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after{ width:100%; }
+.nav-links a.active{ opacity:1;color:var(--rose); }
+.nav-links a.active::after{ width:100%;background:var(--rose); }
+
+.nav-burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-burger span{
+  display:block;width:24px;height:1.5px;background:currentColor;
+  transition:transform .25s,opacity .25s;
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible{ opacity:1;transform:translateY(0); }
+.reveal-left{
+  opacity:0;transform:translateX(-40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-left.visible{ opacity:1;transform:translateX(0); }
+.reveal-right{
+  opacity:0;transform:translateX(40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-right.visible{ opacity:1;transform:translateX(0); }
+
+.stagger-1{transition-delay:.08s}
+.stagger-2{transition-delay:.16s}
+.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}
+.stagger-5{transition-delay:.40s}
+.stagger-6{transition-delay:.48s}
+
+/* ── SECTION SHELL ─────────────────────────────── */
+.section{padding:100px 64px;}
+.section-alt{background:var(--off);}
+.section-dark{background:var(--teal);}
+.section-inner{max-width:1200px;margin:0 auto;}
+
+.eyebrow{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:14px;display:block;
+}
+.eyebrow.light{color:var(--tuscany);}
+.sec-title{
+  font-family:var(--font-d);
+  font-size:clamp(30px,3.5vw,46px);
+  color:var(--teal);line-height:1.1;margin-bottom:18px;
+}
+.sec-title.light{color:var(--white);}
+.sec-rule{
+  width:40px;height:2px;background:var(--tuscany);margin-bottom:56px;
+}
+
+/* ── PLACEHOLDER IMG ───────────────────────────── */
+.ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;
+  background:var(--light);border:1px solid var(--border);
+  color:var(--muted);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.ph-icon{font-size:28px;opacity:.3;}
+
+/* ── FOOTER ────────────────────────────────────── */
+footer{
+  background:var(--ink);
+  padding:72px 64px 0;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;max-width:1200px;margin:0 auto;
+  padding-bottom:56px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.footer-logo{
+  font-family:var(--font-d);font-size:19px;
+  color:var(--white);margin-bottom:14px;
+}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:12px;}
+.footer-address{font-size:12px;color:rgba(255,255,255,.25);line-height:1.8;}
+.footer-heading{
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:18px;
+}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;
+  font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;
+}
+.footer-tuscany{color:var(--tuscany);opacity:.5;}
+
+/* ── SHARED JS ─────────────────────────────────── */
+
+
+.page-hero{
+  margin-top:68px;background:var(--teal);
+  padding:80px 64px 72px;position:relative;overflow:hidden;
+}
+.page-hero::after{
+  content:'LIFE';position:absolute;
+  right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--font-d);font-size:220px;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-hero-eyebrow{
+  font-size:10px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--tuscany);margin-bottom:16px;
+}
+.page-hero-title{
+  font-family:var(--font-d);
+  font-size:clamp(42px,6vw,72px);
+  color:var(--white);line-height:1.05;
+}
+.page-hero-sub{
+  font-size:15px;color:rgba(255,255,255,.45);
+  margin-top:16px;max-width:520px;line-height:1.7;
+}
+
+/* Section tabs / anchors */
+.act-nav{
+  position:sticky;top:68px;z-index:50;
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:0 64px;
+}
+.act-nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;gap:0;
+}
+.act-nav-tab{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  padding:18px 28px;color:var(--muted);
+  border-bottom:2px solid transparent;
+  cursor:pointer;transition:color .2s,border-color .2s;
+  text-decoration:none;display:block;
+}
+.act-nav-tab:hover{color:var(--teal);}
+.act-nav-tab.on{color:var(--rose);border-bottom-color:var(--rose);}
+
+/* Activity section shell */
+.act-section{padding:80px 64px;}
+.act-section.alt{background:var(--off);}
+.act-section.dark{background:var(--teal);}
+.act-inner{max-width:1200px;margin:0 auto;}
+
+.act-eyebrow{
+  display:flex;align-items:center;gap:16px;margin-bottom:12px;
+}
+.act-num{
+  font-family:var(--font-d);font-size:56px;
+  color:var(--border);line-height:1;
+}
+.act-label{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);
+}
+.act-title{
+  font-family:var(--font-d);font-size:clamp(28px,4vw,42px);
+  color:var(--teal);margin-bottom:16px;
+}
+.act-title.light{color:var(--white);}
+.act-rule{width:36px;height:2px;background:var(--tuscany);margin-bottom:40px;}
+.act-intro{
+  font-size:15px;color:var(--muted);line-height:1.85;
+  max-width:680px;margin-bottom:48px;
+}
+.act-intro.light{color:rgba(255,255,255,.6);}
+
+/* Gallery grid */
+.gallery-masonry{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+}
+.gallery-cell{
+  background:var(--light);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  cursor:pointer;
+}
+.gallery-cell::after{
+  content:'';position:absolute;inset:0;
+  background:var(--teal);opacity:0;
+  transition:opacity .3s;
+}
+.gallery-cell:hover::after{opacity:.08;}
+.gallery-cell.tall{grid-row:span 2;}
+.gallery-cell.wide{grid-column:span 2;}
+.gallery-ph{
+  width:100%;height:100%;min-height:180px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+}
+.gallery-ph.tall-inner{min-height:363px;}
+.gallery-ph-icon{font-size:28px;opacity:.2;}
+.gallery-ph-label{
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+
+/* Event timeline (for conferences) */
+.conf-list{display:flex;flex-direction:column;gap:0;}
+.conf-item{
+  display:grid;grid-template-columns:100px 48px 1fr;
+  gap:0;align-items:start;padding:32px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  transition:background .2s;
+}
+.conf-item:hover{
+  background:rgba(255,255,255,.03);
+  margin:0 -32px;padding:32px 32px;
+}
+.conf-year{
+  font-family:var(--font-d);font-size:13px;
+  color:var(--tuscany);padding-top:4px;
+}
+.conf-dot-col{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:6px;
+}
+.conf-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--rose);flex-shrink:0;
+}
+.conf-line{
+  width:1px;flex:1;min-height:40px;
+  background:rgba(255,255,255,.08);margin-top:6px;
+}
+.conf-item:last-child .conf-line{display:none;}
+.conf-title{
+  font-family:var(--font-d);font-size:18px;
+  color:var(--white);margin-bottom:6px;line-height:1.3;
+}
+.conf-meta{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px;}
+.conf-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.conf-tag{
+  font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  padding:3px 10px;border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.4);
+}
+
+/* International exchange cards */
+.exchange-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:32px;
+}
+.exchange-card{
+  border:1px solid var(--border);overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.exchange-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(41,71,82,.1);
+}
+.exchange-ph{
+  width:100%;aspect-ratio:16/9;
+  background:var(--light);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;
+  border-bottom:1px solid var(--border);
+}
+.exchange-body{padding:24px 28px;}
+.exchange-flag{font-size:28px;margin-bottom:10px;}
+.exchange-title{
+  font-family:var(--font-d);font-size:20px;
+  color:var(--teal);margin-bottom:8px;
+}
+.exchange-desc{font-size:13px;color:var(--muted);line-height:1.75;}
+.exchange-meta{
+  margin-top:14px;font-size:11px;color:var(--rose);
+  letter-spacing:.1em;text-transform:uppercase;
+}
+
+</style>
+</head>
+<body data-page="activities">
+
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ct">C·T</span>
+      <span class="logo-sep"></span>
+      <span class="logo-lab">Lin's Lab</span>
+    </a>
+    <button class="nav-burger" onclick="toggleMobile()" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"        data-page="home">Home</a></li>
+      <li><a href="team.html"         data-page="team">Team</a></li>
+      <li><a href="instruments.html"  data-page="instruments">Instruments</a></li>
+      <li><a href="publications.html" data-page="publications">Publications</a></li>
+      <li><a href="news.html"         data-page="news">News</a></li>
+      <li><a href="activities.html"   data-page="activities">Activities</a></li>
+      <li><a href="contact.html"      data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow reveal">Lab Culture</div>
+    <h1 class="page-hero-title reveal stagger-1">Activities</h1>
+    <p class="page-hero-sub reveal stagger-2">
+      Science thrives in community. Beyond the lab bench, we build bonds
+      through shared meals, cultural exchange, and international collaboration.
+    </p>
+  </div>
+</div>
+
+<!-- Sticky sub-nav -->
+<nav class="act-nav">
+  <div class="act-nav-inner">
+    <a class="act-nav-tab on" href="#outings">Outings &amp; Gatherings</a>
+    <a class="act-nav-tab" href="#exchange">International Exchange</a>
+    <a class="act-nav-tab" href="#conferences">Conferences</a>
+  </div>
+</nav>
+
+<!-- ① Lab Outings & Gatherings -->
+<div class="act-section" id="outings">
+  <div class="act-inner">
+    <div class="act-eyebrow reveal">
+      <span class="act-num">01</span>
+      <div>
+        <div class="act-label">Lab Culture</div>
+      </div>
+    </div>
+    <h2 class="act-title reveal">Outings &amp; Gatherings</h2>
+    <div class="act-rule reveal"></div>
+    <p class="act-intro reveal">
+      We believe that a strong team is built outside the lab as much as inside it.
+      From hotpot dinners to weekend hikes, our regular outings are a chance to
+      recharge, celebrate milestones, and strengthen the friendships that make
+      research enjoyable.
+    </p>
+
+    <!-- Masonry gallery placeholder -->
+    <div class="gallery-masonry">
+      <div class="gallery-cell tall reveal stagger-1">
+        <div class="gallery-ph tall-inner">
+          <span class="gallery-ph-icon">🍜</span>
+          <span class="gallery-ph-label">Lab Dinner Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell reveal stagger-2">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">📸</span>
+          <span class="gallery-ph-label">Outing Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell reveal stagger-3">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">📸</span>
+          <span class="gallery-ph-label">Outing Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell reveal stagger-2">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">🏔️</span>
+          <span class="gallery-ph-label">Trip Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell reveal stagger-3">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">🎉</span>
+          <span class="gallery-ph-label">Celebration Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell wide reveal stagger-4">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">👥</span>
+          <span class="gallery-ph-label">Group Photo</span>
+        </div>
+      </div>
+      <div class="gallery-cell reveal stagger-5">
+        <div class="gallery-ph">
+          <span class="gallery-ph-icon">📸</span>
+          <span class="gallery-ph-label">Photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② International Exchange -->
+<div class="act-section alt" id="exchange">
+  <div class="act-inner">
+    <div class="act-eyebrow reveal">
+      <span class="act-num" style="color:var(--border)">02</span>
+      <div>
+        <div class="act-label">Global Connections</div>
+      </div>
+    </div>
+    <h2 class="act-title reveal">International Student Exchange</h2>
+    <div class="act-rule reveal"></div>
+    <p class="act-intro reveal">
+      We actively host visiting researchers and exchange students from partner
+      institutions worldwide. These collaborations enrich our scientific culture,
+      broaden research perspectives, and forge lasting international networks.
+    </p>
+
+    <div class="exchange-grid">
+      <div class="exchange-card reveal stagger-1">
+        <div class="exchange-ph">
+          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌏</span>
+          <span class="gallery-ph-label">Exchange Student Photo</span>
+        </div>
+        <div class="exchange-body">
+          <div class="exchange-flag">🇯🇵</div>
+          <div class="exchange-title">Japan Exchange Program</div>
+          <p class="exchange-desc">
+            Visiting researchers from Japanese partner universities join the lab
+            for short-term collaborative projects in perovskite and organic solar
+            cell characterisation.
+          </p>
+          <div class="exchange-meta">Placeholder — add partner university & year</div>
+        </div>
+      </div>
+      <div class="exchange-card reveal stagger-2">
+        <div class="exchange-ph">
+          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌍</span>
+          <span class="gallery-ph-label">Exchange Student Photo</span>
+        </div>
+        <div class="exchange-body">
+          <div class="exchange-flag">🇬🇧</div>
+          <div class="exchange-title">UK Collaboration</div>
+          <p class="exchange-desc">
+            Ongoing collaboration with Imperial College London supports researcher
+            exchanges focused on photophysical characterisation and large-area
+            device fabrication.
+          </p>
+          <div class="exchange-meta">Placeholder — add details & year</div>
+        </div>
+      </div>
+      <div class="exchange-card reveal stagger-3">
+        <div class="exchange-ph">
+          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌐</span>
+          <span class="gallery-ph-label">Exchange Student Photo</span>
+        </div>
+        <div class="exchange-body">
+          <div class="exchange-flag">🌐</div>
+          <div class="exchange-title">Other International Visitors</div>
+          <p class="exchange-desc">
+            We welcome researchers and students from all over the world. Our
+            lab fosters an inclusive, multilingual environment where diverse
+            perspectives drive innovation.
+          </p>
+          <div class="exchange-meta">Placeholder — add countries & partner institutions</div>
+        </div>
+      </div>
+      <div class="exchange-card reveal stagger-4">
+        <div class="exchange-ph" style="background:var(--teal);flex-direction:row;gap:24px;">
+          <div style="text-align:center;color:var(--white);">
+            <div style="font-family:var(--font-d);font-size:48px;color:var(--tuscany);">8+</div>
+            <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-top:4px;">Countries</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.1);height:60px;align-self:center;"></div>
+          <div style="text-align:center;color:var(--white);">
+            <div style="font-family:var(--font-d);font-size:48px;color:var(--tuscany);">20+</div>
+            <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-top:4px;">Visitors</div>
+          </div>
+        </div>
+        <div class="exchange-body">
+          <div class="exchange-flag">✈️</div>
+          <div class="exchange-title">Join Us as a Visiting Researcher</div>
+          <p class="exchange-desc">
+            Interested in a short-term visit or exchange? We welcome motivated
+            researchers at all levels. Please reach out to Prof. Lin directly
+            with your research proposal.
+          </p>
+          <div class="exchange-meta">
+            <a href="contact.html" style="color:var(--rose);">Contact us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ Conferences -->
+<div class="act-section dark" id="conferences">
+  <div class="act-inner">
+    <div class="act-eyebrow reveal">
+      <span class="act-num" style="color:rgba(255,255,255,.08)">03</span>
+      <div>
+        <div class="act-label" style="color:var(--tuscany)">International Presence</div>
+      </div>
+    </div>
+    <h2 class="act-title light reveal">Conferences &amp; Symposia</h2>
+    <div class="act-rule reveal"></div>
+    <p class="act-intro light reveal">
+      Our group regularly presents at leading international conferences in
+      photovoltaics, materials science, and electrochemistry — sharing our
+      findings and engaging with the global research community.
+    </p>
+
+    <div class="conf-list">
+      <div class="conf-item reveal">
+        <div class="conf-year">2024</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">MRS Fall Meeting 2024</div>
+          <div class="conf-meta">Boston, MA, USA · November 2024</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Oral</span>
+            <span class="conf-tag">Perovskite</span>
+          </div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-1">
+        <div class="conf-year">2024</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">International Conference on Hybrid and Organic Photovoltaics (HOPV)</div>
+          <div class="conf-meta">Placeholder — City, Country · 2024</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Poster</span>
+            <span class="conf-tag">Organic PV</span>
+          </div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-2">
+        <div class="conf-year">2023</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">MRS Fall Meeting 2023</div>
+          <div class="conf-meta">Boston, MA, USA · November 2023</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Oral</span>
+            <span class="conf-tag">Large-Area Fabrication</span>
+          </div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-3">
+        <div class="conf-year">2023</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">European Conference on Hybrid and Organic Photovoltaics (EU-PVSEC)</div>
+          <div class="conf-meta">Placeholder — City, Country · 2023</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Poster</span>
+            <span class="conf-tag">QFLS</span>
+          </div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-4">
+        <div class="conf-year">2022</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">Placeholder — Add your 2022 conference participations here</div>
+          <div class="conf-meta">Placeholder — City, Country · 2022</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Placeholder</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conference photo strip -->
+    <div style="margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;" class="reveal">
+      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
+        <span class="gallery-ph-icon">✈️</span>
+        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Conference Photo</span>
+      </div>
+      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
+        <span class="gallery-ph-icon">🎤</span>
+        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Presentation</span>
+      </div>
+      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
+        <span class="gallery-ph-icon">🏆</span>
+        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Award</span>
+      </div>
+      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
+        <span class="gallery-ph-icon">👥</span>
+        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Group Photo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Sticky tab highlight on scroll
+const tabs = document.querySelectorAll('.act-nav-tab');
+const sects = ['outings','exchange','conferences'].map(id=>document.getElementById(id));
+window.addEventListener('scroll',()=>{
+  let cur = 0;
+  sects.forEach((s,i)=>{ if(window.scrollY >= s.offsetTop-120) cur=i; });
+  tabs.forEach(t=>t.classList.remove('on'));
+  tabs[cur].classList.add('on');
+},{passive:true});
+</script>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand-col">
+      <div class="footer-logo">Chieh-Ting Lin's Lab</div>
+      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
+    </div>
+    <div>
+      <div class="footer-heading">Pages</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Research</div>
+      <ul class="footer-links">
+        <li><a href="#">Perovskite Solar Cells</a></li>
+        <li><a href="#">Organic Photovoltaics</a></li>
+        <li><a href="#">Large-Area Fabrication</a></li>
+        <li><a href="#">Photophysical Characterisation</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:c.lin15@nchu.edu.tw">c.lin15@nchu.edu.tw</a></li>
+        <li><a href="#">886-4-22854724 #811</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>©2025 Chieh-Ting Lin's Lab, NCHU</span>
+    <span class="footer-tuscany">Advancing photovoltaic science</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll state
+const navbar = document.getElementById('navbar');
+const isDark = navbar.classList.contains('dark-hero');
+function onScroll(){
+  if(window.scrollY > 40){
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// Active nav link
+const page = document.body.dataset.page;
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.dataset.page===page) a.classList.add('active');
+});
+
+// Mobile menu
+function toggleMobile(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

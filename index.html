@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home — Chieh-Ting Lin's Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#294752;--teal-d:#1a2f38;--teal-l:#3d6475;
+  --rose:#A8535C;--rose-l:#c4717a;
+  --tuscany:#C9A84C;--tuscany-l:#e0c068;
+  --white:#FFFFFF;--off:#F6F4F1;--light:#EBF0F2;
+  --ink:#18282f;--muted:#6b8a92;--border:#d4e0e4;
+  --font-d:'GFS Didot','Times New Roman',serif;
+  --font-b:'Times New Roman',serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);color:var(--ink);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 64px;height:68px;display:flex;align-items:center;
+  transition:background .35s,box-shadow .35s;
+}
+#navbar.scrolled{
+  background:rgba(255,255,255,.96);
+  box-shadow:0 1px 0 var(--border);
+  backdrop-filter:blur(12px);
+}
+#navbar.dark-hero{color:var(--white);}
+#navbar.dark-hero.scrolled{color:var(--ink);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1400px;margin:0 auto;}
+.nav-logo{display:flex;align-items:center;gap:14px;font-family:var(--font-d);font-size:16px;color:inherit;}
+.logo-ct{font-size:19px;color:var(--rose);font-weight:bold;}
+.logo-sep{width:1px;height:20px;background:currentColor;opacity:.2;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:inherit;opacity:.75;transition:opacity .2s;
+  position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1.5px;background:var(--rose);transition:width .25s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{opacity:1;color:var(--rose);}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  background:#08131a;
+  display:flex;align-items:center;overflow:hidden;
+}
+#hero-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%;}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1200px;margin:0 auto;padding:0 64px;padding-top:100px;
+}
+.hero-kicker{
+  font-size:11px;letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);margin-bottom:24px;
+  display:flex;align-items:center;gap:14px;
+}
+.hero-kicker::before{content:'';display:block;width:32px;height:1px;background:var(--tuscany);}
+.hero-h1{
+  font-family:var(--font-d);
+  font-size:clamp(48px,7vw,96px);
+  color:var(--white);line-height:1.0;margin-bottom:8px;
+}
+.hero-h1 em{color:var(--tuscany);font-style:normal;}
+.hero-sub{
+  font-family:var(--font-d);
+  font-size:clamp(18px,2.5vw,28px);
+  color:rgba(255,255,255,.38);margin-bottom:40px;font-style:italic;
+}
+.hero-rule{width:56px;height:2px;background:var(--rose);margin-bottom:40px;}
+.hero-desc{font-size:16px;color:rgba(255,255,255,.58);max-width:520px;line-height:1.9;margin-bottom:52px;}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  padding:14px 32px;background:var(--rose);color:var(--white);
+  transition:background .2s,transform .2s;display:inline-block;
+}
+.btn-primary:hover{background:var(--rose-l);transform:translateY(-2px);}
+.btn-ghost{
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  padding:14px 32px;background:transparent;color:rgba(255,255,255,.65);
+  border:1.5px solid rgba(255,255,255,.18);
+  transition:border-color .2s,color .2s,transform .2s;display:inline-block;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);color:var(--white);transform:translateY(-2px);}
+
+/* crystal legend top-right */
+.crystal-legend{
+  position:absolute;top:100px;right:64px;z-index:3;
+  display:flex;flex-direction:column;gap:10px;
+}
+.cl-item{display:flex;align-items:center;gap:10px;}
+.cl-dot{border-radius:50%;flex-shrink:0;}
+.cl-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+
+.scroll-cue{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,.25);font-size:10px;letter-spacing:.25em;text-transform:uppercase;
+  z-index:2;animation:bob 2.5s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+
+
+/* ── FIELD OF STUDY ── */
+.fos-section{
+  padding:96px 64px;
+  background:var(--off);
+  overflow:hidden;   /* clip the slide-in panels */
+}
+.fos-inner{max-width:1200px;margin:0 auto;}
+.eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;display:block;}
+.sec-title{font-family:var(--font-d);font-size:clamp(28px,3.5vw,44px);color:var(--teal);line-height:1.1;margin-bottom:18px;}
+.sec-rule{width:40px;height:2px;background:var(--tuscany);margin-bottom:52px;}
+
+/* Two-panel layout */
+.fos-panels{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;
+}
+
+/* Slide-in animation — panels start off-screen */
+.fos-panel{
+  position:relative;overflow:hidden;
+  background:var(--white);
+  border:1px solid var(--border);
+  opacity:0;
+  transition:
+    opacity  .8s cubic-bezier(.22,1,.36,1),
+    transform .8s cubic-bezier(.22,1,.36,1);
+}
+.fos-panel.from-left { transform:translateX(-80px); }
+.fos-panel.from-right{ transform:translateX( 80px); }
+.fos-panel.in-view   { opacity:1; transform:translateX(0); }
+.fos-panel.from-right.in-view{ transform:translateX(0); }
+
+/* Image area */
+.fos-img{
+  width:100%;aspect-ratio:16/10;overflow:hidden;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--light);
+}
+.fos-img-ph{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;
+}
+.fos-img-ph .ph-icon{font-size:40px;opacity:.18;}
+.fos-img-ph .ph-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:.6;}
+
+/* Dark overlay on hover */
+.fos-img::after{
+  content:'';position:absolute;inset:0;
+  background:var(--teal);
+  opacity:0;transition:opacity .35s;
+}
+.fos-panel:hover .fos-img::after{opacity:.06;}
+
+/* Text area */
+.fos-text{
+  padding:36px 40px 40px;
+  position:relative;
+}
+/* Accent line slides in with panel */
+.fos-text::before{
+  content:'';position:absolute;
+  top:0;left:0;width:3px;height:0;
+  background:var(--panel-color,var(--teal));
+  transition:height .6s .3s cubic-bezier(.22,1,.36,1);
+}
+.fos-panel.in-view .fos-text::before{ height:100%; }
+
+.fos-tag{
+  display:inline-block;
+  font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  padding:4px 12px;
+  background:var(--panel-color,var(--teal));
+  color:var(--white);margin-bottom:18px;
+}
+.fos-h{
+  font-family:var(--font-d);
+  font-size:clamp(20px,2.2vw,26px);
+  color:var(--teal);line-height:1.15;margin-bottom:14px;
+}
+.fos-p{font-size:14px;color:var(--muted);line-height:1.82;}
+
+/* Bullet list */
+.fos-list{
+  list-style:none;margin-top:16px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.fos-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13px;color:var(--muted);line-height:1.6;
+}
+.fos-list li::before{
+  content:'—';
+  color:var(--panel-color,var(--teal));
+  flex-shrink:0;font-weight:bold;
+}
+
+/* ── ABOUT QUAD ── */
+.about-section{padding:0 64px 0;background:var(--white);}
+.about-inner{max-width:1200px;margin:0 auto;}
+.about-intro-row{
+  padding:80px 0 56px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;
+  border-bottom:1px solid var(--border);
+}
+.about-intro-left{}
+.about-intro-right{
+  font-size:15px;color:var(--muted);line-height:1.9;
+}
+
+/* 2×2 quad grid — mimicking the reference image */
+.about-quad{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto auto;
+  border-left:1px solid var(--border);
+  border-top:1px solid var(--border);
+}
+.aq-cell{
+  padding:52px 52px 56px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;
+  transition:background .25s;
+}
+.aq-cell:hover{background:var(--off);}
+/* Hover reveals a teal left accent */
+.aq-cell::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--cell-color,var(--teal));
+  transform:scaleY(0);transform-origin:bottom;transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.aq-cell:hover::before{transform:scaleY(1);}
+
+.aq-title-box{
+  display:inline-block;
+  font-family:var(--font-d);font-size:clamp(22px,2.5vw,30px);
+  color:var(--teal);
+  border:1.5px solid var(--border);
+  padding:10px 28px 12px;
+  margin-bottom:32px;
+  transition:border-color .25s;
+}
+.aq-cell:hover .aq-title-box{border-color:var(--cell-color,var(--teal));}
+
+.aq-body{
+  font-size:14px;color:var(--muted);line-height:1.85;
+  text-align:justify;margin-bottom:28px;
+}
+.aq-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cell-color,var(--teal));
+  opacity:0;transform:translateY(4px);
+  transition:opacity .25s,transform .25s;
+}
+.aq-cell:hover .aq-link{opacity:1;transform:translateY(0);}
+.aq-link::after{content:'→';}
+
+
+
+/* ── NEWS PREVIEW ── */
+.news-section{padding:96px 64px;background:var(--white);}
+.news-inner{max-width:1200px;margin:0 auto;}
+.news-preview{display:flex;flex-direction:column;}
+.np-item{
+  display:grid;grid-template-columns:120px 1fr auto;
+  gap:32px;align-items:start;padding:28px 0;
+  border-bottom:1px solid var(--border);transition:background .2s;
+}
+.np-item:hover{background:var(--off);margin:0 -16px;padding:28px 16px;}
+.np-date{font-size:12px;color:var(--muted);padding-top:4px;}
+.np-tag{display:inline-block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;background:var(--rose);color:var(--white);margin-bottom:8px;}
+.np-tag.pub{background:var(--teal);}
+.np-tag.award{background:var(--tuscany);color:var(--ink);}
+.np-title{font-family:var(--font-d);font-size:17px;color:var(--teal);line-height:1.35;margin-bottom:4px;}
+.np-body{font-size:13px;color:var(--muted);}
+.np-arrow{align-self:center;color:var(--muted);font-size:18px;opacity:0;transition:opacity .2s;}
+.np-item:hover .np-arrow{opacity:1;}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
+.stagger-1{transition-delay:.08s}.stagger-2{transition-delay:.16s}.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}.stagger-5{transition-delay:.40s}.stagger-6{transition-delay:.48s}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:72px 64px 0;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.07);}
+.footer-logo{font-family:var(--font-d);font-size:19px;color:var(--white);margin-bottom:14px;}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:12px;}
+.footer-address{font-size:12px;color:rgba(255,255,255,.25);line-height:1.8;}
+.footer-heading{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:18px;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;}
+.footer-tuscany{color:var(--tuscany);opacity:.5;}
+</style>
+</head>
+<body data-page="home">
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ct">C·T</span>
+      <span class="logo-sep"></span>
+      <span class="logo-lab">Lin's Lab</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"        data-page="home">Home</a></li>
+      <li><a href="team.html"         data-page="team">Team</a></li>
+      <li><a href="instruments.html"  data-page="instruments">Instruments</a></li>
+      <li><a href="publications.html" data-page="publications">Publications</a></li>
+      <li><a href="news.html"         data-page="news">News</a></li>
+      <li><a href="activities.html"   data-page="activities">Activities</a></li>
+      <li><a href="contact.html"      data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Crystal legend -->
+  <div class="crystal-legend">
+    <div class="cl-item"><div class="cl-dot" style="width:14px;height:14px;background:#E8943A;opacity:.7;"></div><span class="cl-label">A-site (Cs⁺ / MA⁺)</span></div>
+    <div class="cl-item"><div class="cl-dot" style="width:10px;height:10px;background:#5B8DB8;opacity:.7;"></div><span class="cl-label">B-site (Pb²⁺)</span></div>
+    <div class="cl-item"><div class="cl-dot" style="width:6px;height:6px;background:#B05A8A;opacity:.7;"></div><span class="cl-label">X-site (I⁻ / Br⁻)</span></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-kicker reveal">National Chung Hsing University · Chemical Engineering</div>
+    <h1 class="hero-h1 reveal stagger-1">Chieh-Ting<br><em>Lin's Lab</em></h1>
+    <p class="hero-sub reveal stagger-2">Solar Energy Materials &amp; Photophysics</p>
+    <div class="hero-rule reveal stagger-3"></div>
+    <p class="hero-desc reveal stagger-4">
+      We investigate next-generation photovoltaics—perovskite and organic solar cells—
+      with a focus on stability, efficiency, and scalable device fabrication.
+    </p>
+    <div class="hero-ctas reveal stagger-5">
+      <a href="research.html" class="btn-primary">Our Research</a>
+      <a href="team.html" class="btn-ghost">Meet the Team</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <svg width="18" height="28" viewBox="0 0 18 28"><rect x="3" y="3" width="12" height="22" rx="6" stroke="white" stroke-width="1.5" fill="none"/><rect x="7.5" y="7" width="3" height="6" rx="1.5" fill="white"/></svg>
+    Scroll
+  </div>
+</div>
+
+
+<!-- FIELD OF STUDY -->
+<div class="fos-section" id="fos-section">
+  <div class="fos-inner">
+    <span class="eyebrow reveal">What We Study</span>
+    <h2 class="sec-title reveal">Field of Study</h2>
+    <div class="sec-rule reveal"></div>
+
+    <div class="fos-panels">
+
+      <!-- Panel 1 — Perovskite Solar Cells (slides from LEFT) -->
+      <div class="fos-panel from-left" style="--panel-color:var(--rose)">
+        <div class="fos-img">
+          <div class="fos-img-ph">
+            <span class="ph-icon">🔮</span>
+            <span class="ph-label">Perovskite Research Photo</span>
+          </div>
+        </div>
+        <div class="fos-text">
+          <span class="fos-tag">Perovskite · ABX₃</span>
+          <h3 class="fos-h">Perovskite Solar Cells</h3>
+          <p class="fos-p">Engineering ABX₃ perovskite absorbers from single-crystal growth to large-area thin-film deposition, targeting the efficiency limits and long-term operational stability essential for commercial deployment.</p>
+          <ul class="fos-list">
+            <li>Single-crystal perovskite growth &amp; characterisation</li>
+            <li>Thin-film stability under thermal, humidity &amp; light stress</li>
+            <li>Interface passivation &amp; charge-transport optimisation</li>
+            <li>Large-area blade-coating and vacuum crystallisation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Panel 2 — Organic Photovoltaics (slides from RIGHT) -->
+      <div class="fos-panel from-right" style="--panel-color:var(--teal)">
+        <div class="fos-img">
+          <div class="fos-img-ph">
+            <span class="ph-icon">🧬</span>
+            <span class="ph-label">Organic PV Research Photo</span>
+          </div>
+        </div>
+        <div class="fos-text">
+          <span class="fos-tag">Organic PV · D:A</span>
+          <h3 class="fos-h">Organic Photovoltaics</h3>
+          <p class="fos-p">Designing all-polymer donor–acceptor systems for mechanically robust, solution-processable solar cells, with a focus on morphology control, photophysical characterisation, and scalable device fabrication.</p>
+          <ul class="fos-list">
+            <li>All-polymer donor–acceptor blend optimisation</li>
+            <li>Morphology control for high-efficiency OPV</li>
+            <li>Quasi-Fermi level splitting &amp; QFLS mapping</li>
+            <li>Organic photocathodes for solar-driven HER</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT QUAD (Publications · Members · Activities · Instruments) -->
+<div class="about-section">
+  <div class="about-inner">
+    <div class="about-intro-row">
+      <div>
+        <span class="eyebrow reveal">About the Lab</span>
+        <h2 class="sec-title reveal">Explore Our Work</h2>
+        <div class="sec-rule reveal"></div>
+      </div>
+      <p class="reveal stagger-2" style="font-size:15px;color:var(--muted);line-height:1.9;">
+        From peer-reviewed publications to state-of-the-art instruments,
+        from a passionate team of researchers to a vibrant lab culture—
+        explore the different dimensions of Chieh-Ting Lin's Lab below.
+      </p>
+    </div>
+
+    <div class="about-quad">
+      <!-- Publications -->
+      <div class="aq-cell reveal" style="--cell-color:var(--teal)">
+        <div class="aq-title-box">Publications</div>
+        <p class="aq-body">Our findings are published in leading peer-reviewed journals, covering material science, device physics, and optoelectronics. These publications stand as a testament to our team's expertise and commitment to scientific excellence.</p>
+        <a href="publications.html" class="aq-link">View Publications</a>
+      </div>
+      <!-- Members -->
+      <div class="aq-cell reveal stagger-1" style="--cell-color:var(--rose)">
+        <div class="aq-title-box">Members</div>
+        <p class="aq-body">Our team is composed of passionate researchers and engineers, united by a shared drive to push the boundaries of material synthesis and device performance. We welcome talent at every stage.</p>
+        <a href="team.html" class="aq-link">Meet the Team</a>
+      </div>
+      <!-- Activities -->
+      <div class="aq-cell reveal stagger-2" style="--cell-color:var(--tuscany)">
+        <div class="aq-title-box">Activities</div>
+        <p class="aq-body">We regularly organise lab gatherings, engage in international student exchanges, and attend leading academic conferences worldwide—creating a vibrant platform for intellectual exchange and collaboration.</p>
+        <a href="activities.html" class="aq-link">See Activities</a>
+      </div>
+      <!-- Instruments -->
+      <div class="aq-cell reveal stagger-3" style="--cell-color:var(--teal-l)">
+        <div class="aq-title-box">Instruments</div>
+        <p class="aq-body">Our laboratory is equipped with advanced characterisation tools and fabrication facilities tailored for perovskite research, supporting high-precision data collection and experimental validation.</p>
+        <a href="instruments.html" class="aq-link">View Instruments</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- NEWS PREVIEW -->
+<div class="news-section">
+  <div class="news-inner">
+    <span class="eyebrow reveal">Latest Updates</span>
+    <h2 class="sec-title reveal">News</h2>
+    <div class="sec-rule reveal"></div>
+    <div class="news-preview">
+      <div class="np-item reveal">
+        <div class="np-date">Jan 2025</div>
+        <div><span class="np-tag pub">Publication</span><div class="np-title">Efficiency Enhancement in Single-Crystal Perovskite via Interface Passivation</div><div class="np-body"><em>Advanced Energy Materials</em> — Placeholder for details.</div></div>
+        <div class="np-arrow">→</div>
+      </div>
+      <div class="np-item reveal stagger-1">
+        <div class="np-date">Dec 2024</div>
+        <div><span class="np-tag award">Award</span><div class="np-title">Lab Receives NSTC Young Scholar Grant</div><div class="np-body">Placeholder — describe the grant and research direction here.</div></div>
+        <div class="np-arrow">→</div>
+      </div>
+      <div class="np-item reveal stagger-2">
+        <div class="np-date">Oct 2024</div>
+        <div><span class="np-tag pub">Publication</span><div class="np-title">Scalable Blade-Coating of Organic Solar Modules Beyond 100 cm²</div><div class="np-body"><em>Nature Energy</em> — Placeholder for details.</div></div>
+        <div class="np-arrow">→</div>
+      </div>
+    </div>
+    <div style="text-align:right;margin-top:32px;" class="reveal">
+      <a href="news.html" style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid var(--border);padding-bottom:3px;">All News →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Chieh-Ting Lin's Lab</div>
+      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
+    </div>
+    <div>
+      <div class="footer-heading">Pages</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="instruments.html">Instruments</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Research</div>
+      <ul class="footer-links">
+        <li><a href="research.html">Perovskite Solar Cells</a></li>
+        <li><a href="research.html">Organic Photovoltaics</a></li>
+        <li><a href="research.html">Large-Area Fabrication</a></li>
+        <li><a href="research.html">Photophysical Characterisation</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:c.lin15@nchu.edu.tw">c.lin15@nchu.edu.tw</a></li>
+        <li><a href="#">886-4-22854724 #811</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>©2025 Chieh-Ting Lin's Lab, NCHU</span>
+    <span class="footer-tuscany">Advancing photovoltaic science</span>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+//  PEROVSKITE ABX₃ — OCTAHEDRAL LATTICE ANIMATION
+//  Structure: corner-sharing BX₆ octahedra, A-site at cavities
+//  Visual style: green octahedra + purple A-site + 2.5D perspective
+// ══════════════════════════════════════════════
+const canvas = document.getElementById('hero-canvas');
+const ctx    = canvas.getContext('2d');
+
+let mouse = { x: -9999, y: -9999 };
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouse.x = (e.clientX - r.left) * (canvas.width  / r.width);
+  mouse.y = (e.clientY - r.top)  * (canvas.height / r.height);
+});
+canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+function resize() {
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ── Colours ──
+const COL = {
+  A:  { fill:'rgba(210,70,210,',  glow:'rgba(210,70,210,',  r:11 },  // purple
+  B:  { fill:'rgba(80,160,100,',  glow:'rgba(80,160,100,',  r:5  },  // green (inside oct)
+  X:  { fill:'rgba(140,200,120,', glow:'rgba(130,190,110,', r:4  },  // light green
+  bond:  'rgba(100,180,120,',
+  face:  'rgba(60,150,90,',
+  edge:  'rgba(100,200,130,',
+};
+
+// ── Octahedron vertex offsets (normalised, half-unit = 0.5) ──
+// BX₆ octahedron: B at centre, X at ±x, ±y, ±z
+const OCT_X = [
+  [1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]
+];
+// 8 triangular faces of octahedron (winding for back-face culling)
+const OCT_FACES = [
+  [0,2,4],[0,4,3],[0,3,5],[0,5,2],
+  [1,4,2],[1,3,4],[1,5,3],[1,2,5]
+];
+// 12 edges of octahedron
+const OCT_EDGES = [
+  [0,2],[0,3],[0,4],[0,5],
+  [1,2],[1,3],[1,4],[1,5],
+  [2,4],[4,3],[3,5],[5,2]
+];
+
+// ── Single ABX₃ unit ──
+// In the 2×2 lattice view, one unit = one BX₆ octahedron
+// + 8 shared A-site atoms at the octahedron corners (cube vertices)
+const CUBE_CORNERS = [
+  [1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],
+  [-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]
+];
+
+// ── Lattice: generate a 3×3 grid of octahedra sharing corners ──
+// Each octahedron centred at integer grid positions
+// A-sites sit at half-integer positions between octahedra
+function makeLattice(gridN, unitLen) {
+  // unitLen = spacing between octahedra centres in px
+  const octs = [];
+  const half = (gridN-1)/2;
+  for(let ix=0; ix<gridN; ix++){
+    for(let iy=0; iy<gridN; iy++){
+      for(let iz=0; iz<gridN; iz++){
+        octs.push({
+          gx: ix - half,
+          gy: iy - half,
+          gz: iz - half,
+        });
+      }
+    }
+  }
+  return octs;
+}
+
+// ── Projection (3-D → 2-D with perspective) ──
+function project3d(wx,wy,wz, cx,cy, fov, scale) {
+  const z = wz + fov;
+  return {
+    sx: cx + (wx / z) * scale,
+    sy: cy + (wy / z) * scale,
+    depth: wz,
+  };
+}
+
+// ── Rotate point around Y then X ──
+function rotYX(x,y,z, ry,rx){
+  // Y axis
+  const x1 =  x*Math.cos(ry) + z*Math.sin(ry);
+  const z1 = -x*Math.sin(ry) + z*Math.cos(ry);
+  // X axis
+  const y2 =  y*Math.cos(rx) - z1*Math.sin(rx);
+  const z2 =  y*Math.sin(rx) + z1*Math.cos(rx);
+  return [x1, y2, z2];
+}
+
+// ── Scene state ──
+// One "floating cluster" drifting around
+const CLUSTERS = [];
+const N_CLUSTERS = 5; // number of floating clusters
+const GRID = 2;       // 2×2×2 octahedra per cluster
+const UNIT = 52;      // px between octahedra centres
+
+for(let i=0; i<N_CLUSTERS; i++){
+  CLUSTERS.push({
+    cx: Math.random() * 1200,
+    cy: Math.random() * 700,
+    vx: (Math.random()-.5)*0.3,
+    vy: (Math.random()-.5)*0.3,
+    ry: Math.random()*Math.PI*2,   // Y rotation angle
+    rx: Math.random()*0.6 - 0.3,  // X tilt (slight)
+    dRY: (Math.random()-.5)*0.007,
+    dRX: (Math.random()-.5)*0.002,
+    hover: 0,
+    scale: 0.7 + Math.random()*0.55,
+  });
+}
+
+// ── Draw one octahedron ──
+function drawOctahedron(ctx, verts3d, cx, cy, ry, rx, scale, alpha) {
+  // Project vertices
+  const fov = 4.5;
+  const vp = verts3d.map(([x,y,z]) => {
+    const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
+    return project3d(rx2,ry2,rz2, cx,cy, fov, scale);
+  });
+
+  // Sort faces by average depth
+  const faces = OCT_FACES.map(f => ({
+    f,
+    depth: (vp[f[0]].depth + vp[f[1]].depth + vp[f[2]].depth) / 3
+  })).sort((a,b) => a.depth - b.depth);
+
+  // Draw filled faces
+  faces.forEach(({ f, depth }) => {
+    const [i,j,k] = f;
+    const lightness = 0.35 + (depth + 1) * 0.18;
+    const fa = Math.max(0, Math.min(1, lightness * alpha));
+
+    ctx.beginPath();
+    ctx.moveTo(vp[i].sx, vp[i].sy);
+    ctx.lineTo(vp[j].sx, vp[j].sy);
+    ctx.lineTo(vp[k].sx, vp[k].sy);
+    ctx.closePath();
+    ctx.fillStyle = COL.face + fa + ')';
+    ctx.fill();
+  });
+
+  // Draw edges on top
+  OCT_EDGES.forEach(([i,j]) => {
+    const da = (vp[i].depth + vp[j].depth)/2;
+    const ea = Math.max(0, Math.min(1, (0.5 + da*0.3) * alpha));
+    ctx.beginPath();
+    ctx.moveTo(vp[i].sx, vp[i].sy);
+    ctx.lineTo(vp[j].sx, vp[j].sy);
+    ctx.strokeStyle = COL.edge + ea + ')';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  });
+
+  return vp;
+}
+
+// ── Draw sphere ──
+function drawSphere(ctx, sx, sy, r, col, alpha) {
+  // Glow
+  const g = ctx.createRadialGradient(sx,sy,0, sx,sy,r*2.5);
+  g.addColorStop(0, col.glow + (alpha*0.3) + ')');
+  g.addColorStop(1, col.glow + '0)');
+  ctx.beginPath();
+  ctx.arc(sx,sy,r*2.5,0,Math.PI*2);
+  ctx.fillStyle = g; ctx.fill();
+
+  // Body
+  const b = ctx.createRadialGradient(sx-r*.3,sy-r*.3,0, sx,sy,r);
+  b.addColorStop(0, col.fill + Math.min(1,alpha+.2) + ')');
+  b.addColorStop(1, col.fill + (alpha*.6)     + ')');
+  ctx.beginPath();
+  ctx.arc(sx,sy,r,0,Math.PI*2);
+  ctx.fillStyle = b; ctx.fill();
+}
+
+// ── Draw one cluster ──
+function drawCluster(cl) {
+  const sc = cl.scale * UNIT * (1 + cl.hover * 0.18);
+  const fov = 4.5;
+  const ry = cl.ry, rx = cl.rx;
+
+  // Collect all drawable elements
+  const drawables = [];
+
+  const octs = makeLattice(GRID, 1.0);
+
+  // For each octahedron in the grid
+  octs.forEach(oct => {
+    const bx = oct.gx, by = oct.gy, bz = oct.gz;
+
+    // B-site at centre
+    const [bRx,bRy,bRz] = rotYX(bx,by,bz, ry,rx);
+    const bProj = project3d(bRx,bRy,bRz, cl.cx,cl.cy, fov, sc);
+
+    // X-site vertices (scaled to half-unit)
+    const xVerts3d = OCT_X.map(([dx,dy,dz]) => [bx+dx*0.5, by+dy*0.5, bz+dz*0.5]);
+    const xProjs = xVerts3d.map(([x,y,z]) => {
+      const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
+      return project3d(rx2,ry2,rz2, cl.cx,cl.cy, fov, sc);
+    });
+
+    // Octahedron faces
+    const faceVerts = xVerts3d.map(([x,y,z]) => [x-bx,y-by,z-bz]);
+    // Actually we need to draw faces relative to B projected position
+    // We'll add the octahedron as a single drawable
+    drawables.push({
+      type:'oct',
+      depth: bProj.depth,
+      bx,by,bz,
+      bProj, xVerts3d, xProjs,
+    });
+
+    // B-site sphere
+    drawables.push({ type:'B', depth:bProj.depth, proj:bProj });
+
+    // X-site spheres
+    xProjs.forEach((xp, xi) => {
+      drawables.push({ type:'X', depth:xp.depth, proj:xp });
+    });
+  });
+
+  // A-site atoms: at half-integer lattice positions between octahedra
+  // In GRID×GRID×GRID, A-sites sit at positions offset by (±0.5, ±0.5, ±0.5) from each oct
+  const aSet = new Set();
+  octs.forEach(oct => {
+    CUBE_CORNERS.forEach(([dx,dy,dz]) => {
+      const ax = oct.gx + dx*0.5;
+      const ay = oct.gy + dy*0.5;
+      const az = oct.gz + dz*0.5;
+      const key = `${ax.toFixed(1)},${ay.toFixed(1)},${az.toFixed(1)}`;
+      if(!aSet.has(key)){
+        aSet.add(key);
+        const [arx,ary,arz] = rotYX(ax,ay,az, ry,rx);
+        const aProj = project3d(arx,ary,arz, cl.cx,cl.cy, fov, sc);
+        drawables.push({ type:'A', depth:aProj.depth, proj:aProj });
+      }
+    });
+  });
+
+  // Sort all drawables back-to-front
+  drawables.sort((a,b) => a.depth - b.depth);
+
+  const alpha = 0.82 + cl.hover * 0.18;
+
+  drawables.forEach(d => {
+    const a = Math.max(0, Math.min(1, alpha));
+    if(d.type === 'oct'){
+      // Draw faces + edges
+      const fov2 = 4.5;
+      const vp = d.xVerts3d.map(([x,y,z]) => {
+        const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
+        return project3d(rx2,ry2,rz2, cl.cx,cl.cy, fov2, sc);
+      });
+
+      const sortedFaces = OCT_FACES.map(f => ({
+        f,
+        depth: (vp[f[0]].depth+vp[f[1]].depth+vp[f[2]].depth)/3
+      })).sort((a,b) => a.depth-b.depth);
+
+      sortedFaces.forEach(({ f, depth }) => {
+        const lightness = 0.22 + (depth+1)*0.15;
+        const fa = Math.max(0, Math.min(0.65, lightness*a));
+        ctx.beginPath();
+        ctx.moveTo(vp[f[0]].sx, vp[f[0]].sy);
+        ctx.lineTo(vp[f[1]].sx, vp[f[1]].sy);
+        ctx.lineTo(vp[f[2]].sx, vp[f[2]].sy);
+        ctx.closePath();
+        ctx.fillStyle = COL.face + fa + ')';
+        ctx.fill();
+      });
+
+      OCT_EDGES.forEach(([i,j]) => {
+        const ea = Math.max(0, Math.min(0.9, (0.5+(vp[i].depth+vp[j].depth)/2*0.3)*a));
+        ctx.beginPath();
+        ctx.moveTo(vp[i].sx, vp[i].sy);
+        ctx.lineTo(vp[j].sx, vp[j].sy);
+        ctx.strokeStyle = COL.edge + ea + ')';
+        ctx.lineWidth = 1.0; ctx.stroke();
+      });
+    }
+    else if(d.type === 'A'){
+      const r = COL.A.r * cl.scale * (1 + cl.hover*0.12);
+      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.A, a);
+    }
+    else if(d.type === 'B'){
+      const r = COL.B.r * cl.scale * (1 + cl.hover*0.12);
+      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.B, a * 0.85);
+    }
+    else if(d.type === 'X'){
+      const r = COL.X.r * cl.scale * (1 + cl.hover*0.12);
+      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.X, a * 0.7);
+    }
+  });
+}
+
+// ── Animation loop ──
+function tick() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  CLUSTERS.forEach(cl => {
+    // Sync canvas size for proper wrapping
+    const W = canvas.width, H = canvas.height;
+
+    cl.cx += cl.vx; cl.cy += cl.vy;
+    if(cl.cx < -150)  cl.cx = W + 150;
+    if(cl.cx > W+150) cl.cx = -150;
+    if(cl.cy < -150)  cl.cy = H + 150;
+    if(cl.cy > H+150) cl.cy = -150;
+
+    const hb = 1 + cl.hover * 3;
+    cl.ry += cl.dRY * hb;
+    cl.rx += cl.dRX * hb;
+    // Keep rx in gentle range
+    cl.rx = Math.max(-0.6, Math.min(0.6, cl.rx));
+    if(Math.abs(cl.rx) > 0.55) cl.dRX *= -1;
+
+    // Mouse hover
+    const dx = cl.cx - mouse.x, dy = cl.cy - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const target = dist < 200 ? Math.max(0, 1-dist/200) : 0;
+    cl.hover += (target - cl.hover) * 0.08;
+
+    drawCluster(cl);
+  });
+
+  requestAnimationFrame(tick);
+}
+tick();
+
+// ── Nav ──
+const navbar = document.getElementById('navbar');
+navbar.classList.add('dark-hero');
+
+function onScroll(){
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.dataset.page === document.body.dataset.page) a.classList.add('active');
+});
+
+// ── Scroll reveal ──
+const ro = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+
+// ── Field of Study — slide-in from sides ──
+const fosObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      // stagger: left panel first, right panel 150ms later
+      const panels = document.querySelectorAll('.fos-panel');
+      panels.forEach((p, i) => {
+        setTimeout(() => p.classList.add('in-view'), i * 150);
+      });
+      fosObs.disconnect();
+    }
+  });
+}, { threshold: 0.18 });
+const fosSection = document.getElementById('fos-section');
+if(fosSection) fosObs.observe(fosSection);
+</script>
+</body>
+</html>

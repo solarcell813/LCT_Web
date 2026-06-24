@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News — Chieh-Ting Lin's Lab</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --teal:     #294752;
+  --teal-d:   #1a2f38;
+  --teal-l:   #3d6475;
+  --rose:     #A8535C;
+  --rose-l:   #c4717a;
+  --tuscany:  #C9A84C;
+  --tuscany-l:#e0c068;
+  --white:    #FFFFFF;
+  --off:      #F6F4F1;
+  --light:    #EBF0F2;
+  --ink:      #18282f;
+  --muted:    #6b8a92;
+  --border:   #d4e0e4;
+  --font-d:   'GFS Didot', 'Times New Roman', serif;
+  --font-b:   'Times New Roman', serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-b);color:var(--ink);background:var(--white);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ───────────────────────────────────────── */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  transition:background .35s,box-shadow .35s,padding .35s;
+  padding:0 64px; height:68px;
+  display:flex;align-items:center;
+}
+#navbar.scrolled{
+  background:rgba(255,255,255,0.96);
+  box-shadow:0 1px 0 var(--border);
+  backdrop-filter:blur(12px);
+}
+#navbar.dark-hero{ color:var(--white); }
+#navbar.dark-hero.scrolled{ color:var(--ink); }
+
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  width:100%;max-width:1400px;margin:0 auto;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-d);font-size:16px;letter-spacing:.04em;
+  color:inherit;
+}
+.logo-ct{
+  font-size:19px;color:var(--rose);letter-spacing:.06em;font-weight:bold;
+}
+.logo-sep{
+  width:1px;height:20px;background:currentColor;opacity:.2;
+}
+.logo-lab{color:inherit;}
+
+.nav-links{
+  display:flex;gap:40px;list-style:none;
+}
+.nav-links a{
+  font-family:var(--font-b);font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:inherit;opacity:.75;transition:opacity .2s,color .2s;
+  position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;
+  width:0;height:1.5px;background:var(--rose);
+  transition:width .25s;
+}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after{ width:100%; }
+.nav-links a.active{ opacity:1;color:var(--rose); }
+.nav-links a.active::after{ width:100%;background:var(--rose); }
+
+.nav-burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-burger span{
+  display:block;width:24px;height:1.5px;background:currentColor;
+  transition:transform .25s,opacity .25s;
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible{ opacity:1;transform:translateY(0); }
+.reveal-left{
+  opacity:0;transform:translateX(-40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-left.visible{ opacity:1;transform:translateX(0); }
+.reveal-right{
+  opacity:0;transform:translateX(40px);
+  transition:opacity .7s cubic-bezier(.22,1,.36,1),
+             transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal-right.visible{ opacity:1;transform:translateX(0); }
+
+.stagger-1{transition-delay:.08s}
+.stagger-2{transition-delay:.16s}
+.stagger-3{transition-delay:.24s}
+.stagger-4{transition-delay:.32s}
+.stagger-5{transition-delay:.40s}
+.stagger-6{transition-delay:.48s}
+
+/* ── SECTION SHELL ─────────────────────────────── */
+.section{padding:100px 64px;}
+.section-alt{background:var(--off);}
+.section-dark{background:var(--teal);}
+.section-inner{max-width:1200px;margin:0 auto;}
+
+.eyebrow{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:14px;display:block;
+}
+.eyebrow.light{color:var(--tuscany);}
+.sec-title{
+  font-family:var(--font-d);
+  font-size:clamp(30px,3.5vw,46px);
+  color:var(--teal);line-height:1.1;margin-bottom:18px;
+}
+.sec-title.light{color:var(--white);}
+.sec-rule{
+  width:40px;height:2px;background:var(--tuscany);margin-bottom:56px;
+}
+
+/* ── PLACEHOLDER IMG ───────────────────────────── */
+.ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;
+  background:var(--light);border:1px solid var(--border);
+  color:var(--muted);font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.ph-icon{font-size:28px;opacity:.3;}
+
+/* ── FOOTER ────────────────────────────────────── */
+footer{
+  background:var(--ink);
+  padding:72px 64px 0;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:48px;max-width:1200px;margin:0 auto;
+  padding-bottom:56px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.footer-logo{
+  font-family:var(--font-d);font-size:19px;
+  color:var(--white);margin-bottom:14px;
+}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:12px;}
+.footer-address{font-size:12px;color:rgba(255,255,255,.25);line-height:1.8;}
+.footer-heading{
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:18px;
+}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-bottom{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;
+  font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;
+}
+.footer-tuscany{color:var(--tuscany);opacity:.5;}
+
+/* ── SHARED JS ─────────────────────────────────── */
+
+
+.page-hero{margin-top:68px;background:var(--teal);padding:80px 64px 72px;position:relative;overflow:hidden;}
+.page-hero::after{content:'NEWS';position:absolute;right:-20px;top:50%;transform:translateY(-50%);font-family:var(--font-d);font-size:200px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
+.page-hero-inner{max-width:1200px;margin:0 auto;}
+.page-hero-eyebrow{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--tuscany);margin-bottom:16px;}
+.page-hero-title{font-family:var(--font-d);font-size:clamp(42px,6vw,72px);color:var(--white);line-height:1.05;}
+
+.news-full{display:flex;flex-direction:column;gap:0;}
+.news-row{
+  display:grid;grid-template-columns:110px 64px 1fr;
+  border-bottom:1px solid var(--border);
+  padding:32px 0;transition:background .2s;
+}
+.news-row:hover{background:var(--off);margin:0 -24px;padding:32px 24px;}
+.news-row-date{font-size:12px;color:var(--muted);padding-top:4px;letter-spacing:.04em;}
+.news-row-tag-col{padding-top:2px;}
+.news-row-tag{
+  display:inline-block;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;padding:4px 10px;
+  background:var(--rose);color:var(--white);
+}
+.news-row-tag.pub{background:var(--teal);}
+.news-row-tag.award{background:var(--tuscany);color:var(--ink);}
+.news-row-tag.event{background:var(--teal-l);}
+.news-row-title{font-family:var(--font-d);font-size:19px;color:var(--teal);margin-bottom:8px;line-height:1.3;}
+.news-row-body{font-size:13px;color:var(--muted);line-height:1.7;}
+
+</style>
+</head>
+<body data-page="news" class="">
+
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ct">C·T</span>
+      <span class="logo-sep"></span>
+      <span class="logo-lab">Lin's Lab</span>
+    </a>
+    <button class="nav-burger" onclick="toggleMobile()" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html"        data-page="home">Home</a></li>
+      <li><a href="team.html"         data-page="team">Team</a></li>
+      <li><a href="instruments.html"  data-page="instruments">Instruments</a></li>
+      <li><a href="publications.html" data-page="publications">Publications</a></li>
+      <li><a href="news.html"         data-page="news">News</a></li>
+      <li><a href="activities.html"   data-page="activities">Activities</a></li>
+      <li><a href="contact.html"      data-page="contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow reveal">Updates</div>
+    <h1 class="page-hero-title reveal stagger-1">News</h1>
+  </div>
+</div>
+<div class="section">
+  <div class="section-inner">
+    <div class="news-full">
+      <div class="news-row reveal">
+        <div class="news-row-date">Jan 2025</div>
+        <div class="news-row-tag-col"><span class="news-row-tag pub">Publication</span></div>
+        <div><div class="news-row-title">Efficiency Enhancement in Single-Crystal Perovskite via Interface Passivation</div><div class="news-row-body"><em>Advanced Energy Materials</em> — Placeholder for full citation and abstract link.</div></div>
+      </div>
+      <div class="news-row reveal stagger-1">
+        <div class="news-row-date">Dec 2024</div>
+        <div class="news-row-tag-col"><span class="news-row-tag award">Award</span></div>
+        <div><div class="news-row-title">Lab Receives NSTC Young Scholar Grant</div><div class="news-row-body">Placeholder — describe grant, funding body, and research direction here.</div></div>
+      </div>
+      <div class="news-row reveal stagger-2">
+        <div class="news-row-date">Oct 2024</div>
+        <div class="news-row-tag-col"><span class="news-row-tag pub">Publication</span></div>
+        <div><div class="news-row-title">Scalable Blade-Coating of Organic Solar Modules Beyond 100 cm²</div><div class="news-row-body"><em>Nature Energy</em> — Placeholder for full citation and abstract link.</div></div>
+      </div>
+      <div class="news-row reveal">
+        <div class="news-row-date">Sep 2024</div>
+        <div class="news-row-tag-col"><span class="news-row-tag event">Event</span></div>
+        <div><div class="news-row-title">Lab Presents at MRS Fall Meeting 2024, Boston</div><div class="news-row-body">Placeholder — add talk title, presenter name, and session details.</div></div>
+      </div>
+      <div class="news-row reveal stagger-1">
+        <div class="news-row-date">Jun 2024</div>
+        <div class="news-row-tag-col"><span class="news-row-tag pub">Publication</span></div>
+        <div><div class="news-row-title">Probing Quasi-Fermi Level Splitting in Organic Solar Cells via In-situ PL</div><div class="news-row-body"><em>ACS Energy Letters</em> — Placeholder for full citation and abstract link.</div></div>
+      </div>
+      <div class="news-row reveal stagger-2">
+        <div class="news-row-date">Mar 2024</div>
+        <div class="news-row-tag-col"><span class="news-row-tag event">Event</span></div>
+        <div><div class="news-row-title">New Members Join the Lab — Spring 2024 Intake</div><div class="news-row-body">Welcoming three new Master's students to the group. Placeholder for names and projects.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand-col">
+      <div class="footer-logo">Chieh-Ting Lin's Lab</div>
+      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
+    </div>
+    <div>
+      <div class="footer-heading">Pages</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Research</div>
+      <ul class="footer-links">
+        <li><a href="#">Perovskite Solar Cells</a></li>
+        <li><a href="#">Organic Photovoltaics</a></li>
+        <li><a href="#">Large-Area Fabrication</a></li>
+        <li><a href="#">Photophysical Characterisation</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <ul class="footer-links">
+        <li><a href="mailto:c.lin15@nchu.edu.tw">c.lin15@nchu.edu.tw</a></li>
+        <li><a href="#">886-4-22854724 #811</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>©2025 Chieh-Ting Lin's Lab, NCHU</span>
+    <span class="footer-tuscany">Advancing photovoltaic science</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll state
+const navbar = document.getElementById('navbar');
+const isDark = navbar.classList.contains('dark-hero');
+function onScroll(){
+  if(window.scrollY > 40){
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// Active nav link
+const page = document.body.dataset.page;
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  if(a.dataset.page===page) a.classList.add('active');
+});
+
+// Mobile menu
+function toggleMobile(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
