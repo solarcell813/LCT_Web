@@ -412,6 +412,10 @@ footer{
   transition:opacity .25s;display:flex;align-items:center;gap:6px;
 }
 .instr-card:hover .instr-card-hint{opacity:1;}
+.instr-no-modal{cursor:default;}
+.instr-no-modal:hover{transform:none!important;box-shadow:none!important;}
+.instr-no-modal:hover .instr-name{color:var(--teal)!important;}
+.instr-no-modal .instr-card-hint{display:none!important;}
 
 </style>
 <link rel="stylesheet" href="mobile.css">
@@ -457,18 +461,17 @@ footer{
 
 <div class="section">
   <div class="section-inner">
-    
+
     <div class="part-header reveal">
-      <span class="part-badge">Part II</span>
-      <span class="part-title">Optical & Optoelectronic Analysis</span>
+      <span class="part-badge">Part I</span>
+      <span class="part-title">Optical &amp; Optoelectronic Analysis</span>
       <span class="part-line"></span>
     </div>
     <div class="instr-grid">
 
-      <div class="instr-card" onclick="openModal('solar-sim')" reveal stagger-1" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-1" onclick="openModal('solar-sim')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">☀️</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/sim_1.jpg" alt="Solar Simulator" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">Solar Simulator</div>
@@ -476,14 +479,12 @@ footer{
           <div class="instr-desc">Full-spectrum AM 1.5G simulation for photovoltaic device evaluation. Extracts J<sub>sc</sub>, V<sub>oc</sub>, Fill Factor, and PCE; supports light-soaking stability tests.</div>
           <span class="instr-model">AM 1.5G Standard</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('pdqe')" reveal stagger-2" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-2" onclick="openModal('pdqe')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">📡</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/pd_1.png" alt="PD-QE System" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">PD-QE System</div>
@@ -491,14 +492,12 @@ footer{
           <div class="instr-desc">Spectral response measurement from 300–1100 nm. Dark I-V extraction, flicker/Johnson/shot noise analysis, and J<sub>sc</sub> cross-verification with Solar Simulator.</div>
           <span class="instr-model">300–1100 nm</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('insitu-pl-300')" reveal stagger-3" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-3" onclick="openModal('insitu-pl-300')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">💡</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/insitu_1.jpg" alt="In-situ PL" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">In-situ PL (300–1050 nm)</div>
@@ -506,14 +505,12 @@ footer{
           <div class="instr-desc">Microsecond time-resolution photoluminescence with full time-dependent spectra. Maps composition variations in mixed-halide perovskite films via peak shift analysis.</div>
           <span class="instr-model">Microsecond resolution</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('qfls')" reveal stagger-4" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-4" onclick="openModal('qfls')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">🗺️</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/qfls_1.jpg" alt="QFLS Mapper" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">QFLS Mapper</div>
@@ -521,14 +518,12 @@ footer{
           <div class="instr-desc">600–1100 nm in-situ PL for real-time crystallization and degradation monitoring. Large-area PL mapping for film uniformity; quasi-Fermi level splitting and pseudo J–V analysis.</div>
           <span class="instr-model">ENLITECH QFLS-Mapper</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('uvvis')" reveal stagger-5" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-5" onclick="openModal('uvvis')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">🌈</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/uv_1.jpg" alt="UV-Vis Spectrophotometer" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">UV-Vis Spectrophotometer</div>
@@ -536,14 +531,12 @@ footer{
           <div class="instr-desc">Transmittance, reflectance, and absorbance of solutions, thin films, and pressed powder pellets. Direct/indirect bandgap extraction via Tauc plots.</div>
           <span class="instr-model">180–1100 nm</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('kp')" reveal stagger-6" style="--card-accent:var(--rose)">
+      <div class="instr-card reveal stagger-6" onclick="openModal('kp')" style="--card-accent:var(--rose)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">⚡</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/kp_1.jpg" alt="Kelvin Probe" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">Kelvin Probe (APS04)</div>
@@ -551,22 +544,21 @@ footer{
           <div class="instr-desc">UV light source (3.4–9.0 eV). Measures work function, contact potential difference (CPD), and surface potential mapping. Studies energy-level alignment at heterojunctions.</div>
           <span class="instr-model">KP Technology APS04</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
+
     </div>
 
     <div class="part-header reveal">
-      <span class="part-badge">Part III</span>
+      <span class="part-badge">Part II</span>
       <span class="part-title">Electrochemical Measurements</span>
       <span class="part-line"></span>
     </div>
     <div class="instr-grid">
 
-      <div class="instr-card" onclick="openModal('autolab')" reveal stagger-1" style="--card-accent:var(--teal)">
+      <div class="instr-card reveal stagger-1" onclick="openModal('autolab')" style="--card-accent:var(--teal)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">🔋</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/autolab_1.jpg" alt="Autolab Potentiostat" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">Autolab Potentiostat</div>
@@ -574,14 +566,12 @@ footer{
           <div class="instr-desc">Cyclic voltammetry (CV) for electrochemical mechanisms and kinetics. EIS for interfacial resistance and charge-transfer efficiency. Long-term galvanostatic battery cycling.</div>
           <span class="instr-model">Modular Spectroelectrochemistry</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
 
-      <div class="instr-card" onclick="openModal('paios')" reveal stagger-2" style="--card-accent:var(--teal)">
+      <div class="instr-card reveal stagger-2" onclick="openModal('paios')" style="--card-accent:var(--teal)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">📊</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/paios_1.jpg" alt="Fluxim Paios" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
           <div class="instr-name">Fluxim Paios</div>
@@ -589,32 +579,81 @@ footer{
           <div class="instr-desc">Transient photovoltage/current (TPV/TPC) for carrier lifetime. CELIV for mobility measurement. EIS for interfacial resistance. Mott-Schottky for built-in potential analysis.</div>
           <span class="instr-model">All-in-one Characterization</span>
         </div>
-      
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
+
     </div>
 
     <div class="part-header reveal">
-      <span class="part-badge">Part IV</span>
+      <span class="part-badge">Part III</span>
       <span class="part-title">Large-Area Manufacturing</span>
       <span class="part-line"></span>
     </div>
     <div class="instr-grid">
 
-      <div class="instr-card" onclick="openModal('large-area')" reveal stagger-1" style="--card-accent:var(--tuscany)">
+      <div class="instr-card instr-no-modal reveal stagger-1" style="--card-accent:var(--tuscany)">
         <div class="instr-img-wrap">
-          <span class="ph-icon">🏭</span>
-          <span class="ph-label">Photo / Figure</span>
+          <img src="assets/instrument/blade_coater.jpg" alt="Blade Coating" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="instr-body">
-          <div class="instr-name">Large-Area Research Station</div>
-          <div class="instr-key"><span class="instr-tag">Blade Coating</span><span class="instr-tag">Vacuum Crystallization</span><span class="instr-tag">Evaporation</span></div>
-          <div class="instr-desc">High-throughput blade coating for large-area deposition. Vacuum crystallization chamber for film morphology control. Thermal evaporator for Cu, Cr, Ag, Au, C<sub>60</sub>, BCP, MoO<sub>3</sub>.</div>
-          <span class="instr-model">Blade Coating & Vacuum Chamber</span>
+          <div class="instr-name">Blade Coating</div>
+          <div class="instr-key"><span class="instr-tag">Large-Area</span><span class="instr-tag">Film Deposition</span><span class="instr-tag">&gt;100 cm²</span></div>
+          <div class="instr-desc">High-throughput blade coating for large-area thin-film deposition over areas exceeding 100 cm². Deposits uniform films at controlled speeds and blade gaps for scalable solar cell fabrication.</div>
+          <span class="instr-model">Large-Area Deposition</span>
         </div>
-      
+      </div>
+
+      <div class="instr-card instr-no-modal reveal stagger-2" style="--card-accent:var(--tuscany)">
+        <div class="instr-img-wrap">
+          <img src="assets/instrument/vacuum_device.jpg" alt="Vacuum Crystallization Chamber" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Vacuum Crystallization Chamber</div>
+          <div class="instr-key"><span class="instr-tag">Crystallization</span><span class="instr-tag">Film Morphology</span><span class="instr-tag">Perovskite</span></div>
+          <div class="instr-desc">Vacuum crystallization chamber for film morphology control. Controls solvent evaporation kinetics, enabling high-quality crystallisation of perovskite absorber and charge-transport layers.</div>
+          <span class="instr-model">Vacuum Environment</span>
+        </div>
+      </div>
+
+      <div class="instr-card reveal stagger-3" onclick="openModal('evaporator')" style="--card-accent:var(--tuscany)">
+        <div class="instr-img-wrap">
+          <img src="assets/instrument/S__6955011.jpg" alt="Evaporator" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Evaporator</div>
+          <div class="instr-key"><span class="instr-tag">Thermal Evaporation</span><span class="instr-tag">Metal Contacts</span><span class="instr-tag">Organic Layers</span></div>
+          <div class="instr-desc">Thermal evaporator for metal contacts (Cu, Cr, Ag, Au) and organic functional layers (C<sub>60</sub>, BCP, MoO<sub>3</sub>) for complete perovskite and organic solar cell fabrication.</div>
+          <span class="instr-model">Thermal Evaporation System</span>
+        </div>
         <div class="instr-card-hint">🔍 View Details →</div>
       </div>
+
+      <div class="instr-card reveal stagger-4" onclick="openModal('glove-box')" style="--card-accent:var(--tuscany)">
+        <div class="instr-img-wrap">
+          <img src="assets/instrument/glove_box_1.jpg" alt="Glove Box" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">Glove Box</div>
+          <div class="instr-key"><span class="instr-tag">Inert Atmosphere</span><span class="instr-tag">N₂</span><span class="instr-tag">Device Fabrication</span></div>
+          <div class="instr-desc">Nitrogen-filled glove box providing an inert atmosphere for moisture- and oxygen-sensitive material processing. Essential for perovskite solar cell and organic photovoltaic fabrication.</div>
+          <span class="instr-model">Inert Atmosphere System</span>
+        </div>
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
+      <div class="instr-card reveal stagger-5" onclick="openModal('3d-printer')" style="--card-accent:var(--tuscany)">
+        <div class="instr-img-wrap">
+          <img src="assets/instrument/3d_1.jpg" alt="3D Printer" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="instr-body">
+          <div class="instr-name">3D Printer</div>
+          <div class="instr-key"><span class="instr-tag">Rapid Prototyping</span><span class="instr-tag">Custom Parts</span><span class="instr-tag">Lab Fixtures</span></div>
+          <div class="instr-desc">3D printing for rapid prototyping of custom lab fixtures, device holders, and experimental setups. Enables fast iteration of custom components for experimental apparatus.</div>
+          <span class="instr-model">Rapid Prototyping</span>
+        </div>
+        <div class="instr-card-hint">🔍 View Details →</div>
+      </div>
+
     </div>
 
   </div>
@@ -757,7 +796,118 @@ document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.o
 </div>
 
 <script>
-const INSTR_DATA = [{"id": "solar-sim", "name": "Solar Simulator", "model": "AM 1.5G Standard", "part": "Part II — Optical", "tags": ["PV Performance", "IV Curve", "Light Soaking"], "desc": "Our solar simulator provides the industry-standard AM 1.5G full-spectrum illumination (100 mW/cm²) for accurate photovoltaic device characterisation. The system measures current-voltage (J-V) characteristics under controlled illumination, extracting key device parameters including short-circuit current density (J<sub>sc</sub>), open-circuit voltage (V<sub>oc</sub>), fill factor (FF), and power conversion efficiency (PCE). Light-soaking protocols enable operational stability assessment under continuous illumination, critical for perovskite solar cell research.", "specs": [{"label": "Spectrum", "value": "AM 1.5G"}, {"label": "Irradiance", "value": "100 mW/cm²"}, {"label": "Area", "value": "Up to 20×20 cm"}, {"label": "Parameters", "value": "Jsc, Voc, FF, PCE"}]}, {"id": "pdqe", "name": "PD-QE System", "model": "300–1100 nm Range", "part": "Part II — Optical", "tags": ["EQE", "Dark I-V", "Noise Analysis"], "desc": "The photodetector quantum efficiency (PD-QE) system measures the external quantum efficiency (EQE) of solar cells and photodetectors with spectral resolution from 300 to 1100 nm. Dark I-V measurements characterise device behaviour without illumination, extracting diode ideality factor, shunt resistance, and series resistance. The integrated noise analysis module resolves flicker (1/f), Johnson, and shot noise contributions—essential for high-performance photodetector characterisation. Integrated J<sub>sc</sub> from EQE is cross-verified with solar simulator data.", "specs": [{"label": "Wavelength", "value": "300–1100 nm"}, {"label": "Measurement", "value": "EQE, Dark I-V"}, {"label": "Noise Types", "value": "Flicker, Johnson, Shot"}, {"label": "Output", "value": "Integrated Jsc"}]}, {"id": "insitu-pl-300", "name": "In-situ PL (300–1050 nm)", "model": "Microsecond Resolution", "part": "Part II — Optical", "tags": ["In-situ PL", "Peak Shift", "Composition Mapping"], "desc": "This in-situ photoluminescence system offers microsecond-level time resolution with full spectral acquisition across 300–1050 nm. It enables real-time monitoring of photoluminescence dynamics during device operation, annealing, or degradation. Peak shift analysis maps composition gradients and halide distribution in mixed-halide perovskite films—directly correlating optoelectronic quality with film composition. Time-resolved measurements reveal charge-carrier lifetime and recombination mechanisms.", "specs": [{"label": "Wavelength", "value": "300–1050 nm"}, {"label": "Time Resolution", "value": "Microsecond"}, {"label": "Modes", "value": "CW, In-situ, Time-resolved"}, {"label": "Application", "value": "Film composition mapping"}]}, {"id": "qfls", "name": "QFLS Mapper", "model": "ENLITECH QFLS-Mapper", "part": "Part II — Optical", "tags": ["QFLS", "iVoc", "PL Mapping", "Pseudo J–V"], "desc": "The QFLS Mapper (ENLITECH) operates from 600–1100 nm and combines in-situ PL with quasi-Fermi level splitting (QFLS) analysis—a critical parameter linking optical properties to device efficiency. Large-area PL mapping scans cm²-scale films for spatial uniformity, identifying inhomogeneities at the sub-mm level. The iVoc and Pseudo J-V analysis predicts the theoretical efficiency limit of a device by excluding series resistance effects, using PLQY and QFLS data. Essential for diagnosing losses in perovskite and organic solar cells.", "specs": [{"label": "Wavelength", "value": "600–1100 nm"}, {"label": "Mapping Area", "value": "Large-area cm² scale"}, {"label": "Analysis", "value": "QFLS, iVoc, Pseudo J-V"}, {"label": "Metrics", "value": "PLQY, QFLS, spatial uniformity"}]}, {"id": "uvvis", "name": "UV-Vis Spectrophotometer", "model": "180–1100 nm", "part": "Part II — Optical", "tags": ["Absorption", "Bandgap", "Tauc Plot", "Transmittance"], "desc": "Our UV-Vis spectrophotometer covers 180–1100 nm and accommodates solutions, thin films, and pressed powder pellets. It measures optical transmittance, reflectance, and absorbance simultaneously, enabling complete optical characterisation of absorber and transport layers. Direct and indirect bandgaps are extracted via Tauc plots from the absorption edge. Integrating sphere attachments allow measurement of highly scattering and diffuse samples—critical for analysing nanoparticle suspensions and rough perovskite films.", "specs": [{"label": "Wavelength", "value": "180–1100 nm"}, {"label": "Sample Forms", "value": "Solution, Film, Pellet"}, {"label": "Measurements", "value": "T, R, A"}, {"label": "Bandgap", "value": "Direct & indirect via Tauc"}]}, {"id": "kp", "name": "Kelvin Probe (APS04)", "model": "KP Technology APS04", "part": "Part II — Optical", "tags": ["Work Function", "CPD", "Energy Level", "Heterojunction"], "desc": "The KP Technology APS04 uses UV light (3.4–9.0 eV) to measure absolute work function and contact potential difference (CPD) with sub-meV resolution. Surface potential maps reveal local variations in Fermi level alignment—critical for understanding charge extraction and recombination at interfaces. Interface alignment studies at heterojunctions (ETL/perovskite, perovskite/HTL) guide layer optimisation for high-efficiency devices. Combined with photoelectron spectroscopy, it provides a complete picture of the device energy landscape.", "specs": [{"label": "Light Source", "value": "UV 3.4–9.0 eV"}, {"label": "Measurement", "value": "Work function, CPD"}, {"label": "Model", "value": "KP Technology APS04"}, {"label": "Application", "value": "Interface energy alignment"}]}, {"id": "autolab", "name": "Autolab Potentiostat", "model": "Modular Spectroelectrochemistry", "part": "Part III — Electrochemical", "tags": ["CV", "EIS", "Galvanostatic", "Spectroelectrochemistry"], "desc": "The Autolab modular potentiostat/galvanostat performs a full suite of electrochemical measurements. Cyclic voltammetry (CV) investigates redox mechanisms, kinetics, and frontier orbital energies of organic semiconductors. Electrochemical impedance spectroscopy (EIS) resolves interfacial resistance, charge-transfer efficiency, and recombination time constants. Galvanostatic cycling enables long-term battery and supercapacitor stability monitoring. The spectroelectrochemistry module allows simultaneous optical and electrochemical measurements—ideal for in-situ monitoring of film colour change and doping state.", "specs": [{"label": "Techniques", "value": "CV, EIS, Galvanostatic"}, {"label": "Module", "value": "Spectroelectrochemistry"}, {"label": "Frequency Range", "value": "10 µHz – 1 MHz (EIS)"}, {"label": "Application", "value": "HOMO/LUMO, stability"}]}, {"id": "paios", "name": "Fluxim Paios", "model": "All-in-one Characterization", "part": "Part III — Electrochemical", "tags": ["TPV", "TPC", "CELIV", "EIS", "Mott-Schottky"], "desc": "The Fluxim Paios is an all-in-one optoelectronic characterisation platform combining transient and steady-state electrical measurements. Transient photovoltage (TPV) and transient photocurrent (TPC) measurements determine charge-carrier lifetime and extraction dynamics. CELIV (Charge Extraction by Linearly Increasing Voltage) quantifies charge-carrier concentration and mobility. EIS determines interfacial resistance and recombination. Mott-Schottky analysis extracts the built-in potential of perovskite solar cells—a key parameter for understanding open-circuit voltage losses.", "specs": [{"label": "Techniques", "value": "TPV, TPC, CELIV, EIS"}, {"label": "Analysis", "value": "Mott-Schottky, mobility"}, {"label": "Platform", "value": "Fluxim Paios"}, {"label": "Output", "value": "τ, μ, Vbi, Rint"}]}, {"id": "large-area", "name": "Large-Area Research Station", "model": "Blade Coating & Vacuum Chamber", "part": "Part IV — Fabrication", "tags": ["Blade Coating", "Vacuum Crystallization", "Thermal Evaporation"], "desc": "Our large-area fabrication station bridges lab-scale optimisation and commercially relevant device manufacturing. The blade-coating module deposits uniform films over areas exceeding 100 cm² at controlled speeds and blade gaps. The integrated vacuum crystallization chamber controls solvent evaporation kinetics, enabling high-quality crystallisation of perovskite absorbers and charge-transport layers. The thermal evaporator deposits metal contacts and functional layers (Cu, Cr, Ag, Au) as well as organic materials (C<sub>60</sub>, BCP, MoO<sub>3</sub>) for complete device fabrication.", "specs": [{"label": "Coating", "value": "Blade coating >100 cm²"}, {"label": "Atmosphere", "value": "Vacuum crystallization"}, {"label": "Evaporation", "value": "Cu, Cr, Ag, Au, C₆₀, BCP, MoO₃"}, {"label": "Target", "value": "Commercial-scale modules"}]}];
+const INSTR_DATA = [
+  {
+    "id": "solar-sim",
+    "name": "Solar Simulator",
+    "model": "AM 1.5G Standard",
+    "part": "Part I — Optical",
+    "tags": ["PV Performance", "IV Curve", "Light Soaking"],
+    "photos": ["assets/instrument/sim_1.jpg", "assets/instrument/sim_2.jpg", null],
+    "desc": "Our solar simulator provides the industry-standard AM 1.5G full-spectrum illumination (100 mW/cm²) for accurate photovoltaic device characterisation. The system measures current-voltage (J-V) characteristics under controlled illumination, extracting key device parameters including short-circuit current density (J<sub>sc</sub>), open-circuit voltage (V<sub>oc</sub>), fill factor (FF), and power conversion efficiency (PCE). Light-soaking protocols enable operational stability assessment under continuous illumination, critical for perovskite solar cell research.",
+    "specs": [{"label": "Spectrum", "value": "AM 1.5G"}, {"label": "Irradiance", "value": "100 mW/cm²"}, {"label": "Area", "value": "Up to 20×20 cm"}, {"label": "Parameters", "value": "Jsc, Voc, FF, PCE"}]
+  },
+  {
+    "id": "pdqe",
+    "name": "PD-QE System",
+    "model": "300–1100 nm Range",
+    "part": "Part I — Optical",
+    "tags": ["EQE", "Dark I-V", "Noise Analysis"],
+    "photos": ["assets/instrument/pd_1.png", "assets/instrument/pd_2.jpg", "assets/instrument/pd_3.jpg"],
+    "desc": "The photodetector quantum efficiency (PD-QE) system measures the external quantum efficiency (EQE) of solar cells and photodetectors with spectral resolution from 300 to 1100 nm. Dark I-V measurements characterise device behaviour without illumination, extracting diode ideality factor, shunt resistance, and series resistance. The integrated noise analysis module resolves flicker (1/f), Johnson, and shot noise contributions—essential for high-performance photodetector characterisation. Integrated J<sub>sc</sub> from EQE is cross-verified with solar simulator data.",
+    "specs": [{"label": "Wavelength", "value": "300–1100 nm"}, {"label": "Measurement", "value": "EQE, Dark I-V"}, {"label": "Noise Types", "value": "Flicker, Johnson, Shot"}, {"label": "Output", "value": "Integrated Jsc"}]
+  },
+  {
+    "id": "insitu-pl-300",
+    "name": "In-situ PL (300–1050 nm)",
+    "model": "Microsecond Resolution",
+    "part": "Part I — Optical",
+    "tags": ["In-situ PL", "Peak Shift", "Composition Mapping"],
+    "photos": ["assets/instrument/insitu_1.jpg", "assets/instrument/insitu_2.jpg", "assets/instrument/insitu_3.jpg"],
+    "desc": "This in-situ photoluminescence system offers microsecond-level time resolution with full spectral acquisition across 300–1050 nm. It enables real-time monitoring of photoluminescence dynamics during device operation, annealing, or degradation. Peak shift analysis maps composition gradients and halide distribution in mixed-halide perovskite films—directly correlating optoelectronic quality with film composition. Time-resolved measurements reveal charge-carrier lifetime and recombination mechanisms.",
+    "specs": [{"label": "Wavelength", "value": "300–1050 nm"}, {"label": "Time Resolution", "value": "Microsecond"}, {"label": "Modes", "value": "CW, In-situ, Time-resolved"}, {"label": "Application", "value": "Film composition mapping"}]
+  },
+  {
+    "id": "qfls",
+    "name": "QFLS Mapper",
+    "model": "ENLITECH QFLS-Mapper",
+    "part": "Part I — Optical",
+    "tags": ["QFLS", "iVoc", "PL Mapping", "Pseudo J–V"],
+    "photos": ["assets/instrument/qfls_1.jpg", "assets/instrument/qfls_2.jpg", "assets/instrument/qfls_3.jpg"],
+    "desc": "The QFLS Mapper (ENLITECH) operates from 600–1100 nm and combines in-situ PL with quasi-Fermi level splitting (QFLS) analysis—a critical parameter linking optical properties to device efficiency. Large-area PL mapping scans cm²-scale films for spatial uniformity, identifying inhomogeneities at the sub-mm level. The iVoc and Pseudo J-V analysis predicts the theoretical efficiency limit of a device by excluding series resistance effects, using PLQY and QFLS data. Essential for diagnosing losses in perovskite and organic solar cells.",
+    "specs": [{"label": "Wavelength", "value": "600–1100 nm"}, {"label": "Mapping Area", "value": "Large-area cm² scale"}, {"label": "Analysis", "value": "QFLS, iVoc, Pseudo J-V"}, {"label": "Metrics", "value": "PLQY, QFLS, spatial uniformity"}]
+  },
+  {
+    "id": "uvvis",
+    "name": "UV-Vis Spectrophotometer",
+    "model": "180–1100 nm",
+    "part": "Part I — Optical",
+    "tags": ["Absorption", "Bandgap", "Tauc Plot", "Transmittance"],
+    "photos": ["assets/instrument/uv_1.jpg", "assets/instrument/uv_2.jpg", "assets/instrument/uv_3.jpg"],
+    "desc": "Our UV-Vis spectrophotometer covers 180–1100 nm and accommodates solutions, thin films, and pressed powder pellets. It measures optical transmittance, reflectance, and absorbance simultaneously, enabling complete optical characterisation of absorber and transport layers. Direct and indirect bandgaps are extracted via Tauc plots from the absorption edge. Integrating sphere attachments allow measurement of highly scattering and diffuse samples—critical for analysing nanoparticle suspensions and rough perovskite films.",
+    "specs": [{"label": "Wavelength", "value": "180–1100 nm"}, {"label": "Sample Forms", "value": "Solution, Film, Pellet"}, {"label": "Measurements", "value": "T, R, A"}, {"label": "Bandgap", "value": "Direct & indirect via Tauc"}]
+  },
+  {
+    "id": "kp",
+    "name": "Kelvin Probe (APS04)",
+    "model": "KP Technology APS04",
+    "part": "Part I — Optical",
+    "tags": ["Work Function", "CPD", "Energy Level", "Heterojunction"],
+    "photos": ["assets/instrument/kp_2.jpg", "assets/instrument/kp_3.jpg", "assets/instrument/kp_4.jpg"],
+    "desc": "The KP Technology APS04 uses UV light (3.4–9.0 eV) to measure absolute work function and contact potential difference (CPD) with sub-meV resolution. Surface potential maps reveal local variations in Fermi level alignment—critical for understanding charge extraction and recombination at interfaces. Interface alignment studies at heterojunctions (ETL/perovskite, perovskite/HTL) guide layer optimisation for high-efficiency devices. Combined with photoelectron spectroscopy, it provides a complete picture of the device energy landscape.",
+    "specs": [{"label": "Light Source", "value": "UV 3.4–9.0 eV"}, {"label": "Measurement", "value": "Work function, CPD"}, {"label": "Model", "value": "KP Technology APS04"}, {"label": "Application", "value": "Interface energy alignment"}]
+  },
+  {
+    "id": "autolab",
+    "name": "Autolab Potentiostat",
+    "model": "Modular Spectroelectrochemistry",
+    "part": "Part II — Electrochemical",
+    "tags": ["CV", "EIS", "Galvanostatic", "Spectroelectrochemistry"],
+    "photos": ["assets/instrument/autolab_1.jpg", "assets/instrument/autolab_2.jpg", "assets/instrument/autolab_3.jpg"],
+    "desc": "The Autolab modular potentiostat/galvanostat performs a full suite of electrochemical measurements. Cyclic voltammetry (CV) investigates redox mechanisms, kinetics, and frontier orbital energies of organic semiconductors. Electrochemical impedance spectroscopy (EIS) resolves interfacial resistance, charge-transfer efficiency, and recombination time constants. Galvanostatic cycling enables long-term battery and supercapacitor stability monitoring. The spectroelectrochemistry module allows simultaneous optical and electrochemical measurements—ideal for in-situ monitoring of film colour change and doping state.",
+    "specs": [{"label": "Techniques", "value": "CV, EIS, Galvanostatic"}, {"label": "Module", "value": "Spectroelectrochemistry"}, {"label": "Frequency Range", "value": "10 µHz – 1 MHz (EIS)"}, {"label": "Application", "value": "HOMO/LUMO, stability"}]
+  },
+  {
+    "id": "paios",
+    "name": "Fluxim Paios",
+    "model": "All-in-one Characterization",
+    "part": "Part II — Electrochemical",
+    "tags": ["TPV", "TPC", "CELIV", "EIS", "Mott-Schottky"],
+    "photos": ["assets/instrument/paios_1.jpg", "assets/instrument/paios_2.png", "assets/instrument/paios_3.jpg"],
+    "desc": "The Fluxim Paios is an all-in-one optoelectronic characterisation platform combining transient and steady-state electrical measurements. Transient photovoltage (TPV) and transient photocurrent (TPC) measurements determine charge-carrier lifetime and extraction dynamics. CELIV (Charge Extraction by Linearly Increasing Voltage) quantifies charge-carrier concentration and mobility. EIS determines interfacial resistance and recombination. Mott-Schottky analysis extracts the built-in potential of perovskite solar cells—a key parameter for understanding open-circuit voltage losses.",
+    "specs": [{"label": "Techniques", "value": "TPV, TPC, CELIV, EIS"}, {"label": "Analysis", "value": "Mott-Schottky, mobility"}, {"label": "Platform", "value": "Fluxim Paios"}, {"label": "Output", "value": "τ, μ, Vbi, Rint"}]
+  },
+  {
+    "id": "evaporator",
+    "name": "Evaporator",
+    "model": "Thermal Evaporation System",
+    "part": "Part III — Fabrication",
+    "tags": ["Thermal Evaporation", "Metal Contacts", "Organic Layers"],
+    "photos": ["assets/instrument/S__6955011.jpg", null, null],
+    "desc": "Our thermal evaporator deposits metal contacts and functional layers for complete perovskite and organic solar cell fabrication. Metal sources include Cu, Cr, Ag, and Au for top electrodes and buffer layers. Organic material evaporation covers C<sub>60</sub>, BCP, and MoO<sub>3</sub> for electron and hole transport layers. The system supports multi-source co-evaporation and substrate heating for optimised film quality.",
+    "specs": [{"label": "Metals", "value": "Cu, Cr, Ag, Au"}, {"label": "Organics", "value": "C₆₀, BCP, MoO₃"}, {"label": "Base Pressure", "value": "&lt;10⁻⁶ Torr"}, {"label": "Substrate", "value": "Heating supported"}]
+  },
+  {
+    "id": "glove-box",
+    "name": "Glove Box",
+    "model": "Inert Atmosphere System",
+    "part": "Part III — Fabrication",
+    "tags": ["Inert Atmosphere", "N₂", "Device Fabrication"],
+    "photos": ["assets/instrument/glove_box_1.jpg", "assets/instrument/glove_box_2.jpg", "assets/instrument/glove_box_3.jpg"],
+    "desc": "Nitrogen-filled glove box providing an inert atmosphere with &lt;1 ppm O₂ and H₂O for moisture- and oxygen-sensitive material processing. Essential for perovskite solar cell and organic photovoltaic fabrication, enabling spin-coating, annealing, and encapsulation in a controlled environment. The integrated solvent management and purification system maintains inert conditions during extended fabrication runs.",
+    "specs": [{"label": "Atmosphere", "value": "N₂ inert"}, {"label": "O₂/H₂O", "value": "&lt;1 ppm each"}, {"label": "Applications", "value": "Spin-coating, annealing"}, {"label": "Feature", "value": "Encapsulation station"}]
+  },
+  {
+    "id": "3d-printer",
+    "name": "3D Printer",
+    "model": "Rapid Prototyping",
+    "part": "Part III — Fabrication",
+    "tags": ["Rapid Prototyping", "Custom Parts", "Lab Fixtures"],
+    "photos": ["assets/instrument/3d_1.jpg", "assets/instrument/3d_2.jpg", "assets/instrument/3d_3.jpg"],
+    "desc": "3D printing enables rapid prototyping of custom lab fixtures, device holders, photomasks, and experimental setups. Eliminates lead times for one-off parts and enables fast design iteration. Custom components include substrate holders, shadow masks, solution dispensers, and measurement jigs tailored to specific experimental requirements.",
+    "specs": [{"label": "Technology", "value": "FDM / Resin"}, {"label": "Resolution", "value": "Up to 50 µm"}, {"label": "Materials", "value": "PLA, ABS, PETG, Resin"}, {"label": "Build Volume", "value": "Custom fixtures & masks"}]
+  }
+];
 
 function openModal(id) {
   const d = INSTR_DATA.find(x => x.id === id);
@@ -779,6 +929,17 @@ function openModal(id) {
       <div class="modal-spec-label">${s.label}</div>
       <div class="modal-spec-value">${s.value}</div>
     </div>`).join('');
+
+  // Photos
+  const photos = d.photos || [null, null, null];
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById('mPhoto' + i);
+    if (photos[i]) {
+      el.innerHTML = `<img src="${photos[i]}" alt="${d.name} ${i+1}" style="width:100%;height:100%;object-fit:cover;">`;
+    } else {
+      el.innerHTML = `<div class="ph" style="height:100%"><span class="ph-icon" style="font-size:28px;opacity:.2">📷</span></div>`;
+    }
+  }
 
   // Open
   document.getElementById('modalBackdrop').classList.add('open');
