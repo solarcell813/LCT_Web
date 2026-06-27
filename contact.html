@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -173,6 +173,7 @@ footer{
 }
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
 .footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links li{font-size:13px;color:rgba(255,255,255,.4);}
 .footer-links a:hover{color:var(--white);}
 .footer-bottom{
   max-width:1200px;margin:0 auto;
@@ -279,30 +280,23 @@ footer{
         </div>
       </div>
       <div class="reveal-right">
-        <div class="contact-map-ph">
-          <span style="font-size:40px;opacity:.2">🗺️</span>
-          <span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);">Map Placeholder</span>
-          <span style="font-size:12px;color:var(--muted);">Replace with Google Maps embed</span>
-        </div>
+        <iframe
+          src="https://maps.google.com/maps?q=24.123552,120.675326&z=17&output=embed"
+          width="100%" style="aspect-ratio:4/3;border:0;display:block;"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
     </div>
   </div>
 </div>
 
-<div class="join-block reveal">
-  <div>
-    <div class="join-title">Interested in Joining Us?</div>
-    <p class="join-text">We welcome motivated Ph.D. students, Master's students, and postdoctoral researchers. Please send your CV and a brief statement of research interests to Prof. Lin.</p>
-  </div>
-  <a href="mailto:c.lin15@nchu.edu.tw" class="btn-tuscany">Send Application →</a>
-</div>
 
 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand-col">
       <div class="footer-logo">Chieh-Ting Lin's Lab</div>
-      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-tagline">Optoelectronic Materials and Photochemistry<br>National Chung Hsing University</p>
       <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
     </div>
     <div>
@@ -319,10 +313,10 @@ footer{
     <div>
       <div class="footer-heading">Research</div>
       <ul class="footer-links">
-        <li><a href="#">Perovskite Solar Cells</a></li>
-        <li><a href="#">Organic Photovoltaics</a></li>
-        <li><a href="#">Large-Area Fabrication</a></li>
-        <li><a href="#">Photophysical Characterisation</a></li>
+        <li>Perovskite Solar Cells</li>
+        <li>Organic Photovoltaics</li>
+        <li>Large-Area Fabrication</li>
+        <li>Photophysical Characterisation</li>
       </ul>
     </div>
     <div>

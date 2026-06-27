@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -173,6 +173,7 @@ footer{
 }
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
 .footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links li{font-size:13px;color:rgba(255,255,255,.4);}
 .footer-links a:hover{color:var(--white);}
 .footer-bottom{
   max-width:1200px;margin:0 auto;
@@ -271,6 +272,7 @@ footer{
   gap:8px;border:1px solid var(--border);
   overflow:hidden;position:relative;
   cursor:pointer;
+  aspect-ratio:4/3;
 }
 .gallery-cell::after{
   content:'';position:absolute;inset:0;
@@ -278,8 +280,9 @@ footer{
   transition:opacity .3s;
 }
 .gallery-cell:hover::after{opacity:.08;}
-.gallery-cell.tall{grid-row:span 2;}
-.gallery-cell.wide{grid-column:span 2;}
+.gallery-cell.tall{grid-row:span 2;aspect-ratio:3/4;}
+.gallery-cell.wide{grid-column:span 2;aspect-ratio:8/3;}
+.gallery-masonry img{object-fit:contain!important;}
 .gallery-ph{
   width:100%;height:100%;min-height:180px;
   display:flex;flex-direction:column;
@@ -363,6 +366,118 @@ footer{
   letter-spacing:.1em;text-transform:uppercase;
 }
 
+/* ── GALLERY CAPTION OVERLAY ───────────────── */
+.gallery-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:28px 12px 10px;
+  background:linear-gradient(transparent,rgba(24,40,47,.75));
+  color:rgba(255,255,255,.9);
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+.gallery-cell:hover .gallery-caption{opacity:1;}
+
+/* ── PHOTO LIGHTBOX ─────────────────────────── */
+.photo-backdrop{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(12,20,25,.92);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.photo-backdrop.open{opacity:1;pointer-events:all;}
+.photo-lbox{text-align:center;max-width:92vw;}
+.photo-lbox img{max-height:78vh;max-width:88vw;object-fit:contain;display:block;margin:0 auto;}
+.photo-lbox-ph{
+  width:min(520px,80vw);aspect-ratio:4/3;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+}
+.photo-lbox-ph .gallery-ph-icon{font-size:48px;opacity:.15;}
+.photo-lbox-title{
+  margin-top:14px;color:rgba(255,255,255,.55);
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+}
+.lb-close{
+  position:fixed;top:18px;right:24px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);width:38px;height:38px;
+  font-size:18px;cursor:pointer;z-index:901;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;
+}
+.lb-close:hover{background:rgba(255,255,255,.14);color:var(--white);}
+
+/* ── CONFERENCE MODAL ───────────────────────── */
+.cmod-backdrop{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(12,20,25,.88);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.cmod-backdrop.open{opacity:1;pointer-events:all;}
+.cmod{
+  background:#1a2f38;width:min(660px,95vw);
+  max-height:90vh;overflow-y:auto;position:relative;
+}
+.cmod-img{
+  width:100%;aspect-ratio:16/9;overflow:hidden;
+  background:rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;
+}
+.cmod-img img{width:100%;height:100%;object-fit:cover;}
+.cmod-body{padding:28px 32px 34px;}
+.cmod-yr{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--tuscany);margin-bottom:8px;}
+.cmod-ttl{font-family:var(--font-d);font-size:clamp(16px,2.5vw,22px);color:var(--white);margin-bottom:8px;line-height:1.3;}
+.cmod-mt{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:14px;}
+.cmod-tgs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.cmod-tg{font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);}
+.cmod-ds{font-size:13px;color:rgba(255,255,255,.52);line-height:1.85;}
+.cmod-close{
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,.08);border:none;
+  color:rgba(255,255,255,.5);
+  width:34px;height:34px;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;
+}
+.cmod-close:hover{background:rgba(255,255,255,.15);color:var(--white);}
+.conf-item{cursor:pointer;}
+.conf-item:hover .conf-title{color:var(--tuscany-l,#e0c068);}
+.conf-detail-hint{
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-top:8px;transition:color .2s;
+}
+.conf-item:hover .conf-detail-hint{color:var(--tuscany);}
+
+/* ── EXCHANGE MODAL ─────────────────────────── */
+.exch-backdrop{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(12,20,25,.92);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.exch-backdrop.open{opacity:1;pointer-events:all;}
+.exch-modal{
+  background:var(--white);width:min(720px,95vw);
+  max-height:90vh;overflow-y:auto;position:relative;
+}
+.exch-photos{display:grid;gap:3px;}
+.exch-photos.count-2{grid-template-columns:1fr 1fr;}
+.exch-photos.count-3{grid-template-columns:1fr 1fr 1fr;}
+.exch-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+.exch-info{padding:20px 24px 24px;}
+.exch-modal-date{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);margin-bottom:6px;}
+.exch-modal-name{font-family:var(--font-d);font-size:22px;color:var(--teal);margin-bottom:4px;}
+.exch-modal-from{font-size:13px;color:var(--muted);line-height:1.6;}
+.exch-close{
+  position:absolute;top:12px;right:12px;z-index:1;
+  background:rgba(0,0,0,.25);border:none;color:var(--white);
+  width:34px;height:34px;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.exch-close:hover{background:rgba(0,0,0,.45);}
+.exchange-card{cursor:pointer;}
+
 </style>
 <link rel="stylesheet" href="mobile.css">
 </head>
@@ -431,50 +546,65 @@ footer{
       research enjoyable.
     </p>
 
-    <!-- Masonry gallery placeholder -->
     <div class="gallery-masonry">
-      <div class="gallery-cell tall reveal stagger-1">
-        <div class="gallery-ph tall-inner">
-          <span class="gallery-ph-icon">🍜</span>
-          <span class="gallery-ph-label">Lab Dinner Photo</span>
-        </div>
+
+      <div class="gallery-cell tall reveal stagger-1" onclick="openPhoto('Freshers Camp 2022', 'assets/activity/202208Freshers%27%20camp.jpg')">
+        <img src="assets/activity/202208Freshers%27%20camp.jpg" alt="Freshers Camp 2022" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Freshers Camp · 2022/08</div>
       </div>
-      <div class="gallery-cell reveal stagger-2">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">📸</span>
-          <span class="gallery-ph-label">Outing Photo</span>
-        </div>
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Teachers Day 2022', 'assets/activity/202209TeachersDay.jpg')">
+        <img src="assets/activity/202209TeachersDay.jpg" alt="Teachers Day 2022" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Teachers' Day · 2022/09</div>
       </div>
-      <div class="gallery-cell reveal stagger-3">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">📸</span>
-          <span class="gallery-ph-label">Outing Photo</span>
-        </div>
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Christmas Day 2022', 'assets/activity/202212ChrismasDay.jpg')">
+        <img src="assets/activity/202212ChrismasDay.jpg" alt="Christmas Day 2022" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Christmas Day · 2022/12</div>
       </div>
-      <div class="gallery-cell reveal stagger-2">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">🏔️</span>
-          <span class="gallery-ph-label">Trip Photo</span>
-        </div>
+
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Spring Banquet 2023', 'assets/activity/2023Spring%20Banquet.jpg')">
+        <img src="assets/activity/2023Spring%20Banquet.jpg" alt="Spring Banquet 2023" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Spring Banquet · 2023</div>
       </div>
-      <div class="gallery-cell reveal stagger-3">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">🎉</span>
-          <span class="gallery-ph-label">Celebration Photo</span>
-        </div>
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Farewell Party 2023', 'assets/activity/202307farewell.jpg')">
+        <img src="assets/activity/202307farewell.jpg" alt="Farewell Party 2023" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Farewell Party · 2023/07</div>
       </div>
-      <div class="gallery-cell wide reveal stagger-4">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">👥</span>
-          <span class="gallery-ph-label">Group Photo</span>
-        </div>
+
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Welcome Tour — Yilan 2023', 'assets/activity/2023Yilan.jpg')">
+        <img src="assets/activity/2023Yilan.jpg" alt="Welcome Tour Yilan 2023" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Welcome Tour — Yilan · 2023/12</div>
       </div>
-      <div class="gallery-cell reveal stagger-5">
-        <div class="gallery-ph">
-          <span class="gallery-ph-icon">📸</span>
-          <span class="gallery-ph-label">Photo</span>
-        </div>
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Year-End Banquet 2024', 'assets/activity/2024Year-edn%20banquet.jpg')">
+        <img src="assets/activity/2024Year-edn%20banquet.jpg" alt="Year-End Banquet 2024" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Year-End Banquet · 2024/08</div>
       </div>
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Lab Tour — Xiaoliuqiu 2024', 'assets/activity/202411LabTourXiaoliuqiu.jpg')">
+        <img src="assets/activity/202411LabTourXiaoliuqiu.jpg" alt="Lab Tour Xiaoliuqiu 2024" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Lab Tour — Xiaoliuqiu · 2024/11</div>
+      </div>
+
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Graduation Ceremony 2025', 'assets/activity/202505Graduationceremony.jpg')">
+        <img src="assets/activity/202505Graduationceremony.jpg" alt="Graduation Ceremony 2025" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Graduation Ceremony · 2025/05</div>
+      </div>
+      <div class="gallery-cell wide reveal stagger-2" onclick="openPhoto('Teachers Day 2025', 'assets/activity/202509Teachers%20Day.jpg')">
+        <img src="assets/activity/202509Teachers%20Day.jpg" alt="Teachers Day 2025" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Teachers' Day · 2025/09</div>
+      </div>
+
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Hsinchu 2025', 'assets/activity/202511Hsinchu.jpg')">
+        <img src="assets/activity/202511Hsinchu.jpg" alt="Hsinchu 2025" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Hsinchu · 2025/11</div>
+      </div>
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Lab Tour — Tainan 2025', 'assets/activity/202512Lab%20Tour-Tainan.jpg')">
+        <img src="assets/activity/202512Lab%20Tour-Tainan.jpg" alt="Lab Tour Tainan 2025" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Lab Tour — Tainan · 2025/12</div>
+      </div>
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Graduation Ceremony 2026', 'assets/activity/202605Graduation%20ceremony.jpg')">
+        <img src="assets/activity/202605Graduation%20ceremony.jpg" alt="Graduation Ceremony 2026" style="width:100%;height:100%;object-fit:cover;">
+        <div class="gallery-caption">Graduation Ceremony · 2026/05</div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -497,79 +627,82 @@ footer{
     </p>
 
     <div class="exchange-grid">
-      <div class="exchange-card reveal stagger-1">
-        <div class="exchange-ph">
-          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌏</span>
-          <span class="gallery-ph-label">Exchange Student Photo</span>
+
+      <div class="exchange-card reveal stagger-1" onclick="openExch('eva-2023')">
+        <div class="exchange-ph" style="padding:0;overflow:hidden;">
+          <img src="assets/exchange/eva_1.jpg" alt="Eva" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
-          <div class="exchange-flag">🇯🇵</div>
-          <div class="exchange-title">Japan Exchange Program</div>
-          <p class="exchange-desc">
-            Visiting researchers from Japanese partner universities join the lab
-            for short-term collaborative projects in perovskite and organic solar
-            cell characterisation.
-          </p>
-          <div class="exchange-meta">Placeholder — add partner university & year</div>
+          <div class="exchange-title">Eva</div>
+          <p class="exchange-desc">Visiting researcher from Imperial College London, joining the lab for collaborative research in perovskite solar cell characterisation.</p>
+          <div class="exchange-meta">February 2023 · View Photos →</div>
         </div>
       </div>
-      <div class="exchange-card reveal stagger-2">
-        <div class="exchange-ph">
-          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌍</span>
-          <span class="gallery-ph-label">Exchange Student Photo</span>
+
+      <div class="exchange-card reveal stagger-2" onclick="openExch('esra-kevin-2024')">
+        <div class="exchange-ph" style="padding:0;overflow:hidden;">
+          <img src="assets/exchange/esra_1.jpg" alt="Esra & Kevin" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
-          <div class="exchange-flag">🇬🇧</div>
-          <div class="exchange-title">UK Collaboration</div>
-          <p class="exchange-desc">
-            Ongoing collaboration with Imperial College London supports researcher
-            exchanges focused on photophysical characterisation and large-area
-            device fabrication.
-          </p>
-          <div class="exchange-meta">Placeholder — add details & year</div>
+          <div class="exchange-title">Esra &amp; Kevin</div>
+          <p class="exchange-desc">Visiting researchers from Imperial College London and Kyungpook National University, collaborating on photophysical characterisation and large-area device fabrication.</p>
+          <div class="exchange-meta">January 2024 · View Photos →</div>
         </div>
       </div>
-      <div class="exchange-card reveal stagger-3">
-        <div class="exchange-ph">
-          <span class="gallery-ph-icon" style="font-size:36px;opacity:.2">🌐</span>
-          <span class="gallery-ph-label">Exchange Student Photo</span>
+
+      <div class="exchange-card reveal stagger-3" onclick="openExch('raul-son-2025')">
+        <div class="exchange-ph" style="padding:0;overflow:hidden;">
+          <img src="assets/exchange/son_1.jpg" alt="Raúl & Son" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
-          <div class="exchange-flag">🌐</div>
-          <div class="exchange-title">Other International Visitors</div>
-          <p class="exchange-desc">
-            We welcome researchers and students from all over the world. Our
-            lab fosters an inclusive, multilingual environment where diverse
-            perspectives drive innovation.
-          </p>
-          <div class="exchange-meta">Placeholder — add countries & partner institutions</div>
+          <div class="exchange-title">Raúl &amp; Son</div>
+          <p class="exchange-desc">International visiting researchers joining the lab for collaborative projects in perovskite and large-area photovoltaic research.</p>
+          <div class="exchange-meta">July 2025 · View Photos →</div>
         </div>
       </div>
-      <div class="exchange-card reveal stagger-4">
-        <div class="exchange-ph" style="background:var(--teal);flex-direction:row;gap:24px;">
-          <div style="text-align:center;color:var(--white);">
-            <div style="font-family:var(--font-d);font-size:48px;color:var(--tuscany);">8+</div>
-            <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-top:4px;">Countries</div>
-          </div>
-          <div style="width:1px;background:rgba(255,255,255,.1);height:60px;align-self:center;"></div>
-          <div style="text-align:center;color:var(--white);">
-            <div style="font-family:var(--font-d);font-size:48px;color:var(--tuscany);">20+</div>
-            <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin-top:4px;">Visitors</div>
-          </div>
+
+      <div class="exchange-card reveal stagger-4" onclick="window.open('https://iipp.stpi.niar.org.tw/','_blank')" style="cursor:pointer;">
+        <div class="exchange-ph" style="padding:0;overflow:hidden;background:#18303c;">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <rect width="360" height="200" fill="#18303c"/>
+            <line x1="0" y1="100" x2="360" y2="100" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="90" y1="0" x2="90" y2="200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="180" y1="0" x2="180" y2="200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <line x1="270" y1="0" x2="270" y2="200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+            <!-- North America -->
+            <path d="M30,16 C52,10 80,14 90,28 C98,44 96,66 80,82 C65,92 46,90 34,78 C20,62 22,40 30,16Z" fill="#2d5568"/>
+            <!-- South America -->
+            <path d="M72,106 C86,100 106,106 112,122 C118,142 112,164 96,170 C82,172 70,160 66,144 C62,126 66,112 72,106Z" fill="#2d5568"/>
+            <!-- Greenland -->
+            <ellipse cx="136" cy="20" rx="14" ry="10" fill="#2d5568"/>
+            <!-- Europe -->
+            <path d="M155,20 C168,14 186,18 192,30 C196,42 190,56 178,60 C165,62 154,52 152,40 C150,30 153,24 155,20Z" fill="#2d5568"/>
+            <!-- Africa -->
+            <path d="M158,64 C172,58 192,64 197,80 C202,98 198,124 186,136 C174,144 162,138 156,122 C150,106 148,84 158,64Z" fill="#2d5568"/>
+            <!-- Asia -->
+            <path d="M196,14 C228,8 284,10 320,26 C336,40 336,64 320,80 C302,92 266,92 240,82 C218,72 198,56 194,38 C192,28 194,18 196,14Z" fill="#2d5568"/>
+            <!-- India -->
+            <path d="M228,90 C238,86 252,92 254,108 C254,118 244,122 234,116 C226,110 224,98 228,90Z" fill="#2d5568"/>
+            <!-- SE Asia / Indonesia -->
+            <ellipse cx="272" cy="100" rx="12" ry="7" fill="#2d5568"/>
+            <circle cx="292" cy="110" r="6" fill="#2d5568"/>
+            <!-- Australia -->
+            <path d="M292,122 C314,116 338,124 344,140 C348,156 338,168 320,168 C302,168 290,156 288,140 C286,130 290,124 292,122Z" fill="#2d5568"/>
+            <!-- Antarctica -->
+            <path d="M90,184 C140,178 220,178 270,184 L272,198 L88,198Z" fill="#2d5568" opacity="0.6"/>
+            <!-- Taiwan highlight -->
+            <circle cx="301" cy="74" r="5" fill="#C9A84C" opacity="0.9"/>
+            <circle cx="301" cy="74" r="9" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.4"/>
+            <circle cx="301" cy="74" r="14" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.2"/>
+          </svg>
         </div>
         <div class="exchange-body">
-          <div class="exchange-flag">✈️</div>
           <div class="exchange-title">Join Us as a Visiting Researcher</div>
-          <p class="exchange-desc">
-            Interested in a short-term visit or exchange? We welcome motivated
-            researchers at all levels. Please reach out to Prof. Lin directly
-            with your research proposal.
-          </p>
-          <div class="exchange-meta">
-            <a href="contact.html" style="color:var(--rose);">Contact us →</a>
-          </div>
+          <p class="exchange-desc">Interested in a short-term visit or exchange? Check out the programme for more details on international exchange opportunities.</p>
+          <div class="exchange-meta" style="color:var(--rose);">Visit the Programme →</div>
         </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -592,85 +725,127 @@ footer{
     </p>
 
     <div class="conf-list">
-      <div class="conf-item reveal">
-        <div class="conf-year">2024</div>
+      <div class="conf-item reveal" onclick="openConf('hopv-2023')">
+        <div class="conf-year">2023</div>
         <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
         <div>
-          <div class="conf-title">MRS Fall Meeting 2024</div>
-          <div class="conf-meta">Boston, MA, USA · November 2024</div>
+          <div class="conf-title">HOPV Conference — 15th Edition</div>
+          <div class="conf-meta">London, UK · June 2023</div>
           <div class="conf-tags">
-            <span class="conf-tag">Oral</span>
             <span class="conf-tag">Perovskite</span>
-          </div>
-        </div>
-      </div>
-      <div class="conf-item reveal stagger-1">
-        <div class="conf-year">2024</div>
-        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
-        <div>
-          <div class="conf-title">International Conference on Hybrid and Organic Photovoltaics (HOPV)</div>
-          <div class="conf-meta">Placeholder — City, Country · 2024</div>
-          <div class="conf-tags">
-            <span class="conf-tag">Poster</span>
             <span class="conf-tag">Organic PV</span>
           </div>
+          <div class="conf-detail-hint">▸ View Details</div>
         </div>
       </div>
-      <div class="conf-item reveal stagger-2">
-        <div class="conf-year">2023</div>
+      <div class="conf-item reveal stagger-1" onclick="openConf('iperop-2024')">
+        <div class="conf-year">2024</div>
         <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
         <div>
-          <div class="conf-title">MRS Fall Meeting 2023</div>
-          <div class="conf-meta">Boston, MA, USA · November 2023</div>
+          <div class="conf-title">IPEROP Conference</div>
+          <div class="conf-meta">Tokyo, Japan · January 2024</div>
           <div class="conf-tags">
-            <span class="conf-tag">Oral</span>
-            <span class="conf-tag">Large-Area Fabrication</span>
+            <span class="conf-tag">Perovskite</span>
+            <span class="conf-tag">Optoelectronics</span>
           </div>
+          <div class="conf-detail-hint">▸ View Details</div>
         </div>
       </div>
-      <div class="conf-item reveal stagger-3">
-        <div class="conf-year">2023</div>
+      <div class="conf-item reveal stagger-2" onclick="openConf('icpst-2024')">
+        <div class="conf-year">2024</div>
         <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
         <div>
-          <div class="conf-title">European Conference on Hybrid and Organic Photovoltaics (EU-PVSEC)</div>
-          <div class="conf-meta">Placeholder — City, Country · 2023</div>
+          <div class="conf-title">ICPST</div>
+          <div class="conf-meta">Chiba, Japan · June 2024</div>
           <div class="conf-tags">
-            <span class="conf-tag">Poster</span>
-            <span class="conf-tag">QFLS</span>
+            <span class="conf-tag">Photopolymer</span>
+            <span class="conf-tag">Lithography</span>
           </div>
+          <div class="conf-detail-hint">▸ View Details</div>
         </div>
       </div>
-      <div class="conf-item reveal stagger-4">
-        <div class="conf-year">2022</div>
+      <div class="conf-item reveal stagger-3" onclick="openConf('nhsc14-2025')">
+        <div class="conf-year">2025</div>
         <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
         <div>
-          <div class="conf-title">Placeholder — Add your 2022 conference participations here</div>
-          <div class="conf-meta">Placeholder — City, Country · 2022</div>
+          <div class="conf-title">NHSC-14</div>
+          <div class="conf-meta">Hsinchu, Taiwan · November 2025</div>
           <div class="conf-tags">
-            <span class="conf-tag">Placeholder</span>
+            <span class="conf-tag">Perovskite</span>
+            <span class="conf-tag">Nanomaterials</span>
           </div>
+          <div class="conf-detail-hint">▸ View Details</div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-4" onclick="openConf('iperop-2026')">
+        <div class="conf-year">2026</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">IPEROP Conference</div>
+          <div class="conf-meta">Nagoya, Japan · January 2026</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Perovskite</span>
+            <span class="conf-tag">Thin-film PV</span>
+          </div>
+          <div class="conf-detail-hint">▸ View Details</div>
+        </div>
+      </div>
+      <div class="conf-item reveal stagger-5" onclick="openConf('nipho-2026')">
+        <div class="conf-year">2026</div>
+        <div class="conf-dot-col"><div class="conf-dot"></div><div class="conf-line"></div></div>
+        <div>
+          <div class="conf-title">NIPHO</div>
+          <div class="conf-meta">Pavia, Italy · June 2026</div>
+          <div class="conf-tags">
+            <span class="conf-tag">Stability</span>
+            <span class="conf-tag">Interface Engineering</span>
+          </div>
+          <div class="conf-detail-hint">▸ View Details</div>
         </div>
       </div>
     </div>
 
-    <!-- Conference photo strip -->
-    <div style="margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;" class="reveal">
-      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
-        <span class="gallery-ph-icon">✈️</span>
-        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Conference Photo</span>
-      </div>
-      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
-        <span class="gallery-ph-icon">🎤</span>
-        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Presentation</span>
-      </div>
-      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
-        <span class="gallery-ph-icon">🏆</span>
-        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Award</span>
-      </div>
-      <div class="gallery-ph" style="aspect-ratio:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);">
-        <span class="gallery-ph-icon">👥</span>
-        <span class="gallery-ph-label" style="color:rgba(255,255,255,.2);">Group Photo</span>
-      </div>
+  </div>
+</div>
+
+<!-- Exchange Modal -->
+<div id="exchBackdrop" class="exch-backdrop" onclick="closeExchEv(event)">
+  <div class="exch-modal">
+    <button class="exch-close" onclick="closeExch()">✕</button>
+    <div class="exch-photos" id="exchPhotos"></div>
+    <div class="exch-info">
+      <div class="exch-modal-date" id="exchDate"></div>
+      <div class="exch-modal-name" id="exchName"></div>
+      <div class="exch-modal-from" id="exchFrom"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Photo Lightbox -->
+<div id="photoBackdrop" class="photo-backdrop" onclick="closePhotoEv(event)">
+  <button class="lb-close" onclick="closePhoto()">✕</button>
+  <div class="photo-lbox">
+    <img id="lboxImg" src="" alt="" style="display:none;">
+    <div id="lboxPh" class="photo-lbox-ph">
+      <span class="gallery-ph-icon">📷</span>
+    </div>
+    <div class="photo-lbox-title" id="lboxTitle"></div>
+  </div>
+</div>
+
+<!-- Conference Detail Modal -->
+<div id="confBackdrop" class="cmod-backdrop" onclick="closeConfEv(event)">
+  <div class="cmod">
+    <button class="cmod-close" onclick="closeConf()">✕</button>
+    <div class="cmod-img" id="cmodImg">
+      <span class="gallery-ph-icon" style="font-size:36px;opacity:.15">📸</span>
+    </div>
+    <div class="cmod-body">
+      <div class="cmod-yr" id="cmodYr"></div>
+      <div class="cmod-ttl" id="cmodTtl"></div>
+      <div class="cmod-mt" id="cmodMt"></div>
+      <div class="cmod-tgs" id="cmodTgs"></div>
+      <div class="cmod-ds" id="cmodDs"></div>
     </div>
   </div>
 </div>
@@ -692,7 +867,7 @@ window.addEventListener('scroll',()=>{
   <div class="footer-grid">
     <div class="footer-brand-col">
       <div class="footer-logo">Chieh-Ting Lin's Lab</div>
-      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-tagline">Optoelectronic Materials and Photochemistry<br>National Chung Hsing University</p>
       <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
     </div>
     <div>
@@ -709,10 +884,10 @@ window.addEventListener('scroll',()=>{
     <div>
       <div class="footer-heading">Research</div>
       <ul class="footer-links">
-        <li><a href="#">Perovskite Solar Cells</a></li>
-        <li><a href="#">Organic Photovoltaics</a></li>
-        <li><a href="#">Large-Area Fabrication</a></li>
-        <li><a href="#">Photophysical Characterisation</a></li>
+        <li>Perovskite Solar Cells</li>
+        <li>Organic Photovoltaics</li>
+        <li>Large-Area Fabrication</li>
+        <li>Photophysical Characterisation</li>
       </ul>
     </div>
     <div>
@@ -764,6 +939,167 @@ const ro = new IntersectionObserver((entries)=>{
   });
 },{threshold:.12});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
+
+// ── Photo Lightbox ──────────────────────────────────────────
+function openPhoto(title, src) {
+  document.getElementById('lboxTitle').textContent = title;
+  const img = document.getElementById('lboxImg');
+  const ph  = document.getElementById('lboxPh');
+  if (src) {
+    img.src = src;
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+  } else {
+    img.style.display = 'none';
+    ph.style.display  = 'flex';
+  }
+  document.getElementById('photoBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePhotoEv(e) {
+  if (e.target === document.getElementById('photoBackdrop')) closePhoto();
+}
+function closePhoto() {
+  document.getElementById('photoBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Conference Modal ────────────────────────────────────────
+const CONF_DATA = [
+  {
+    id: 'hopv-2023',
+    year: '2023/06',
+    title: 'HOPV Conference — 15th Edition',
+    meta: 'London, UK · June 2023',
+    tags: ['Perovskite', 'Organic PV'],
+    photos: ['assets/seminar/202306LONDON.jpg'],
+    desc: '15th edition in London; covered hybrid/organic solar cells, stability, device modelling, and PV scale-up.'
+  },
+  {
+    id: 'iperop-2024',
+    year: '2024/01',
+    title: 'IPEROP Conference',
+    meta: 'Tokyo, Japan · January 2024',
+    tags: ['Perovskite', 'Optoelectronics'],
+    photos: ['assets/seminar/202401TOKYO_1.jpg', 'assets/seminar/202401TOKYO_2.jpg'],
+    desc: 'Asia-Pacific forum in Tokyo on hybrid PV fabrication, LED, lasers, and nanophotonics.'
+  },
+  {
+    id: 'icpst-2024',
+    year: '2024/06',
+    title: 'ICPST',
+    meta: 'Chiba, Japan · June 2024',
+    tags: ['Photopolymer', 'Lithography'],
+    photos: ['assets/seminar/202406CHIBA.jpg'],
+    desc: 'Chiba conference on photopolymer materials, advanced lithography, nanotechnology, and AI-driven manufacturing.'
+  },
+  {
+    id: 'nhsc14-2025',
+    year: '2025/11',
+    title: 'NHSC-14',
+    meta: 'Hsinchu, Taiwan · November 2025',
+    tags: ['Perovskite', 'Nanomaterials'],
+    photos: ['assets/seminar/202511NHSC-14.jpg'],
+    desc: 'Taiwan-hosted meeting covering perovskite/organic solar cells, hydrogen production, and CO₂ photocatalysis.'
+  },
+  {
+    id: 'iperop-2026',
+    year: '2026/01',
+    title: 'IPEROP Conference',
+    meta: 'Nagoya, Japan · January 2026',
+    tags: ['Perovskite', 'Thin-film PV'],
+    photos: ['assets/seminar/202601NAGOYA.jpg'],
+    desc: 'Nagoya gathering on hybrid PV fabrication, quantum dot cells, and latest optoelectronic developments.'
+  },
+  {
+    id: 'nipho-2026',
+    year: '2026/06',
+    title: 'NIPHO',
+    meta: 'Pavia, Italy · June 2026',
+    tags: ['Stability', 'Interface Engineering'],
+    photos: ['assets/seminar/202606PAVIA.jpg'],
+    desc: 'Pavia conference focused on perovskite solar cell durability, upscaling, and lead-free device solutions.'
+  }
+];
+
+function openConf(id) {
+  const d = CONF_DATA.find(x => x.id === id);
+  if (!d) return;
+  document.getElementById('cmodYr').textContent  = d.year;
+  document.getElementById('cmodTtl').textContent = d.title;
+  document.getElementById('cmodMt').textContent  = d.meta;
+  document.getElementById('cmodDs').innerHTML    = d.desc;
+  document.getElementById('cmodTgs').innerHTML   = d.tags.map(t=>`<span class="cmod-tg">${t}</span>`).join('');
+  const imgEl = document.getElementById('cmodImg');
+  if (d.photos && d.photos.length > 0) {
+    imgEl.style.flexDirection = d.photos.length > 1 ? 'row' : 'column';
+    imgEl.style.gap = d.photos.length > 1 ? '3px' : '8px';
+    imgEl.innerHTML = d.photos.map(p =>
+      `<img src="${p}" alt="${d.title}" style="flex:1;min-width:0;height:100%;object-fit:cover;">`
+    ).join('');
+  } else {
+    imgEl.style.flexDirection = 'column';
+    imgEl.innerHTML = `<span class="gallery-ph-icon" style="font-size:36px;opacity:.15">📸</span>`;
+  }
+  document.getElementById('confBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeConfEv(e) {
+  if (e.target === document.getElementById('confBackdrop')) closeConf();
+}
+function closeConf() {
+  document.getElementById('confBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── Exchange Modal ───────────────────────────────────────────
+const EXCH_DATA = [
+  {
+    id: 'eva-2023',
+    date: 'February 2023',
+    name: 'Eva',
+    from: 'Imperial College London',
+    photos: ['assets/exchange/eva_1.jpg', 'assets/exchange/eva_2.jpg']
+  },
+  {
+    id: 'esra-kevin-2024',
+    date: 'January 2024',
+    name: 'Esra & Kevin',
+    from: 'Imperial College London & Kyungpook National University',
+    photos: ['assets/exchange/esra_1.jpg', 'assets/exchange/esra_2.jpg']
+  },
+  {
+    id: 'raul-son-2025',
+    date: 'July 2025',
+    name: 'Raúl & Son',
+    from: 'International Exchange',
+    photos: ['assets/exchange/son_1.jpg', 'assets/exchange/son_2.jpg', 'assets/exchange/son_3.jpg']
+  }
+];
+
+function openExch(id) {
+  const d = EXCH_DATA.find(x => x.id === id);
+  if (!d) return;
+  document.getElementById('exchDate').textContent = d.date;
+  document.getElementById('exchName').textContent = d.name;
+  document.getElementById('exchFrom').textContent = d.from;
+  const photosEl = document.getElementById('exchPhotos');
+  photosEl.className = `exch-photos count-${d.photos.length}`;
+  photosEl.innerHTML = d.photos.map(p => `<img src="${p}" alt="${d.name}">`).join('');
+  document.getElementById('exchBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeExchEv(e) {
+  if (e.target === document.getElementById('exchBackdrop')) closeExch();
+}
+function closeExch() {
+  document.getElementById('exchBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closePhoto(); closeConf(); closeExch(); }
+});
 </script>
 <script src="mobile.js"></script>
 </body>

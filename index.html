@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Home — Chieh-Ting Lin's Lab</title>
-<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --teal:#294752;--teal-d:#1a2f38;--teal-l:#3d6475;
@@ -55,14 +55,17 @@ a{color:inherit;text-decoration:none}
 /* ── HERO ── */
 .hero{
   position:relative;min-height:100vh;
-  background:#08131a;
+  background:#0D0D1A;
   display:flex;align-items:center;overflow:hidden;
 }
-#hero-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%;}
-.hero-content{
+.hs-stars{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.hero-row{
   position:relative;z-index:2;
-  max-width:1200px;margin:0 auto;padding:0 64px;padding-top:100px;
+  max-width:1200px;width:100%;margin:0 auto;
+  padding:100px 64px 64px;
+  display:flex;align-items:center;gap:56px;
 }
+.hero-content{flex:0 0 auto;width:min(500px,52%);}
 .hero-kicker{
   font-size:11px;letter-spacing:.35em;text-transform:uppercase;
   color:rgba(255,255,255,.38);margin-bottom:24px;
@@ -71,17 +74,17 @@ a{color:inherit;text-decoration:none}
 .hero-kicker::before{content:'';display:block;width:32px;height:1px;background:var(--tuscany);}
 .hero-h1{
   font-family:var(--font-d);
-  font-size:clamp(48px,7vw,96px);
+  font-size:clamp(42px,5.5vw,84px);
   color:var(--white);line-height:1.0;margin-bottom:8px;
 }
 .hero-h1 em{color:var(--tuscany);font-style:normal;}
 .hero-sub{
   font-family:var(--font-d);
-  font-size:clamp(18px,2.5vw,28px);
-  color:rgba(255,255,255,.38);margin-bottom:40px;font-style:italic;
+  font-size:clamp(15px,2vw,23px);
+  color:rgba(255,255,255,.38);margin-bottom:36px;font-style:italic;
 }
-.hero-rule{width:56px;height:2px;background:var(--rose);margin-bottom:40px;}
-.hero-desc{font-size:16px;color:rgba(255,255,255,.58);max-width:520px;line-height:1.9;margin-bottom:52px;}
+.hero-rule{width:56px;height:2px;background:var(--rose);margin-bottom:36px;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.55);max-width:460px;line-height:1.9;margin-bottom:48px;}
 .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
 .btn-primary{
   font-size:12px;letter-spacing:.18em;text-transform:uppercase;
@@ -97,19 +100,91 @@ a{color:inherit;text-decoration:none}
 }
 .btn-ghost:hover{border-color:rgba(255,255,255,.5);color:var(--white);transform:translateY(-2px);}
 
-/* crystal legend top-right */
-.crystal-legend{
-  position:absolute;top:100px;right:64px;z-index:3;
-  display:flex;flex-direction:column;gap:10px;
+/* ── HERO SCENE ── */
+.hero-scene{flex:1;position:relative;height:480px;min-width:280px;}
+
+/* Atom stage */
+.hs-stage{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
 }
-.cl-item{display:flex;align-items:center;gap:10px;}
-.cl-dot{border-radius:50%;flex-shrink:0;}
-.cl-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);}
+.hs-atom{
+  position:absolute;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  transition:transform .9s,opacity .7s;
+  will-change:transform,opacity;
+}
+.atom-sphere{border-radius:50%;}
+.hs-a .atom-sphere{
+  width:72px;height:72px;
+  background:radial-gradient(circle at 35% 32%,#b0a5fb,#5B4FCF 55%,#271d7a);
+  box-shadow:0 0 32px rgba(91,79,207,.65),0 0 80px rgba(91,79,207,.18);
+}
+.hs-b .atom-sphere{
+  width:54px;height:54px;
+  background:radial-gradient(circle at 35% 32%,#ffd87a,#F5A623 55%,#7a4600);
+  box-shadow:0 0 28px rgba(245,166,35,.65),0 0 64px rgba(245,166,35,.18);
+}
+.hs-x .atom-sphere{
+  width:40px;height:40px;
+  background:radial-gradient(circle at 35% 32%,#90f0ea,#2EC4B6 55%,#0a5650);
+  box-shadow:0 0 22px rgba(46,196,182,.65),0 0 56px rgba(46,196,182,.18);
+}
+.atom-tag{
+  font-family:'Space Grotesk','Segoe UI',sans-serif;
+  font-size:11px;font-weight:500;letter-spacing:.1em;
+  color:rgba(255,255,255,.72);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  padding:4px 12px;border-radius:20px;white-space:nowrap;
+}
+
+/* Flash */
+.hs-flash{
+  position:absolute;width:360px;height:360px;margin:-180px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,255,255,.4) 22%,transparent 65%);
+  pointer-events:none;opacity:0;
+}
+@keyframes flashPop{
+  0%  {opacity:0;transform:scale(.25);}
+  12% {opacity:1;transform:scale(.85);}
+  100%{opacity:0;transform:scale(2.2);}
+}
+
+/* Crystal scene */
+.hs-crystal-scene{
+  position:absolute;inset:0;
+  opacity:0;transition:opacity 1s ease;pointer-events:none;
+}
+.hs-crystal-scene.visible{opacity:1;pointer-events:auto;}
+#hsCrystalCanvas{display:block;width:100%;height:100%;cursor:default;}
+
+/* Label */
+.hs-label{
+  position:absolute;bottom:12px;right:0;
+  font-family:'Space Grotesk','Segoe UI',sans-serif;
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);
+  opacity:0;transition:opacity 1.2s ease .5s;pointer-events:none;
+}
+.hs-label.visible{opacity:1;}
+
+/* Tooltip */
+.hs-tip{
+  position:fixed;z-index:9000;
+  background:rgba(8,8,24,.93);border:1px solid rgba(255,255,255,.13);
+  padding:10px 16px;
+  font-family:'Space Grotesk','Segoe UI',sans-serif;
+  font-size:12px;color:rgba(255,255,255,.85);
+  max-width:240px;line-height:1.65;
+  pointer-events:none;opacity:0;transition:opacity .15s;
+}
+.hs-tip.show{opacity:1;}
 
 .scroll-cue{
   position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  color:rgba(255,255,255,.25);font-size:10px;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.22);font-size:10px;letter-spacing:.25em;text-transform:uppercase;
   z-index:2;animation:bob 2.5s ease-in-out infinite;
 }
 @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
@@ -120,99 +195,35 @@ a{color:inherit;text-decoration:none}
 .fos-section{
   padding:96px 64px;
   background:var(--off);
-  overflow:hidden;   /* clip the slide-in panels */
 }
 .fos-inner{max-width:1200px;margin:0 auto;}
 .eyebrow{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:14px;display:block;}
 .sec-title{font-family:var(--font-d);font-size:clamp(28px,3.5vw,44px);color:var(--teal);line-height:1.1;margin-bottom:18px;}
 .sec-rule{width:40px;height:2px;background:var(--tuscany);margin-bottom:52px;}
 
-/* Two-panel layout */
-.fos-panels{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:3px;
+.fos-graph-wrap{
+  position:relative;
+  width:100%;
+  margin:0 auto;
 }
-
-/* Slide-in animation — panels start off-screen */
-.fos-panel{
-  position:relative;overflow:hidden;
-  background:var(--white);
+.fos-graph{width:100%;display:block;}
+.fos-reset-btn{
+  position:absolute;bottom:16px;right:0;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 14px;
+  background:rgba(255,255,255,.85);
   border:1px solid var(--border);
-  opacity:0;
-  transition:
-    opacity  .8s cubic-bezier(.22,1,.36,1),
-    transform .8s cubic-bezier(.22,1,.36,1);
+  color:var(--muted);cursor:pointer;
+  border-radius:3px;transition:background .2s,color .2s;
 }
-.fos-panel.from-left { transform:translateX(-80px); }
-.fos-panel.from-right{ transform:translateX( 80px); }
-.fos-panel.in-view   { opacity:1; transform:translateX(0); }
-.fos-panel.from-right.in-view{ transform:translateX(0); }
-
-/* Image area */
-.fos-img{
-  width:100%;aspect-ratio:16/10;overflow:hidden;
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--light);
-}
-.fos-img-ph{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;
-}
-.fos-img-ph .ph-icon{font-size:40px;opacity:.18;}
-.fos-img-ph .ph-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);opacity:.6;}
-
-/* Dark overlay on hover */
-.fos-img::after{
-  content:'';position:absolute;inset:0;
-  background:var(--teal);
-  opacity:0;transition:opacity .35s;
-}
-.fos-panel:hover .fos-img::after{opacity:.06;}
-
-/* Text area */
-.fos-text{
-  padding:36px 40px 40px;
-  position:relative;
-}
-/* Accent line slides in with panel */
-.fos-text::before{
-  content:'';position:absolute;
-  top:0;left:0;width:3px;height:0;
-  background:var(--panel-color,var(--teal));
-  transition:height .6s .3s cubic-bezier(.22,1,.36,1);
-}
-.fos-panel.in-view .fos-text::before{ height:100%; }
-
-.fos-tag{
-  display:inline-block;
-  font-size:9px;letter-spacing:.22em;text-transform:uppercase;
-  padding:4px 12px;
-  background:var(--panel-color,var(--teal));
-  color:var(--white);margin-bottom:18px;
-}
-.fos-h{
-  font-family:var(--font-d);
-  font-size:clamp(20px,2.2vw,26px);
-  color:var(--teal);line-height:1.15;margin-bottom:14px;
-}
-.fos-p{font-size:14px;color:var(--muted);line-height:1.82;}
-
-/* Bullet list */
-.fos-list{
-  list-style:none;margin-top:16px;
-  display:flex;flex-direction:column;gap:8px;
-}
-.fos-list li{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:13px;color:var(--muted);line-height:1.6;
-}
-.fos-list li::before{
-  content:'—';
-  color:var(--panel-color,var(--teal));
-  flex-shrink:0;font-weight:bold;
+.fos-reset-btn:hover{background:var(--white);color:var(--ink);}
+.fos-tooltip{
+  position:fixed;pointer-events:none;
+  background:rgba(24,40,47,.9);color:#fff;
+  font-size:12px;padding:8px 14px;border-radius:4px;
+  opacity:0;transition:opacity .15s;z-index:9999;
+  max-width:220px;line-height:1.6;
+  font-family:Inter,system-ui,sans-serif;
 }
 
 /* ── ABOUT QUAD ── */
@@ -223,7 +234,6 @@ a{color:inherit;text-decoration:none}
   display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;
   border-bottom:1px solid var(--border);
 }
-.about-intro-left{}
 .about-intro-right{
   font-size:15px;color:var(--muted);line-height:1.9;
 }
@@ -317,6 +327,7 @@ footer{background:var(--ink);padding:72px 64px 0;}
 .footer-heading{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);margin-bottom:18px;}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:11px;}
 .footer-links a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s;}
+.footer-links li{font-size:13px;color:rgba(255,255,255,.4);}
 .footer-links a:hover{color:var(--white);}
 .footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em;}
 .footer-tuscany{color:var(--tuscany);opacity:.5;}
@@ -350,29 +361,53 @@ footer{background:var(--ink);padding:72px 64px 0;}
 
 <!-- HERO -->
 <div class="hero">
-  <canvas id="hero-canvas"></canvas>
+  <div class="hs-stars" id="hsStars"></div>
 
-  <!-- Crystal legend -->
-  <div class="crystal-legend">
-    <div class="cl-item"><div class="cl-dot" style="width:14px;height:14px;background:#E8943A;opacity:.7;"></div><span class="cl-label">A-site (Cs⁺ / MA⁺)</span></div>
-    <div class="cl-item"><div class="cl-dot" style="width:10px;height:10px;background:#5B8DB8;opacity:.7;"></div><span class="cl-label">B-site (Pb²⁺)</span></div>
-    <div class="cl-item"><div class="cl-dot" style="width:6px;height:6px;background:#B05A8A;opacity:.7;"></div><span class="cl-label">X-site (I⁻ / Br⁻)</span></div>
-  </div>
+  <div class="hero-row">
+    <!-- Left: text -->
+    <div class="hero-content">
+      <div class="hero-kicker reveal">National Chung Hsing University<br>Department of Chemical Engineering</div>
+      <h1 class="hero-h1 reveal stagger-1">Chieh-Ting<br><em>Lin's Lab</em></h1>
+      <p class="hero-sub reveal stagger-2">Optoelectronic Materials and Photochemistry</p>
+      <div class="hero-rule reveal stagger-3"></div>
+      <p class="hero-desc reveal stagger-4">
+        We investigate next-generation photovoltaics—perovskite and organic solar cells—
+        with a focus on stability, efficiency, and scalable device fabrication.
+      </p>
+      <div class="hero-ctas reveal stagger-5">
+        <a href="publications.html" class="btn-primary">Our Research</a>
+        <a href="team.html" class="btn-ghost">Meet the Team</a>
+      </div>
+    </div>
 
-  <div class="hero-content">
-    <div class="hero-kicker reveal">National Chung Hsing University · Chemical Engineering</div>
-    <h1 class="hero-h1 reveal stagger-1">Chieh-Ting<br><em>Lin's Lab</em></h1>
-    <p class="hero-sub reveal stagger-2">Solar Energy Materials &amp; Photophysics</p>
-    <div class="hero-rule reveal stagger-3"></div>
-    <p class="hero-desc reveal stagger-4">
-      We investigate next-generation photovoltaics—perovskite and organic solar cells—
-      with a focus on stability, efficiency, and scalable device fabrication.
-    </p>
-    <div class="hero-ctas reveal stagger-5">
-      <a href="research.html" class="btn-primary">Our Research</a>
-      <a href="team.html" class="btn-ghost">Meet the Team</a>
+    <!-- Right: animation scene -->
+    <div class="hero-scene">
+      <!-- Phase 1 & 2: Atom fly-in -->
+      <div class="hs-stage" id="hsStage">
+        <div class="hs-atom hs-a" id="atomA">
+          <div class="atom-sphere"></div>
+          <div class="atom-tag">A · Cs⁺</div>
+        </div>
+        <div class="hs-atom hs-b" id="atomB">
+          <div class="atom-sphere"></div>
+          <div class="atom-tag">B · Pb²⁺</div>
+        </div>
+        <div class="hs-atom hs-x" id="atomX">
+          <div class="atom-sphere"></div>
+          <div class="atom-tag">X × 6 · I⁻</div>
+        </div>
+        <div class="hs-flash" id="hsFlash"></div>
+      </div>
+
+      <!-- Phase 3: 3D crystal -->
+      <div class="hs-crystal-scene" id="hsCrystalScene">
+        <canvas id="hsCrystalCanvas"></canvas>
+      </div>
+
+      <div class="hs-label" id="hsLabel">ABX₃ Perovskite Structure</div>
     </div>
   </div>
+
   <div class="scroll-cue">
     <svg width="18" height="28" viewBox="0 0 18 28"><rect x="3" y="3" width="12" height="22" rx="6" stroke="white" stroke-width="1.5" fill="none"/><rect x="7.5" y="7" width="3" height="6" rx="1.5" fill="white"/></svg>
     Scroll
@@ -386,51 +421,9 @@ footer{background:var(--ink);padding:72px 64px 0;}
     <span class="eyebrow reveal">What We Study</span>
     <h2 class="sec-title reveal">Field of Study</h2>
     <div class="sec-rule reveal"></div>
-
-    <div class="fos-panels">
-
-      <!-- Panel 1 — Perovskite Solar Cells (slides from LEFT) -->
-      <div class="fos-panel from-left" style="--panel-color:var(--rose)">
-        <div class="fos-img">
-          <div class="fos-img-ph">
-            <span class="ph-icon">🔮</span>
-            <span class="ph-label">Perovskite Research Photo</span>
-          </div>
-        </div>
-        <div class="fos-text">
-          <span class="fos-tag">Perovskite · ABX₃</span>
-          <h3 class="fos-h">Perovskite Solar Cells</h3>
-          <p class="fos-p">Engineering ABX₃ perovskite absorbers from single-crystal growth to large-area thin-film deposition, targeting the efficiency limits and long-term operational stability essential for commercial deployment.</p>
-          <ul class="fos-list">
-            <li>Single-crystal perovskite growth &amp; characterisation</li>
-            <li>Thin-film stability under thermal, humidity &amp; light stress</li>
-            <li>Interface passivation &amp; charge-transport optimisation</li>
-            <li>Large-area blade-coating and vacuum crystallisation</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Panel 2 — Organic Photovoltaics (slides from RIGHT) -->
-      <div class="fos-panel from-right" style="--panel-color:var(--teal)">
-        <div class="fos-img">
-          <div class="fos-img-ph">
-            <span class="ph-icon">🧬</span>
-            <span class="ph-label">Organic PV Research Photo</span>
-          </div>
-        </div>
-        <div class="fos-text">
-          <span class="fos-tag">Organic PV · D:A</span>
-          <h3 class="fos-h">Organic Photovoltaics</h3>
-          <p class="fos-p">Designing all-polymer donor–acceptor systems for mechanically robust, solution-processable solar cells, with a focus on morphology control, photophysical characterisation, and scalable device fabrication.</p>
-          <ul class="fos-list">
-            <li>All-polymer donor–acceptor blend optimisation</li>
-            <li>Morphology control for high-efficiency OPV</li>
-            <li>Quasi-Fermi level splitting &amp; QFLS mapping</li>
-            <li>Organic photocathodes for solar-driven HER</li>
-          </ul>
-        </div>
-      </div>
-
+    <div class="fos-graph-wrap">
+      <svg id="fosGraph" class="fos-graph"></svg>
+      <button class="fos-reset-btn" id="fosResetBtn">↺ Reset</button>
     </div>
   </div>
 </div>
@@ -453,25 +446,25 @@ footer{background:var(--ink);padding:72px 64px 0;}
 
     <div class="about-quad">
       <!-- Publications -->
-      <div class="aq-cell reveal" style="--cell-color:var(--teal)">
+      <div class="aq-cell reveal" style="--cell-color:var(--teal);cursor:pointer;" onclick="location.href='publications.html'">
         <div class="aq-title-box">Publications</div>
         <p class="aq-body">Our findings are published in leading peer-reviewed journals, covering material science, device physics, and optoelectronics. These publications stand as a testament to our team's expertise and commitment to scientific excellence.</p>
         <a href="publications.html" class="aq-link">View Publications</a>
       </div>
       <!-- Members -->
-      <div class="aq-cell reveal stagger-1" style="--cell-color:var(--rose)">
+      <div class="aq-cell reveal stagger-1" style="--cell-color:var(--rose);cursor:pointer;" onclick="location.href='team.html'">
         <div class="aq-title-box">Members</div>
         <p class="aq-body">Our team is composed of passionate researchers and engineers, united by a shared drive to push the boundaries of material synthesis and device performance. We welcome talent at every stage.</p>
         <a href="team.html" class="aq-link">Meet the Team</a>
       </div>
       <!-- Activities -->
-      <div class="aq-cell reveal stagger-2" style="--cell-color:var(--tuscany)">
+      <div class="aq-cell reveal stagger-2" style="--cell-color:var(--tuscany);cursor:pointer;" onclick="location.href='activities.html'">
         <div class="aq-title-box">Activities</div>
         <p class="aq-body">We regularly organise lab gatherings, engage in international student exchanges, and attend leading academic conferences worldwide—creating a vibrant platform for intellectual exchange and collaboration.</p>
         <a href="activities.html" class="aq-link">See Activities</a>
       </div>
       <!-- Instruments -->
-      <div class="aq-cell reveal stagger-3" style="--cell-color:var(--teal-l)">
+      <div class="aq-cell reveal stagger-3" style="--cell-color:var(--teal-l);cursor:pointer;" onclick="location.href='instruments.html'">
         <div class="aq-title-box">Instruments</div>
         <p class="aq-body">Our laboratory is equipped with advanced characterisation tools and fabrication facilities tailored for perovskite research, supporting high-precision data collection and experimental validation.</p>
         <a href="instruments.html" class="aq-link">View Instruments</a>
@@ -481,31 +474,31 @@ footer{background:var(--ink);padding:72px 64px 0;}
 </div>
 
 
-<!-- NEWS PREVIEW -->
+<!-- PUBLICATIONS PREVIEW -->
 <div class="news-section">
   <div class="news-inner">
-    <span class="eyebrow reveal">Latest Updates</span>
-    <h2 class="sec-title reveal">News</h2>
+    <span class="eyebrow reveal">Selected Work</span>
+    <h2 class="sec-title reveal">Publications</h2>
     <div class="sec-rule reveal"></div>
     <div class="news-preview">
-      <div class="np-item reveal">
-        <div class="np-date">Jan 2025</div>
-        <div><span class="np-tag pub">Publication</span><div class="np-title">Efficiency Enhancement in Single-Crystal Perovskite via Interface Passivation</div><div class="np-body"><em>Advanced Energy Materials</em> — Placeholder for details.</div></div>
+      <div class="np-item reveal" onclick="location.href='https://www.cell.com/joule/fulltext/S2542-4351(25)00308-3'" style="cursor:pointer;">
+        <div class="np-date">2025</div>
+        <div><span class="np-tag pub">Publication</span><div class="np-title">Reaching a consensus on indoor photovoltaics testing</div><div class="np-body"><em>Joule</em> 9 (10)</div></div>
         <div class="np-arrow">→</div>
       </div>
-      <div class="np-item reveal stagger-1">
-        <div class="np-date">Dec 2024</div>
-        <div><span class="np-tag award">Award</span><div class="np-title">Lab Receives NSTC Young Scholar Grant</div><div class="np-body">Placeholder — describe the grant and research direction here.</div></div>
+      <div class="np-item reveal stagger-1" onclick="location.href='https://pubs.acs.org/doi/full/10.1021/jacs.5c05772'" style="cursor:pointer;">
+        <div class="np-date">2025</div>
+        <div><span class="np-tag pub">Publication</span><div class="np-title">Crystal Growth Modulation of Tin–Lead Halide Perovskites via Chaotropic Agent</div><div class="np-body"><em>Journal of the American Chemical Society</em> 147 (35), 31578–31590</div></div>
         <div class="np-arrow">→</div>
       </div>
-      <div class="np-item reveal stagger-2">
-        <div class="np-date">Oct 2024</div>
-        <div><span class="np-tag pub">Publication</span><div class="np-title">Scalable Blade-Coating of Organic Solar Modules Beyond 100 cm²</div><div class="np-body"><em>Nature Energy</em> — Placeholder for details.</div></div>
+      <div class="np-item reveal stagger-2" onclick="location.href='https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/adma.202101833'" style="cursor:pointer;">
+        <div class="np-date">2022</div>
+        <div><span class="np-tag pub">Publication</span><div class="np-title">A comparison of charge carrier dynamics in organic and perovskite solar cells</div><div class="np-body"><em>Advanced Materials</em> 34 (2), 2101833</div></div>
         <div class="np-arrow">→</div>
       </div>
     </div>
     <div style="text-align:right;margin-top:32px;" class="reveal">
-      <a href="news.html" style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid var(--border);padding-bottom:3px;">All News →</a>
+      <a href="publications.html" style="font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid var(--border);padding-bottom:3px;">All Publications →</a>
     </div>
   </div>
 </div>
@@ -515,7 +508,7 @@ footer{background:var(--ink);padding:72px 64px 0;}
   <div class="footer-grid">
     <div>
       <div class="footer-logo">Chieh-Ting Lin's Lab</div>
-      <p class="footer-tagline">Solar Energy Materials &amp; Photophysics<br>National Chung Hsing University</p>
+      <p class="footer-tagline">Optoelectronic Materials and Photochemistry<br>National Chung Hsing University</p>
       <p class="footer-address">145 Xingda Rd., South District<br>Taichung 40227, Taiwan</p>
     </div>
     <div>
@@ -533,10 +526,10 @@ footer{background:var(--ink);padding:72px 64px 0;}
     <div>
       <div class="footer-heading">Research</div>
       <ul class="footer-links">
-        <li><a href="research.html">Perovskite Solar Cells</a></li>
-        <li><a href="research.html">Organic Photovoltaics</a></li>
-        <li><a href="research.html">Large-Area Fabrication</a></li>
-        <li><a href="research.html">Photophysical Characterisation</a></li>
+        <li>Perovskite Solar Cells</li>
+        <li>Organic Photovoltaics</li>
+        <li>Large-Area Fabrication</li>
+        <li>Photophysical Characterisation</li>
       </ul>
     </div>
     <div>
@@ -553,348 +546,202 @@ footer{background:var(--ink);padding:72px 64px 0;}
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
 // ══════════════════════════════════════════════
-//  PEROVSKITE ABX₃ — OCTAHEDRAL LATTICE ANIMATION
-//  Structure: corner-sharing BX₆ octahedra, A-site at cavities
-//  Visual style: green octahedra + purple A-site + 2.5D perspective
+//  PEROVSKITE ABX₃ — THREE-PHASE ANIMATION
 // ══════════════════════════════════════════════
-const canvas = document.getElementById('hero-canvas');
-const ctx    = canvas.getContext('2d');
 
-let mouse = { x: -9999, y: -9999 };
-canvas.addEventListener('mousemove', e => {
-  const r = canvas.getBoundingClientRect();
-  mouse.x = (e.clientX - r.left) * (canvas.width  / r.width);
-  mouse.y = (e.clientY - r.top)  * (canvas.height / r.height);
-});
-canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+// ── Stars ───────────────────────────────────
+(function(){
+  const stars = document.getElementById('hsStars');
+  if (!stars) return;
+  const frag = document.createDocumentFragment();
+  const positions = [
+    [7,12,0.7],[19,45,0.45],[28,72,0.6],[38,8,0.5],[47,88,0.4],[55,33,0.65],
+    [63,60,0.5],[74,20,0.7],[85,78,0.45],[94,50,0.55],[3,55,0.4],[13,30,0.6],
+    [22,85,0.5],[34,48,0.7],[43,18,0.45],[52,65,0.6],[66,90,0.5],[77,40,0.65],
+    [88,15,0.4],[97,72,0.55],[9,92,0.6],[18,10,0.5],[26,58,0.7],[36,80,0.4],
+    [45,25,0.6],[57,42,0.5],[68,70,0.65],[79,5,0.45],[91,35,0.55],[2,38,0.7],
+    [11,68,0.5],[23,20,0.6],[32,95,0.4],[41,55,0.65],[49,8,0.5],[60,78,0.6],
+    [72,28,0.45],[83,62,0.7],[93,15,0.5],[5,82,0.55],[16,42,0.6],[25,12,0.4],
+    [35,65,0.7],[46,38,0.5],[58,88,0.6],[69,18,0.45],[81,52,0.65],[92,80,0.4],
+    [4,28,0.55],[14,75,0.6],[21,50,0.5],[31,22,0.7],[40,90,0.45],[50,48,0.6]
+  ];
+  positions.forEach(([x,y,a]) => {
+    const s = document.createElement('div');
+    const sz = (0.7 + Math.random()).toFixed(1);
+    s.style.cssText = `position:absolute;left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;border-radius:50%;background:rgba(255,255,255,${a})`;
+    frag.appendChild(s);
+  });
+  stars.appendChild(frag);
+})();
 
-function resize() {
-  canvas.width  = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+// ── Atom phase control ───────────────────────
+const atomA = document.getElementById('atomA');
+const atomB = document.getElementById('atomB');
+const atomX = document.getElementById('atomX');
+
+// Start off-screen
+atomA.style.cssText += ';transform:translate(-260px,-220px) scale(0.22);opacity:0;transition:none';
+atomB.style.cssText += ';transform:translate(260px,-220px) scale(0.22);opacity:0;transition:none';
+atomX.style.cssText += ';transform:translate(0,310px) scale(0.22);opacity:0;transition:none';
+
+// Phase 1: fly in with spring easing
+setTimeout(() => {
+  [atomA,atomB,atomX].forEach(el => {
+    el.style.transitionTimingFunction = 'cubic-bezier(.34,1.56,.64,1)';
+    el.style.transitionDuration = '.95s';
+    el.style.opacity = '1';
+  });
+  atomA.style.transitionDelay = '.05s';
+  atomB.style.transitionDelay = '.2s';
+  atomX.style.transitionDelay = '.35s';
+  atomA.style.transform = 'translate(-92px,0) scale(1)';
+  atomB.style.transform = 'translate(92px,0) scale(1)';
+  atomX.style.transform = 'translate(0,95px) scale(1)';
+}, 80);
+
+// Phase 2: converge
+setTimeout(() => {
+  [atomA,atomB,atomX].forEach(el => {
+    el.style.transitionTimingFunction = 'cubic-bezier(.55,0,1,.45)';
+    el.style.transitionDuration = '.6s';
+    el.style.transitionDelay = '0s';
+    el.style.transform = 'translate(0,0) scale(0.15)';
+    el.style.opacity = '0';
+  });
+  atomB.style.transitionDelay = '.06s';
+  atomX.style.transitionDelay = '.12s';
+}, 1500);
+
+// Flash
+setTimeout(() => {
+  document.getElementById('hsFlash').style.animation = 'flashPop .85s ease-out forwards';
+}, 2680);
+
+// Phase 3: crystal
+setTimeout(() => {
+  document.getElementById('hsStage').style.display = 'none';
+  document.getElementById('hsCrystalScene').classList.add('visible');
+  document.getElementById('hsLabel').classList.add('visible');
+  requestAnimationFrame(renderCrystal);
+}, 3100);
+
+// ── Canvas Crystal ───────────────────────────
+const CUBE = 96;
+const cvs = document.getElementById('hsCrystalCanvas');
+const ctx2 = cvs.getContext('2d');
+const crystalScene = document.getElementById('hsCrystalScene');
+
+function resizeCrystalCanvas(){
+  cvs.width  = crystalScene.clientWidth  || 460;
+  cvs.height = crystalScene.clientHeight || 480;
 }
-resize();
-window.addEventListener('resize', resize);
+resizeCrystalCanvas();
+window.addEventListener('resize', resizeCrystalCanvas);
 
-// ── Colours ──
-const COL = {
-  A:  { fill:'rgba(210,70,210,',  glow:'rgba(210,70,210,',  r:11 },  // purple
-  B:  { fill:'rgba(80,160,100,',  glow:'rgba(80,160,100,',  r:5  },  // green (inside oct)
-  X:  { fill:'rgba(140,200,120,', glow:'rgba(130,190,110,', r:4  },  // light green
-  bond:  'rgba(100,180,120,',
-  face:  'rgba(60,150,90,',
-  edge:  'rgba(100,200,130,',
+// Atom positions
+const atomDefs = [];
+for (const x of [-CUBE,CUBE]) for (const y of [-CUBE,CUBE]) for (const z of [-CUBE,CUBE])
+  atomDefs.push({x,y,z,type:'A'});
+atomDefs.push({x:0,y:0,z:0,type:'B'});
+for (const [x,y,z] of [[-CUBE,0,0],[CUBE,0,0],[0,-CUBE,0],[0,CUBE,0],[0,0,-CUBE],[0,0,CUBE]])
+  atomDefs.push({x,y,z,type:'X'});
+
+// 12 cube edges
+const EDGES=[];
+for (let i=0;i<8;i++) for (let j=i+1;j<8;j++) {
+  const a=atomDefs[i],b=atomDefs[j];
+  if ((a.x!==b.x?1:0)+(a.y!==b.y?1:0)+(a.z!==b.z?1:0)===1) EDGES.push([i,j]);
+}
+
+const ASTYLES = {
+  A: {r:14,  inner:'#ccc4ff', mid:'#5B4FCF', outer:'#18104a', glow:'rgba(91,79,207,.9)'   },
+  B: {r:12,  inner:'#ffe8a8', mid:'#F5A623', outer:'#4a2600', glow:'rgba(245,166,35,.95)' },
+  X: {r:8.5, inner:'#b0f5ef', mid:'#2EC4B6', outer:'#043530', glow:'rgba(46,196,182,.9)'  },
+};
+const ATIPS = {
+  A: 'A-site cation — large-radius ion (Cs⁺, MA⁺, FA⁺) at cube corners',
+  B: 'B-site cation — metal ion (Pb²⁺, Sn²⁺) at body centre, sets optical bandgap',
+  X: 'X-site anion — halide (I⁻, Br⁻, Cl⁻) at face centres, tunes colour & band structure',
 };
 
-// ── Octahedron vertex offsets (normalised, half-unit = 0.5) ──
-// BX₆ octahedron: B at centre, X at ±x, ±y, ±z
-const OCT_X = [
-  [1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]
-];
-// 8 triangular faces of octahedron (winding for back-face culling)
-const OCT_FACES = [
-  [0,2,4],[0,4,3],[0,3,5],[0,5,2],
-  [1,4,2],[1,3,4],[1,5,3],[1,2,5]
-];
-// 12 edges of octahedron
-const OCT_EDGES = [
-  [0,2],[0,3],[0,4],[0,5],
-  [1,2],[1,3],[1,4],[1,5],
-  [2,4],[4,3],[3,5],[5,2]
-];
+// Fixed world-space light direction (normalised, points upper-left-front)
+const LX=-0.55, LY=-0.65;
+let rotY3=0, lastTs3=null, hovAtom=null;
 
-// ── Single ABX₃ unit ──
-// In the 2×2 lattice view, one unit = one BX₆ octahedron
-// + 8 shared A-site atoms at the octahedron corners (cube vertices)
-const CUBE_CORNERS = [
-  [1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],
-  [-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1]
-];
+function proj3(px,py,pz,scale) {
+  const cosY=Math.cos(rotY3), sinY=Math.sin(rotY3);
+  const rx=px*cosY+pz*sinY, rz0=-px*sinY+pz*cosY;
+  const TILT=-18*Math.PI/180, cosX=Math.cos(TILT), sinX=Math.sin(TILT);
+  const ry2=py*cosX-rz0*sinX, rz2=py*sinX+rz0*cosX;
+  const fov=900/(900+rz2);
+  return {sx:cvs.width/2+rx*fov*scale, sy:cvs.height/2+ry2*fov*scale, sz:rz2, fov};
+}
 
-// ── Lattice: generate a 3×3 grid of octahedra sharing corners ──
-// Each octahedron centred at integer grid positions
-// A-sites sit at half-integer positions between octahedra
-function makeLattice(gridN, unitLen) {
-  // unitLen = spacing between octahedra centres in px
-  const octs = [];
-  const half = (gridN-1)/2;
-  for(let ix=0; ix<gridN; ix++){
-    for(let iy=0; iy<gridN; iy++){
-      for(let iz=0; iz<gridN; iz++){
-        octs.push({
-          gx: ix - half,
-          gy: iy - half,
-          gz: iz - half,
-        });
-      }
-    }
+function renderCrystal(ts) {
+  if (lastTs3!==null) rotY3+=(ts-lastTs3)/1000*(2*Math.PI/14);
+  lastTs3=ts;
+  ctx2.clearRect(0,0,cvs.width,cvs.height);
+  const breath=1+0.04*(0.5-0.5*Math.cos(rotY3*2));
+  const proj=atomDefs.map((a,i)=>({...a,idx:i,...proj3(a.x,a.y,a.z,breath)}));
+
+  // Bonds
+  ctx2.lineCap='round';
+  EDGES.forEach(([i,j])=>{
+    const a=proj[i],b=proj[j];
+    const alpha=0.09+0.19*(1-Math.min(1,Math.max(-1,(a.sz+b.sz)*0.5/CUBE)));
+    ctx2.beginPath(); ctx2.moveTo(a.sx,a.sy); ctx2.lineTo(b.sx,b.sy);
+    ctx2.strokeStyle=`rgba(255,255,255,${alpha.toFixed(2)})`; ctx2.lineWidth=1.5; ctx2.stroke();
+  });
+
+  // Atoms (back → front)
+  [...proj].sort((a,b)=>a.sz-b.sz).forEach(a=>{
+    const s=ASTYLES[a.type], r=s.r*a.fov*breath;
+    const hlx=a.sx+LX*r*0.44, hly=a.sy+LY*r*0.44;
+    // Diffuse sphere gradient
+    const gd=ctx2.createRadialGradient(hlx,hly,0,a.sx,a.sy,r);
+    gd.addColorStop(0,s.inner); gd.addColorStop(0.42,s.mid); gd.addColorStop(1,s.outer);
+    ctx2.save();
+    ctx2.shadowColor=s.glow; ctx2.shadowBlur=r*(a.idx===hovAtom?3:0.9);
+    ctx2.beginPath(); ctx2.arc(a.sx,a.sy,r,0,Math.PI*2); ctx2.fillStyle=gd; ctx2.fill();
+    ctx2.restore();
+    // Specular highlight
+    const gs=ctx2.createRadialGradient(hlx,hly,0,hlx,hly,r*0.68);
+    gs.addColorStop(0,'rgba(255,255,255,0.75)');
+    gs.addColorStop(0.45,'rgba(255,255,255,0.15)');
+    gs.addColorStop(1,'rgba(255,255,255,0)');
+    ctx2.beginPath(); ctx2.arc(a.sx,a.sy,r,0,Math.PI*2); ctx2.fillStyle=gs; ctx2.fill();
+  });
+  requestAnimationFrame(renderCrystal);
+}
+
+// ── Tooltip ──────────────────────────────────
+const tip = document.createElement('div');
+tip.className = 'hs-tip';
+document.body.appendChild(tip);
+cvs.addEventListener('mousemove', e=>{
+  const rect=cvs.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)*(cvs.width/rect.width);
+  const my=(e.clientY-rect.top)*(cvs.height/rect.height);
+  const breath=1+0.04*(0.5-0.5*Math.cos(rotY3*2));
+  const proj=atomDefs.map((a,i)=>({...a,idx:i,...proj3(a.x,a.y,a.z,breath)}));
+  let found=null;
+  for (const a of [...proj].sort((a,b)=>b.sz-a.sz)) {
+    const r=ASTYLES[a.type].r*a.fov*breath, dx=mx-a.sx, dy=my-a.sy;
+    if (dx*dx+dy*dy<r*r){found=a;break;}
   }
-  return octs;
-}
+  hovAtom=found?found.idx:null;
+  if(found){
+    tip.textContent=ATIPS[found.type];
+    tip.style.left=(e.clientX+14)+'px'; tip.style.top=(e.clientY-42)+'px';
+    tip.classList.add('show'); cvs.style.cursor='pointer';
+  } else { tip.classList.remove('show'); cvs.style.cursor='default'; }
+});
+cvs.addEventListener('mouseleave',()=>{tip.classList.remove('show');hovAtom=null;});
 
-// ── Projection (3-D → 2-D with perspective) ──
-function project3d(wx,wy,wz, cx,cy, fov, scale) {
-  const z = wz + fov;
-  return {
-    sx: cx + (wx / z) * scale,
-    sy: cy + (wy / z) * scale,
-    depth: wz,
-  };
-}
-
-// ── Rotate point around Y then X ──
-function rotYX(x,y,z, ry,rx){
-  // Y axis
-  const x1 =  x*Math.cos(ry) + z*Math.sin(ry);
-  const z1 = -x*Math.sin(ry) + z*Math.cos(ry);
-  // X axis
-  const y2 =  y*Math.cos(rx) - z1*Math.sin(rx);
-  const z2 =  y*Math.sin(rx) + z1*Math.cos(rx);
-  return [x1, y2, z2];
-}
-
-// ── Scene state ──
-// One "floating cluster" drifting around
-const CLUSTERS = [];
-const N_CLUSTERS = 5; // number of floating clusters
-const GRID = 2;       // 2×2×2 octahedra per cluster
-const UNIT = 52;      // px between octahedra centres
-
-for(let i=0; i<N_CLUSTERS; i++){
-  CLUSTERS.push({
-    cx: Math.random() * 1200,
-    cy: Math.random() * 700,
-    vx: (Math.random()-.5)*0.3,
-    vy: (Math.random()-.5)*0.3,
-    ry: Math.random()*Math.PI*2,   // Y rotation angle
-    rx: Math.random()*0.6 - 0.3,  // X tilt (slight)
-    dRY: (Math.random()-.5)*0.007,
-    dRX: (Math.random()-.5)*0.002,
-    hover: 0,
-    scale: 0.7 + Math.random()*0.55,
-  });
-}
-
-// ── Draw one octahedron ──
-function drawOctahedron(ctx, verts3d, cx, cy, ry, rx, scale, alpha) {
-  // Project vertices
-  const fov = 4.5;
-  const vp = verts3d.map(([x,y,z]) => {
-    const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
-    return project3d(rx2,ry2,rz2, cx,cy, fov, scale);
-  });
-
-  // Sort faces by average depth
-  const faces = OCT_FACES.map(f => ({
-    f,
-    depth: (vp[f[0]].depth + vp[f[1]].depth + vp[f[2]].depth) / 3
-  })).sort((a,b) => a.depth - b.depth);
-
-  // Draw filled faces
-  faces.forEach(({ f, depth }) => {
-    const [i,j,k] = f;
-    const lightness = 0.35 + (depth + 1) * 0.18;
-    const fa = Math.max(0, Math.min(1, lightness * alpha));
-
-    ctx.beginPath();
-    ctx.moveTo(vp[i].sx, vp[i].sy);
-    ctx.lineTo(vp[j].sx, vp[j].sy);
-    ctx.lineTo(vp[k].sx, vp[k].sy);
-    ctx.closePath();
-    ctx.fillStyle = COL.face + fa + ')';
-    ctx.fill();
-  });
-
-  // Draw edges on top
-  OCT_EDGES.forEach(([i,j]) => {
-    const da = (vp[i].depth + vp[j].depth)/2;
-    const ea = Math.max(0, Math.min(1, (0.5 + da*0.3) * alpha));
-    ctx.beginPath();
-    ctx.moveTo(vp[i].sx, vp[i].sy);
-    ctx.lineTo(vp[j].sx, vp[j].sy);
-    ctx.strokeStyle = COL.edge + ea + ')';
-    ctx.lineWidth = 1.2;
-    ctx.stroke();
-  });
-
-  return vp;
-}
-
-// ── Draw sphere ──
-function drawSphere(ctx, sx, sy, r, col, alpha) {
-  // Glow
-  const g = ctx.createRadialGradient(sx,sy,0, sx,sy,r*2.5);
-  g.addColorStop(0, col.glow + (alpha*0.3) + ')');
-  g.addColorStop(1, col.glow + '0)');
-  ctx.beginPath();
-  ctx.arc(sx,sy,r*2.5,0,Math.PI*2);
-  ctx.fillStyle = g; ctx.fill();
-
-  // Body
-  const b = ctx.createRadialGradient(sx-r*.3,sy-r*.3,0, sx,sy,r);
-  b.addColorStop(0, col.fill + Math.min(1,alpha+.2) + ')');
-  b.addColorStop(1, col.fill + (alpha*.6)     + ')');
-  ctx.beginPath();
-  ctx.arc(sx,sy,r,0,Math.PI*2);
-  ctx.fillStyle = b; ctx.fill();
-}
-
-// ── Draw one cluster ──
-function drawCluster(cl) {
-  const sc = cl.scale * UNIT * (1 + cl.hover * 0.18);
-  const fov = 4.5;
-  const ry = cl.ry, rx = cl.rx;
-
-  // Collect all drawable elements
-  const drawables = [];
-
-  const octs = makeLattice(GRID, 1.0);
-
-  // For each octahedron in the grid
-  octs.forEach(oct => {
-    const bx = oct.gx, by = oct.gy, bz = oct.gz;
-
-    // B-site at centre
-    const [bRx,bRy,bRz] = rotYX(bx,by,bz, ry,rx);
-    const bProj = project3d(bRx,bRy,bRz, cl.cx,cl.cy, fov, sc);
-
-    // X-site vertices (scaled to half-unit)
-    const xVerts3d = OCT_X.map(([dx,dy,dz]) => [bx+dx*0.5, by+dy*0.5, bz+dz*0.5]);
-    const xProjs = xVerts3d.map(([x,y,z]) => {
-      const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
-      return project3d(rx2,ry2,rz2, cl.cx,cl.cy, fov, sc);
-    });
-
-    // Octahedron faces
-    const faceVerts = xVerts3d.map(([x,y,z]) => [x-bx,y-by,z-bz]);
-    // Actually we need to draw faces relative to B projected position
-    // We'll add the octahedron as a single drawable
-    drawables.push({
-      type:'oct',
-      depth: bProj.depth,
-      bx,by,bz,
-      bProj, xVerts3d, xProjs,
-    });
-
-    // B-site sphere
-    drawables.push({ type:'B', depth:bProj.depth, proj:bProj });
-
-    // X-site spheres
-    xProjs.forEach((xp, xi) => {
-      drawables.push({ type:'X', depth:xp.depth, proj:xp });
-    });
-  });
-
-  // A-site atoms: at half-integer lattice positions between octahedra
-  // In GRID×GRID×GRID, A-sites sit at positions offset by (±0.5, ±0.5, ±0.5) from each oct
-  const aSet = new Set();
-  octs.forEach(oct => {
-    CUBE_CORNERS.forEach(([dx,dy,dz]) => {
-      const ax = oct.gx + dx*0.5;
-      const ay = oct.gy + dy*0.5;
-      const az = oct.gz + dz*0.5;
-      const key = `${ax.toFixed(1)},${ay.toFixed(1)},${az.toFixed(1)}`;
-      if(!aSet.has(key)){
-        aSet.add(key);
-        const [arx,ary,arz] = rotYX(ax,ay,az, ry,rx);
-        const aProj = project3d(arx,ary,arz, cl.cx,cl.cy, fov, sc);
-        drawables.push({ type:'A', depth:aProj.depth, proj:aProj });
-      }
-    });
-  });
-
-  // Sort all drawables back-to-front
-  drawables.sort((a,b) => a.depth - b.depth);
-
-  const alpha = 0.82 + cl.hover * 0.18;
-
-  drawables.forEach(d => {
-    const a = Math.max(0, Math.min(1, alpha));
-    if(d.type === 'oct'){
-      // Draw faces + edges
-      const fov2 = 4.5;
-      const vp = d.xVerts3d.map(([x,y,z]) => {
-        const [rx2,ry2,rz2] = rotYX(x,y,z, ry,rx);
-        return project3d(rx2,ry2,rz2, cl.cx,cl.cy, fov2, sc);
-      });
-
-      const sortedFaces = OCT_FACES.map(f => ({
-        f,
-        depth: (vp[f[0]].depth+vp[f[1]].depth+vp[f[2]].depth)/3
-      })).sort((a,b) => a.depth-b.depth);
-
-      sortedFaces.forEach(({ f, depth }) => {
-        const lightness = 0.22 + (depth+1)*0.15;
-        const fa = Math.max(0, Math.min(0.65, lightness*a));
-        ctx.beginPath();
-        ctx.moveTo(vp[f[0]].sx, vp[f[0]].sy);
-        ctx.lineTo(vp[f[1]].sx, vp[f[1]].sy);
-        ctx.lineTo(vp[f[2]].sx, vp[f[2]].sy);
-        ctx.closePath();
-        ctx.fillStyle = COL.face + fa + ')';
-        ctx.fill();
-      });
-
-      OCT_EDGES.forEach(([i,j]) => {
-        const ea = Math.max(0, Math.min(0.9, (0.5+(vp[i].depth+vp[j].depth)/2*0.3)*a));
-        ctx.beginPath();
-        ctx.moveTo(vp[i].sx, vp[i].sy);
-        ctx.lineTo(vp[j].sx, vp[j].sy);
-        ctx.strokeStyle = COL.edge + ea + ')';
-        ctx.lineWidth = 1.0; ctx.stroke();
-      });
-    }
-    else if(d.type === 'A'){
-      const r = COL.A.r * cl.scale * (1 + cl.hover*0.12);
-      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.A, a);
-    }
-    else if(d.type === 'B'){
-      const r = COL.B.r * cl.scale * (1 + cl.hover*0.12);
-      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.B, a * 0.85);
-    }
-    else if(d.type === 'X'){
-      const r = COL.X.r * cl.scale * (1 + cl.hover*0.12);
-      drawSphere(ctx, d.proj.sx, d.proj.sy, r, COL.X, a * 0.7);
-    }
-  });
-}
-
-// ── Animation loop ──
-function tick() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  CLUSTERS.forEach(cl => {
-    // Sync canvas size for proper wrapping
-    const W = canvas.width, H = canvas.height;
-
-    cl.cx += cl.vx; cl.cy += cl.vy;
-    if(cl.cx < -150)  cl.cx = W + 150;
-    if(cl.cx > W+150) cl.cx = -150;
-    if(cl.cy < -150)  cl.cy = H + 150;
-    if(cl.cy > H+150) cl.cy = -150;
-
-    const hb = 1 + cl.hover * 3;
-    cl.ry += cl.dRY * hb;
-    cl.rx += cl.dRX * hb;
-    // Keep rx in gentle range
-    cl.rx = Math.max(-0.6, Math.min(0.6, cl.rx));
-    if(Math.abs(cl.rx) > 0.55) cl.dRX *= -1;
-
-    // Mouse hover
-    const dx = cl.cx - mouse.x, dy = cl.cy - mouse.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    const target = dist < 200 ? Math.max(0, 1-dist/200) : 0;
-    cl.hover += (target - cl.hover) * 0.08;
-
-    drawCluster(cl);
-  });
-
-  requestAnimationFrame(tick);
-}
-tick();
-
-// ── Nav ──
+// ── Nav ──────────────────────────────────────
 const navbar = document.getElementById('navbar');
 navbar.classList.add('dark-hero');
 
@@ -919,21 +766,189 @@ const ro = new IntersectionObserver(entries=>{
 },{threshold:.1});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>ro.observe(el));
 
-// ── Field of Study — slide-in from sides ──
-const fosObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      // stagger: left panel first, right panel 150ms later
-      const panels = document.querySelectorAll('.fos-panel');
-      panels.forEach((p, i) => {
-        setTimeout(() => p.classList.add('in-view'), i * 150);
+// ── Field of Study — D3 Force Graph ──
+(function(){
+  const W = 1060, H = 600;
+
+  const tgt = {
+    pvsk:  { x:400, y:300 },
+    opv:   { x:680, y:300 },
+    solar: { x:318, y:118 },
+    photo: { x:155, y:210 },
+    hydro: { x:150, y:405 },
+    water: { x:320, y:508 },
+    tandem:{ x:535, y:155 },
+    moon:  { x:535, y:448 },
+  };
+
+  const NODES = [
+    { id:'pvsk',  label:['Perovskite','(PVSK)'],    r:60, fill:'#4A6CF7', tip:'Core material platform — high-efficiency ABX₃ perovskite optoelectronics', fixed:true },
+    { id:'opv',   label:['OPV'],                    r:45, fill:'#F5A623', tip:'Organic photovoltaics — flexible, lightweight, solution-processable',       fixed:true },
+    { id:'solar', label:['Solar Cell','⭐'],          r:38, fill:'#2EC4B6', tip:'Perovskite solar cells — certified efficiency beyond 26%',                  star:true  },
+    { id:'photo', label:['Photo-','detectors'],       r:36, fill:'#9B59B6', tip:'High-sensitivity photodetectors for imaging and sensing applications'                  },
+    { id:'hydro', label:['Hydrogen','Gen.'],         r:30, fill:'#27AE60', tip:'Photocatalytic hydrogen generation for clean energy production'                        },
+    { id:'water', label:['Underwater','Apps'],       r:30, fill:'#1A8FE3', tip:'Underwater photoelectronics for optical sensing and communication'                     },
+    { id:'tandem',label:['Tandem'],                  r:32, grad:true,      tip:'Perovskite / organic tandem solar cells exceeding single-junction limits',  fixed:true },
+    { id:'moon',  label:['🌱 Grow Me','on Moon'],    r:32, grad:true,      tip:'Lunar agriculture lighting — photovoltaics for space exploration',          fixed:true },
+  ];
+
+  const LINKS = [
+    { source:'pvsk', target:'opv',    sw:3,   color:'#999',     dash:false },
+    { source:'pvsk', target:'solar',  sw:2.5, color:'#2EC4B6',  dash:false },
+    { source:'pvsk', target:'photo',  sw:1.5, color:'#AAAAAA',  dash:false },
+    { source:'pvsk', target:'hydro',  sw:1.5, color:'#AAAAAA',  dash:false },
+    { source:'pvsk', target:'water',  sw:1.5, color:'#AAAAAA',  dash:false },
+    { source:'pvsk', target:'tandem', sw:1.5, color:'#999999',  dash:true  },
+    { source:'opv',  target:'tandem', sw:1.5, color:'#999999',  dash:true  },
+    { source:'pvsk', target:'moon',   sw:1.5, color:'#999999',  dash:true  },
+    { source:'opv',  target:'moon',   sw:1.5, color:'#999999',  dash:true  },
+  ];
+
+  const nodes = NODES.map(n => ({
+    ...n, x: W/2 + (Math.random()-.5)*12, y: H/2 + (Math.random()-.5)*12
+  }));
+  const links = LINKS.map(l => ({...l}));
+
+  const svg = d3.select('#fosGraph')
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
+
+  // ── defs ──
+  const defs = svg.append('defs');
+  const gr = defs.append('linearGradient').attr('id','fosGrad')
+    .attr('x1','0%').attr('y1','0%').attr('x2','100%').attr('y2','0%');
+  gr.append('stop').attr('offset','0%').attr('stop-color','#4A6CF7');
+  gr.append('stop').attr('offset','100%').attr('stop-color','#F5A623');
+
+  const fShad = defs.append('filter').attr('id','fosShadow')
+    .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+  fShad.append('feDropShadow').attr('dx',0).attr('dy',3)
+    .attr('stdDeviation',7).attr('flood-color','rgba(0,0,0,0.18)');
+
+  const fGlow = defs.append('filter').attr('id','fosGlow')
+    .attr('x','-60%').attr('y','-60%').attr('width','220%').attr('height','220%');
+  fGlow.append('feGaussianBlur').attr('stdDeviation',7).attr('result','blur');
+  const fMerge = fGlow.append('feMerge');
+  fMerge.append('feMergeNode').attr('in','blur');
+  fMerge.append('feMergeNode').attr('in','SourceGraphic');
+
+  // ── tooltip ──
+  const tip = d3.select('body').append('div').attr('class','fos-tooltip');
+
+  // ── simulation ──
+  const sim = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d=>d.id)
+      .distance(d => d.source.r + d.target.r + 55).strength(0.22))
+    .force('charge', d3.forceManyBody().strength(-750))
+    .force('x', d3.forceX(d => tgt[d.id].x).strength(d => d.fixed ? 0.88 : 0.32))
+    .force('y', d3.forceY(d => tgt[d.id].y).strength(d => d.fixed ? 0.88 : 0.32))
+    .force('collide', d3.forceCollide(d => d.r + 16))
+    .alphaDecay(0.012);
+
+  // ── links ──
+  const linkSel = svg.append('g').selectAll('line').data(links).enter()
+    .append('line')
+    .attr('stroke', d => d.color)
+    .attr('stroke-width', d => d.sw)
+    .attr('stroke-dasharray', d => d.dash ? '6 4' : null)
+    .attr('stroke-linecap','round')
+    .attr('opacity', 0.65);
+
+  // ── nodes ──
+  const nodeG = svg.append('g').selectAll('g').data(nodes).enter()
+    .append('g')
+    .style('cursor','grab')
+    .call(d3.drag()
+      .on('start', function(e, d){
+        if(!e.active) sim.alphaTarget(0.3).restart();
+        d.fx = d.x; d.fy = d.y;
+        d3.select(this).style('cursor','grabbing');
+      })
+      .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on('end', function(e, d){
+        if(!e.active) sim.alphaTarget(0);
+        d3.select(this).style('cursor','grab');
+      })
+    )
+    .on('mouseover', function(e, d){
+      tip.html(d.tip).style('opacity',1)
+        .style('left',(e.clientX+16)+'px').style('top',(e.clientY-10)+'px');
+      d3.select(this).select('.nc').transition().duration(180).attr('r', d.r*1.15);
+    })
+    .on('mousemove', e => {
+      tip.style('left',(e.clientX+16)+'px').style('top',(e.clientY-10)+'px');
+    })
+    .on('mouseout', function(e, d){
+      tip.style('opacity',0);
+      d3.select(this).select('.nc').transition().duration(180).attr('r', d.r);
+    })
+    .on('click', function(e, d){
+      e.stopPropagation();
+      const rel = new Set([d.id]);
+      links.forEach(l => {
+        const s = l.source.id||l.source, t = l.target.id||l.target;
+        if(s===d.id) rel.add(t);
+        if(t===d.id) rel.add(s);
       });
-      fosObs.disconnect();
-    }
+      linkSel.transition().duration(280)
+        .attr('opacity', l => {
+          const s=l.source.id||l.source, t=l.target.id||l.target;
+          return (rel.has(s)&&rel.has(t)) ? 0.9 : 0.06;
+        });
+      nodeG.transition().duration(280)
+        .attr('opacity', n => rel.has(n.id) ? 1 : 0.18);
+    });
+
+  svg.on('click', () => {
+    linkSel.transition().duration(280).attr('opacity',0.65);
+    nodeG.transition().duration(280).attr('opacity',1);
   });
-}, { threshold: 0.18 });
-const fosSection = document.getElementById('fos-section');
-if(fosSection) fosObs.observe(fosSection);
+
+  // star glow ring
+  nodeG.filter(d => d.star)
+    .append('circle')
+    .attr('r', d => d.r+10)
+    .attr('fill','none')
+    .attr('stroke','#F0C040')
+    .attr('stroke-width',2.5)
+    .attr('opacity',0.55)
+    .attr('filter','url(#fosGlow)');
+
+  // main circle
+  nodeG.append('circle').attr('class','nc')
+    .attr('r', d => d.r)
+    .attr('fill', d => d.grad ? 'url(#fosGrad)' : d.fill)
+    .attr('filter','url(#fosShadow)');
+
+  // labels
+  nodeG.each(function(d){
+    const lines = d.label, lh = 14, tot = (lines.length-1)*lh;
+    const txt = d3.select(this).append('text')
+      .attr('text-anchor','middle').attr('dominant-baseline','central')
+      .attr('fill','#fff').attr('pointer-events','none')
+      .attr('font-family','Inter,system-ui,sans-serif').attr('font-weight',600)
+      .attr('font-size', d.r>=58?13:d.r>=42?12:d.r>=36?11:10);
+    lines.forEach((ln,i) => {
+      txt.append('tspan').attr('x',0).attr('dy', i===0 ? -tot/2 : lh).text(ln);
+    });
+  });
+
+  // tick
+  sim.on('tick', () => {
+    linkSel.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+           .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+    nodeG.attr('transform', d=>`translate(${d.x},${d.y})`);
+  });
+
+  // reset
+  document.getElementById('fosResetBtn').addEventListener('click', () => {
+    nodes.forEach(n => { n.fx=undefined; n.fy=undefined; });
+    nodes.forEach(n => { n.x=W/2+(Math.random()-.5)*20; n.y=H/2+(Math.random()-.5)*20; });
+    linkSel.transition().duration(280).attr('opacity',0.65);
+    nodeG.transition().duration(280).attr('opacity',1);
+    sim.alpha(1).restart();
+  });
+})();
 </script>
 <script src="mobile.js"></script>
 </body>
