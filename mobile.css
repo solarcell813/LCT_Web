@@ -89,16 +89,32 @@
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 
   /* ════════════════════════════════════════════
-     INDEX
+     INDEX — HERO
   ════════════════════════════════════════════ */
-  .hero-content { padding: 0 20px !important; padding-top: 96px !important; }
-  .crystal-legend { display: none; }
-  .scroll-cue { display: none; }
+  .hero-row {
+    flex-direction: column !important;
+    padding: 82px 20px 36px !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+  }
+  .hero-content {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .hero-scene {
+    width: 100% !important;
+    height: 280px !important;
+    min-width: 0 !important;
+    flex: none !important;
+  }
   .hero-ctas { flex-direction: column; gap: 12px; }
+  .scroll-cue { display: none; }
 
-  .fos-section { padding: 56px 20px !important; }
-  .fos-panels { grid-template-columns: 1fr !important; }
-  .fos-text { padding: 28px 24px 32px; }
+  /* ════════════════════════════════════════════
+     INDEX — FIELD OF STUDY
+  ════════════════════════════════════════════ */
+  .fos-section { padding: 48px 20px !important; }
+  .fos-graph { min-height: 200px; }
 
   .about-section { padding: 0 20px !important; }
   .about-intro-row { grid-template-columns: 1fr !important; gap: 28px; padding: 48px 0 36px; }
@@ -174,4 +190,8 @@
   .modal-spec-grid { grid-template-columns: 1fr !important; }
   .pub-year-label { font-size: 26px; }
   .page-hero-title { font-size: 38px !important; }
+
+  /* Hero — small phones */
+  .hero-row { padding: 76px 16px 28px !important; }
+  .hero-scene { height: 240px !important; }
 }
