@@ -32,4 +32,10 @@
 - `assets/Outings & Gatherings/`、`assets/International Student Exchange/`、`assets/International Visits/`、`assets/Conferences & Symposia/`：對應 Activities 各區塊
 - `assets/instrument/`：儀器照片
 - HTML 中路徑的空白寫成 `%20`、`&` 寫成 `%26`、`'` 寫成 `%27`
+
+## 照片壓縮規格（超過 1 MB 的照片）
+- 縮圖演算法用 Bicubic（不要用 Lanczos，會過度銳化）
+- 長邊：成員照片（`assets/member/`）800px，其他照片 1600px
+- JPEG 品質 88、progressive；先依 EXIF 轉正方向
+- 原檔備份在專案外的 `LCT_Web_原始照片備份/`，結構與 `assets/` 相同
 - 手機版 `.act-nav` 分頁可左右滑動（2026-11-01 新增）。
