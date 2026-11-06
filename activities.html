@@ -366,6 +366,41 @@ footer{
   letter-spacing:.1em;text-transform:uppercase;
 }
 
+/* International visit cards */
+.visit-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+}
+.visit-card{
+  background:var(--white);border:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.visit-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(41,71,82,.1);
+}
+.visit-photo{
+  aspect-ratio:4/3;background:var(--light);
+  border-bottom:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  overflow:hidden;
+}
+.visit-photo img{width:100%;height:100%;object-fit:cover;}
+.visit-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1;}
+.visit-place{
+  font-size:10px;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:8px;
+}
+.visit-name{
+  font-family:var(--font-d);font-size:20px;
+  color:var(--teal);line-height:1.3;margin-bottom:10px;
+}
+.visit-card{cursor:pointer;}
+.visit-date{
+  margin-top:auto;padding-top:14px;border-top:1px solid var(--border);
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tuscany);
+}
+
 /* ── GALLERY CAPTION OVERLAY ───────────────── */
 .gallery-caption{
   position:absolute;bottom:0;left:0;right:0;z-index:2;
@@ -464,6 +499,8 @@ footer{
 .exch-photos{display:grid;gap:3px;}
 .exch-photos.count-2{grid-template-columns:1fr 1fr;}
 .exch-photos.count-3{grid-template-columns:1fr 1fr 1fr;}
+.exch-photos.count-4{grid-template-columns:1fr 1fr;}
+.exch-photos.count-5,.exch-photos.count-6{grid-template-columns:1fr 1fr 1fr;}
 .exch-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
 .exch-info{padding:20px 24px 24px;}
 .exch-modal-date{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose);margin-bottom:6px;}
@@ -524,6 +561,7 @@ footer{
   <div class="act-nav-inner">
     <a class="act-nav-tab on" href="#outings">Outings &amp; Gatherings</a>
     <a class="act-nav-tab" href="#exchange">International Exchange</a>
+    <a class="act-nav-tab" href="#visits">Visits Abroad</a>
     <a class="act-nav-tab" href="#conferences">Conferences</a>
   </div>
 </nav>
@@ -548,64 +586,64 @@ footer{
 
     <div class="gallery-masonry">
 
-      <div class="gallery-cell tall reveal stagger-1" onclick="openPhoto('Freshers Camp 2022', 'assets/activity/202208Freshers%27%20camp.jpg')">
-        <img src="assets/activity/202208Freshers%27%20camp.jpg" alt="Freshers Camp 2022" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell tall reveal stagger-1" onclick="openPhoto('Freshers Camp 2022', 'assets/Outings%20%26%20Gatherings/202208Freshers%27%20camp.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202208Freshers%27%20camp.jpg" alt="Freshers Camp 2022" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Freshers Camp · 2022/08</div>
       </div>
-      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Teachers Day 2022', 'assets/activity/202209TeachersDay.jpg')">
-        <img src="assets/activity/202209TeachersDay.jpg" alt="Teachers Day 2022" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Teachers Day 2022', 'assets/Outings%20%26%20Gatherings/202209TeachersDay.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202209TeachersDay.jpg" alt="Teachers Day 2022" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Teachers' Day · 2022/09</div>
       </div>
-      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Christmas Day 2022', 'assets/activity/202212ChrismasDay.jpg')">
-        <img src="assets/activity/202212ChrismasDay.jpg" alt="Christmas Day 2022" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Christmas Day 2022', 'assets/Outings%20%26%20Gatherings/202212ChrismasDay.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202212ChrismasDay.jpg" alt="Christmas Day 2022" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Christmas Day · 2022/12</div>
       </div>
 
-      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Spring Banquet 2023', 'assets/activity/2023Spring%20Banquet.jpg')">
-        <img src="assets/activity/2023Spring%20Banquet.jpg" alt="Spring Banquet 2023" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Spring Banquet 2023', 'assets/Outings%20%26%20Gatherings/2023Spring%20Banquet.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/2023Spring%20Banquet.jpg" alt="Spring Banquet 2023" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Spring Banquet · 2023</div>
       </div>
-      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Farewell Party 2023', 'assets/activity/202307farewell.jpg')">
-        <img src="assets/activity/202307farewell.jpg" alt="Farewell Party 2023" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Farewell Party 2023', 'assets/Outings%20%26%20Gatherings/202307farewell.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202307farewell.jpg" alt="Farewell Party 2023" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Farewell Party · 2023/07</div>
       </div>
 
-      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Welcome Tour — Yilan 2023', 'assets/activity/2023Yilan.jpg')">
-        <img src="assets/activity/2023Yilan.jpg" alt="Welcome Tour Yilan 2023" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Welcome Tour — Yilan 2023', 'assets/Outings%20%26%20Gatherings/2023Yilan.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/2023Yilan.jpg" alt="Welcome Tour Yilan 2023" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Welcome Tour — Yilan · 2023/12</div>
       </div>
-      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Year-End Banquet 2024', 'assets/activity/2024Year-edn%20banquet.jpg')">
-        <img src="assets/activity/2024Year-edn%20banquet.jpg" alt="Year-End Banquet 2024" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Year-End Banquet 2024', 'assets/Outings%20%26%20Gatherings/2024Year-edn%20banquet.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/2024Year-edn%20banquet.jpg" alt="Year-End Banquet 2024" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Year-End Banquet · 2024/08</div>
       </div>
-      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Lab Tour — Xiaoliuqiu 2024', 'assets/activity/202411LabTourXiaoliuqiu.jpg')">
-        <img src="assets/activity/202411LabTourXiaoliuqiu.jpg" alt="Lab Tour Xiaoliuqiu 2024" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Lab Tour — Xiaoliuqiu 2024', 'assets/Outings%20%26%20Gatherings/202411LabTourXiaoliuqiu.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202411LabTourXiaoliuqiu.jpg" alt="Lab Tour Xiaoliuqiu 2024" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Lab Tour — Xiaoliuqiu · 2024/11</div>
       </div>
 
-      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Graduation Ceremony 2025', 'assets/activity/202505Graduationceremony.jpg')">
-        <img src="assets/activity/202505Graduationceremony.jpg" alt="Graduation Ceremony 2025" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Graduation Ceremony 2025', 'assets/Outings%20%26%20Gatherings/202505Graduationceremony.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202505Graduationceremony.jpg" alt="Graduation Ceremony 2025" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Graduation Ceremony · 2025/05</div>
       </div>
-      <div class="gallery-cell wide reveal stagger-2" onclick="openPhoto('Teachers Day 2025', 'assets/activity/202509Teachers%20Day.jpg')">
-        <img src="assets/activity/202509Teachers%20Day.jpg" alt="Teachers Day 2025" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell wide reveal stagger-2" onclick="openPhoto('Teachers Day 2025', 'assets/Outings%20%26%20Gatherings/202509Teachers%20Day.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202509Teachers%20Day.jpg" alt="Teachers Day 2025" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Teachers' Day · 2025/09</div>
       </div>
 
-      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Hsinchu 2025', 'assets/activity/202511Hsinchu.jpg')">
-        <img src="assets/activity/202511Hsinchu.jpg" alt="Hsinchu 2025" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Hsinchu 2025', 'assets/Outings%20%26%20Gatherings/202511Hsinchu.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202511Hsinchu.jpg" alt="Hsinchu 2025" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Hsinchu · 2025/11</div>
       </div>
-      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Lab Tour — Tainan 2025', 'assets/activity/202512Lab%20Tour-Tainan.jpg')">
-        <img src="assets/activity/202512Lab%20Tour-Tainan.jpg" alt="Lab Tour Tainan 2025" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-2" onclick="openPhoto('Lab Tour — Tainan 2025', 'assets/Outings%20%26%20Gatherings/202512Lab%20Tour-Tainan.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202512Lab%20Tour-Tainan.jpg" alt="Lab Tour Tainan 2025" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Lab Tour — Tainan · 2025/12</div>
       </div>
-      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Graduation Ceremony 2026', 'assets/activity/202605Graduation%20ceremony.jpg')">
-        <img src="assets/activity/202605Graduation%20ceremony.jpg" alt="Graduation Ceremony 2026" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-3" onclick="openPhoto('Graduation Ceremony 2026', 'assets/Outings%20%26%20Gatherings/202605Graduation%20ceremony.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/202605Graduation%20ceremony.jpg" alt="Graduation Ceremony 2026" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Graduation Ceremony · 2026/05</div>
       </div>
-      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Teachers Day 2026', 'assets/activity/2026TeacherDay.jpg')">
-        <img src="assets/activity/2026TeacherDay.jpg" alt="Teachers Day 2026" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gallery-cell reveal stagger-1" onclick="openPhoto('Teachers Day 2026', 'assets/Outings%20%26%20Gatherings/2026TeacherDay.jpg')">
+        <img src="assets/Outings%20%26%20Gatherings/2026TeacherDay.jpg" alt="Teachers Day 2026" style="width:100%;height:100%;object-fit:cover;">
         <div class="gallery-caption">Teachers' Day · 2026/10</div>
       </div>
 
@@ -634,7 +672,7 @@ footer{
 
       <div class="exchange-card reveal stagger-1" onclick="openExch('eva-2023')">
         <div class="exchange-ph" style="padding:0;overflow:hidden;">
-          <img src="assets/exchange/eva_1.jpg" alt="Eva" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/International%20Student%20Exchange/eva_1.jpg" alt="Eva" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
           <div class="exchange-title">Eva</div>
@@ -645,7 +683,7 @@ footer{
 
       <div class="exchange-card reveal stagger-2" onclick="openExch('esra-kevin-2024')">
         <div class="exchange-ph" style="padding:0;overflow:hidden;">
-          <img src="assets/exchange/esra_1.jpg" alt="Esra & Kevin" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/International%20Student%20Exchange/esra_1.jpg" alt="Esra & Kevin" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
           <div class="exchange-title">Esra &amp; Kevin</div>
@@ -656,12 +694,24 @@ footer{
 
       <div class="exchange-card reveal stagger-3" onclick="openExch('raul-son-2025')">
         <div class="exchange-ph" style="padding:0;overflow:hidden;">
-          <img src="assets/exchange/son_1.jpg" alt="Raúl & Son" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/International%20Student%20Exchange/son_1.jpg" alt="Raúl & Son" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="exchange-body">
           <div class="exchange-title">Raúl &amp; Son</div>
           <p class="exchange-desc">International visiting researchers joining the lab for collaborative projects in perovskite and large-area photovoltaic research.</p>
           <div class="exchange-meta">July 2025 · View Photos →</div>
+        </div>
+      </div>
+
+      <!-- TODO: 補上 Liza 來訪的年月（卡片 exchange-meta 與 EXCH_DATA 的 date） -->
+      <div class="exchange-card reveal stagger-4" onclick="openExch('liza')">
+        <div class="exchange-ph" style="padding:0;overflow:hidden;">
+          <img src="assets/International%20Student%20Exchange/liza.jpg" alt="Liza" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="exchange-body">
+          <div class="exchange-title">Liza</div>
+          <p class="exchange-desc">Visiting researcher from HUN-REN Centre for Energy Research, Budapest, Hungary.</p>
+          <div class="exchange-meta">View Photos →</div>
         </div>
       </div>
 
@@ -711,11 +761,67 @@ footer{
   </div>
 </div>
 
-<!-- ③ Conferences -->
+<!-- ③ International Visits -->
+<div class="act-section" id="visits">
+  <div class="act-inner">
+    <div class="act-eyebrow reveal">
+      <span class="act-num">03</span>
+      <div>
+        <div class="act-label">Going Abroad</div>
+      </div>
+    </div>
+    <h2 class="act-title reveal">International Visits</h2>
+    <div class="act-rule reveal"></div>
+    <p class="act-intro reveal">
+      Our members travel to partner institutions abroad to tour their facilities,
+      exchange ideas with fellow researchers, and lay the groundwork for future
+      collaboration.
+    </p>
+
+    <div class="visit-grid">
+
+      <div class="visit-card reveal stagger-1" onclick="openExch('ucl-2026')">
+        <div class="visit-photo">
+          <img src="assets/International%20Visits/2026-08-University%20College%20London/封面_S__51986442(1).jpg" alt="UCL Department of Chemistry">
+        </div>
+        <div class="visit-body">
+          <div class="visit-place">London, UK</div>
+          <div class="visit-name">UCL Department of Chemistry</div>
+          <div class="visit-date">August 2026 · View Photos →</div>
+        </div>
+      </div>
+
+      <div class="visit-card reveal stagger-2" onclick="openExch('edinburgh-2026')">
+        <div class="visit-photo">
+          <img src="assets/International%20Visits/2026-09-Edinburgh%20University/封面_ARW5233.jpg" alt="Edinburgh University">
+        </div>
+        <div class="visit-body">
+          <div class="visit-place">Edinburgh, UK</div>
+          <div class="visit-name">Edinburgh University</div>
+          <div class="visit-date">September 2026 · View Photos →</div>
+        </div>
+      </div>
+
+      <div class="visit-card reveal stagger-3" onclick="openExch('hunren-2026')">
+        <div class="visit-photo">
+          <img src="assets/International%20Visits/2026-09-HUN-REN%20Centre%20for%20Energy%20Research/封面_IMG_4217.JPEG" alt="HUN-REN Centre for Energy Research">
+        </div>
+        <div class="visit-body">
+          <div class="visit-place">Budapest, Hungary</div>
+          <div class="visit-name">HUN-REN Centre for Energy Research</div>
+          <div class="visit-date">September 2026 · View Photos →</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ④ Conferences -->
 <div class="act-section dark" id="conferences">
   <div class="act-inner">
     <div class="act-eyebrow reveal">
-      <span class="act-num" style="color:rgba(255,255,255,.08)">03</span>
+      <span class="act-num" style="color:rgba(255,255,255,.08)">04</span>
       <div>
         <div class="act-label" style="color:var(--tuscany)">International Presence</div>
       </div>
@@ -870,7 +976,7 @@ footer{
 <script>
 // Sticky tab highlight on scroll
 const tabs = document.querySelectorAll('.act-nav-tab');
-const sects = ['outings','exchange','conferences'].map(id=>document.getElementById(id));
+const sects = ['outings','exchange','visits','conferences'].map(id=>document.getElementById(id));
 window.addEventListener('scroll',()=>{
   let cur = 0;
   sects.forEach((s,i)=>{ if(window.scrollY >= s.offsetTop-120) cur=i; });
@@ -989,7 +1095,7 @@ const CONF_DATA = [
     title: 'HOPV Conference — 15th Edition',
     meta: 'London, UK · June 2023',
     tags: ['Perovskite', 'Organic PV'],
-    photos: ['assets/seminar/202306LONDON.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202306LONDON.jpg'],
     desc: '15th edition in London; covered hybrid/organic solar cells, stability, device modelling, and PV scale-up.'
   },
   {
@@ -998,7 +1104,7 @@ const CONF_DATA = [
     title: 'IPEROP Conference',
     meta: 'Tokyo, Japan · January 2024',
     tags: ['Perovskite', 'Optoelectronics'],
-    photos: ['assets/seminar/202401TOKYO_1.jpg', 'assets/seminar/202401TOKYO_2.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202401TOKYO_1.jpg', 'assets/Conferences%20%26%20Symposia/202401TOKYO_2.jpg'],
     desc: 'Asia-Pacific forum in Tokyo on hybrid PV fabrication, LED, lasers, and nanophotonics.'
   },
   {
@@ -1007,7 +1113,7 @@ const CONF_DATA = [
     title: 'ICPST',
     meta: 'Chiba, Japan · June 2024',
     tags: ['Photopolymer', 'Lithography'],
-    photos: ['assets/seminar/202406CHIBA.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202406CHIBA.jpg'],
     desc: 'Chiba conference on photopolymer materials, advanced lithography, nanotechnology, and AI-driven manufacturing.'
   },
   {
@@ -1016,7 +1122,7 @@ const CONF_DATA = [
     title: 'NHSC-14',
     meta: 'Hsinchu, Taiwan · November 2025',
     tags: ['Perovskite', 'Nanomaterials'],
-    photos: ['assets/seminar/202511NHSC-14.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202511NHSC-14.jpg'],
     desc: 'Taiwan-hosted meeting covering perovskite/organic solar cells, hydrogen production, and CO₂ photocatalysis.'
   },
   {
@@ -1025,7 +1131,7 @@ const CONF_DATA = [
     title: 'IPEROP Conference',
     meta: 'Nagoya, Japan · January 2026',
     tags: ['Perovskite', 'Thin-film PV'],
-    photos: ['assets/seminar/202601NAGOYA.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202601NAGOYA.jpg'],
     desc: 'Nagoya gathering on hybrid PV fabrication, quantum dot cells, and latest optoelectronic developments.'
   },
   {
@@ -1034,7 +1140,7 @@ const CONF_DATA = [
     title: 'NIPHO',
     meta: 'Pavia, Italy · June 2026',
     tags: ['Stability', 'Interface Engineering'],
-    photos: ['assets/seminar/202606PAVIA.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/202606PAVIA.jpg'],
     desc: 'Pavia conference focused on perovskite solar cell durability, upscaling, and lead-free device solutions.'
   },
   {
@@ -1043,7 +1149,7 @@ const CONF_DATA = [
     title: 'TACT 2026',
     meta: 'Kaohsiung, Taiwan · October 2026',
     tags: ['Thin Films', 'Surface Engineering'],
-    photos: ['assets/seminar/2026 ICGET-Tw.jpg'],
+    photos: ['assets/Conferences%20%26%20Symposia/2026 ICGET-Tw.jpg'],
     desc: 'Kaohsiung conference on coating and surface engineering, spanning advanced materials, micro/nanostructures, and precision processing for semiconductor, optoelectronic, and energy technologies.'
   }
 ];
@@ -1085,26 +1191,77 @@ const EXCH_DATA = [
     date: 'February 2023',
     name: 'Eva',
     from: 'Imperial College London',
-    photos: ['assets/exchange/eva_1.jpg', 'assets/exchange/eva_2.jpg']
+    photos: ['assets/International%20Student%20Exchange/eva_1.jpg', 'assets/International%20Student%20Exchange/eva_2.jpg']
   },
   {
     id: 'esra-kevin-2024',
     date: 'January 2024',
     name: 'Esra & Kevin',
     from: 'Imperial College London & Kyungpook National University',
-    photos: ['assets/exchange/esra_1.jpg', 'assets/exchange/esra_2.jpg']
+    photos: ['assets/International%20Student%20Exchange/esra_1.jpg', 'assets/International%20Student%20Exchange/esra_2.jpg']
   },
   {
     id: 'raul-son-2025',
     date: 'July 2025',
     name: 'Raúl & Son',
     from: 'International Exchange',
-    photos: ['assets/exchange/son_1.jpg', 'assets/exchange/son_2.jpg', 'assets/exchange/son_3.jpg']
+    photos: ['assets/International%20Student%20Exchange/son_1.jpg', 'assets/International%20Student%20Exchange/son_2.jpg', 'assets/International%20Student%20Exchange/son_3.jpg']
+  },
+  {
+    id: 'liza',
+    date: '',
+    name: 'Liza',
+    from: 'HUN-REN Centre for Energy Research',
+    photos: ['assets/International%20Student%20Exchange/liza.jpg']
+  }
+];
+
+// ── International Visits (shares the exchange modal) ─────────
+const VISIT_DIR = 'assets/International%20Visits/';
+const VISIT_DATA = [
+  {
+    id: 'ucl-2026',
+    date: 'August 2026',
+    name: 'UCL Department of Chemistry',
+    from: 'London, UK',
+    photos: [
+      '2026-08-University%20College%20London/封面_S__51986442(1).jpg',
+      '2026-08-University%20College%20London/_ARW2137.jpg',
+      '2026-08-University%20College%20London/_ARW2143.jpg',
+      '2026-08-University%20College%20London/LINE_ALBUM_Ben%20公室_261101_1.jpg'
+    ].map(p => VISIT_DIR + p)
+  },
+  {
+    id: 'edinburgh-2026',
+    date: 'September 2026',
+    name: 'Edinburgh University',
+    from: 'Edinburgh, UK',
+    photos: [
+      '2026-09-Edinburgh%20University/封面_ARW5233.jpg',
+      '2026-09-Edinburgh%20University/LINE_ALBUM_愛丁堡大學_261101_1.jpg',
+      '2026-09-Edinburgh%20University/LINE_ALBUM_愛丁堡大學_261101_2.jpg',
+      '2026-09-Edinburgh%20University/LINE_ALBUM_愛丁堡大學_261101_3.jpg',
+      '2026-09-Edinburgh%20University/LINE_ALBUM_愛丁堡大學_261101_4.jpg'
+    ].map(p => VISIT_DIR + p)
+  },
+  {
+    id: 'hunren-2026',
+    date: 'September 2026',
+    name: 'HUN-REN Centre for Energy Research',
+    from: 'Budapest, Hungary',
+    photos: [
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/封面_IMG_4217.JPEG',
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/IMG_4163.JPEG',
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/_ARW5728.jpg',
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/_ARW5748.jpg',
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/_ARW5751.jpg',
+      '2026-09-HUN-REN%20Centre%20for%20Energy%20Research/_ARW5757.jpg'
+    ].map(p => VISIT_DIR + p)
   }
 ];
 
 function openExch(id) {
-  const d = EXCH_DATA.find(x => x.id === id);
+  const d = EXCH_DATA.concat(VISIT_DATA).find(x => x.id === id);
   if (!d) return;
   document.getElementById('exchDate').textContent = d.date;
   document.getElementById('exchName').textContent = d.name;

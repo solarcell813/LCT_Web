@@ -172,6 +172,10 @@
   .conf-item { grid-template-columns: 64px 32px 1fr !important; padding: 20px 0; }
   .conf-item:hover { margin: 0; padding: 20px 0; }
   .exchange-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .visit-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .act-nav { padding: 0 !important; }
+  .act-nav-inner { overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .act-nav-tab { padding: 16px 18px !important; flex-shrink: 0; }
   .act-intro { margin-bottom: 32px; }
 
   /* ════════════════════════════════════════════
